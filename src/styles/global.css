@@ -1,32 +1,29 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colors — Industrial Deep */
-  --color-bg: #08090d;
-  --color-bg-elevated: #0d1117;
-  --color-bg-soft: #11161f;
-  --color-bg-light: #f6f6f7;
-  --color-bg-light-elevated: #ffffff;
-  --color-bg-light-soft: #ececee;
+  /* Colors — Light Industrial */
+  --color-bg: #fafaf9;
+  --color-bg-elevated: #ffffff;
+  --color-bg-soft: #f4f4f5;
+  --color-bg-dark: #09090b;
 
-  --color-fg: #f4f4f5;
-  --color-fg-muted: #a1a1aa;
-  --color-fg-subtle: #6b7280;
-  --color-fg-faint: #3f3f46;
-  --color-fg-light: #09090b;
-  --color-fg-light-muted: #52525b;
+  --color-fg: #09090b;
+  --color-fg-muted: #52525b;
+  --color-fg-subtle: #71717a;
+  --color-fg-faint: #a1a1aa;
+  --color-fg-inverted: #fafafa;
 
-  --color-border: #1c2230;
-  --color-border-soft: #141822;
-  --color-border-light: #e4e4e7;
+  --color-border: #e4e4e7;
+  --color-border-strong: #d4d4d8;
+  --color-border-soft: #f4f4f5;
 
-  --color-accent: #3b82f6;
-  --color-accent-hover: #60a5fa;
-  --color-accent-soft: #93c5fd;
-  --color-accent-bg: rgba(59, 130, 246, 0.1);
+  --color-accent: #1d4ed8;
+  --color-accent-hover: #1e40af;
+  --color-accent-soft: #3b82f6;
+  --color-accent-bg: rgba(29, 78, 216, 0.08);
+  --color-accent-tint: #dbeafe;
 
-  --color-success: #22c55e;
-  --color-success-light: #16a34a;
+  --color-success: #16a34a;
 
   /* Typography */
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -37,9 +34,8 @@
   --container-wide: 1280px;
 }
 
-/* Base */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html {
@@ -52,27 +48,42 @@ html {
   scroll-behavior: smooth;
 }
 
-html.light {
-  color-scheme: light;
-  background: var(--color-bg-light);
-  color: var(--color-fg-light);
-}
-
 body {
   min-height: 100vh;
   background: inherit;
   color: inherit;
   font-feature-settings: "cv11", "ss01", "ss03";
   overflow-x: hidden;
+  position: relative;
 }
 
-/* Selection */
+/* Cursor spotlight — main motion signature */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(29, 78, 216, 0.08),
+    transparent 40%
+  );
+  transition: opacity 300ms ease;
+  opacity: 0;
+}
+
+body.cursor-active::before {
+  opacity: 1;
+}
+
+main, header, footer { position: relative; z-index: 2; }
+
 ::selection {
   background: var(--color-accent);
   color: white;
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -80,16 +91,15 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  body::before { display: none; }
 }
 
-/* Focus ring */
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-/* Links */
 a {
   color: inherit;
   text-decoration: none;
@@ -107,14 +117,8 @@ a {
   text-decoration-color: currentColor;
 }
 
-/* Display heading utility — hero / huge */
+/* Display */
 .display {
-  font-weight: 800;
-  letter-spacing: -0.055em;
-  line-height: 0.9;
-}
-
-.display-tight {
   font-weight: 800;
   letter-spacing: -0.045em;
   line-height: 0.95;
@@ -123,7 +127,7 @@ a {
 .display-italic {
   font-style: italic;
   font-weight: 200;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.035em;
   line-height: 1;
 }
 
@@ -131,8 +135,8 @@ a {
 html.js [data-reveal] {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
-              transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html.js [data-reveal].is-visible {
@@ -142,9 +146,10 @@ html.js [data-reveal].is-visible {
 
 [data-reveal-delay="1"] { transition-delay: 60ms; }
 [data-reveal-delay="2"] { transition-delay: 120ms; }
-[data-reveal-delay="3"] { transition-delay: 180ms; }
-[data-reveal-delay="4"] { transition-delay: 240ms; }
-[data-reveal-delay="5"] { transition-delay: 300ms; }
+[data-reveal-delay="3"] { transition-delay: 200ms; }
+[data-reveal-delay="4"] { transition-delay: 280ms; }
+[data-reveal-delay="5"] { transition-delay: 360ms; }
+[data-reveal-delay="6"] { transition-delay: 440ms; }
 
 /* Scroll progress */
 .scroll-progress {
@@ -158,55 +163,151 @@ html.js [data-reveal].is-visible {
   transition: width 100ms ease-out;
 }
 
-/* Tilt card */
+/* Hero name — mask reveal letter by letter */
+.hero-name {
+  display: inline-block;
+}
+.hero-name .ch {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.4em);
+  animation: chReveal 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.hero-name .ch[data-i="0"] { animation-delay: 0ms; }
+.hero-name .ch[data-i="1"] { animation-delay: 30ms; }
+.hero-name .ch[data-i="2"] { animation-delay: 60ms; }
+.hero-name .ch[data-i="3"] { animation-delay: 90ms; }
+.hero-name .ch[data-i="4"] { animation-delay: 120ms; }
+.hero-name .ch[data-i="5"] { animation-delay: 150ms; }
+.hero-name .ch[data-i="6"] { animation-delay: 180ms; }
+.hero-name .ch[data-i="7"] { animation-delay: 210ms; }
+.hero-name .ch[data-i="8"] { animation-delay: 240ms; }
+.hero-name .ch[data-i="9"] { animation-delay: 270ms; }
+.hero-name .ch[data-i="10"] { animation-delay: 300ms; }
+.hero-name .ch[data-i="11"] { animation-delay: 330ms; }
+.hero-name .ch[data-i="12"] { animation-delay: 360ms; }
+.hero-name .ch[data-i="13"] { animation-delay: 390ms; }
+.hero-name .ch[data-i="14"] { animation-delay: 420ms; }
+.hero-name .ch[data-i="15"] { animation-delay: 450ms; }
+
+@keyframes chReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Keyword highlight on hover — animated underline that grows */
+.kw {
+  position: relative;
+  font-weight: 600;
+  color: var(--color-fg);
+  cursor: default;
+  transition: color 200ms ease;
+}
+.kw::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 6px;
+  background: var(--color-accent-tint);
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.kw:hover::after {
+  transform: scaleX(1);
+}
+
+/* Magnetic button — wrapper handles transform via JS */
+.magnetic {
+  display: inline-block;
+  will-change: transform;
+  transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.magnetic .magnetic-inner {
+  display: inline-block;
+  will-change: transform;
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Tilt 3D — for avatar */
+.tilt-wrap {
+  perspective: 1000px;
+}
 .tilt {
   transform-style: preserve-3d;
-  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
-/* View Transitions */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 400ms;
-  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+/* Image stripe reveal */
+.stripe-reveal {
+  position: relative;
+  overflow: hidden;
+}
+.stripe-reveal img {
+  transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.stripe-reveal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-bg);
+  transform-origin: bottom;
+  animation: stripeReveal 1000ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation-delay: 400ms;
+}
+@keyframes stripeReveal {
+  to { transform: scaleY(0); }
 }
 
-/* Theme toggle ripple */
-::view-transition-old(root) { animation: none; mix-blend-mode: normal; }
-::view-transition-new(root) {
-  animation: ripple 500ms cubic-bezier(0.16, 1, 0.3, 1);
-  clip-path: circle(0% at var(--ripple-x, 50%) var(--ripple-y, 50%));
-}
-
-@keyframes ripple {
-  to { clip-path: circle(150% at var(--ripple-x, 50%) var(--ripple-y, 50%)); }
-}
-
-/* Marquee — for ticker if needed */
+/* Marquee */
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 .marquee {
-  animation: marquee 40s linear infinite;
+  animation: marquee 50s linear infinite;
 }
 
-/* Noise texture overlay */
-.noise::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
-  opacity: 0.04;
-  pointer-events: none;
-  mix-blend-mode: overlay;
+/* Card */
+.card-tilt {
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 200ms ease,
+              box-shadow 300ms ease;
+  will-change: transform;
 }
+.card-tilt:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -16px rgba(0, 0, 0, 0.18);
+  border-color: var(--color-border-strong);
+}
+.card-tilt img {
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-tilt:hover img {
+  transform: scale(1.025);
+}
+
+/* Mark — keyword highlight in long text */
+mark {
+  background: linear-gradient(180deg, transparent 60%, var(--color-accent-tint) 60%);
+  color: inherit;
+  padding: 0 2px;
+}
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* Bento variants */
+.bento-tall { grid-row: span 2; }
+.bento-wide { grid-column: span 2; }
 
 /* Command palette */
 .cmdk-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.32);
   backdrop-filter: blur(8px);
   z-index: 200;
   display: none;
@@ -230,7 +331,7 @@ html.js [data-reveal].is-visible {
   border: 1px solid var(--color-border);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.16);
   animation: cmdk-slide 250ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -251,9 +352,7 @@ html.js [data-reveal].is-visible {
   border-bottom: 1px solid var(--color-border);
 }
 
-.cmdk-input::placeholder {
-  color: var(--color-fg-subtle);
-}
+.cmdk-input::placeholder { color: var(--color-fg-subtle); }
 
 .cmdk-list {
   max-height: 400px;
@@ -274,12 +373,17 @@ html.js [data-reveal].is-visible {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 10px;
+  padding: 10px;
   border-radius: 6px;
   font-size: 14px;
   color: var(--color-fg);
   cursor: pointer;
   transition: background 100ms;
+  text-align: left;
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: inherit;
 }
 
 .cmdk-item[data-selected="true"],
@@ -294,51 +398,9 @@ html.js [data-reveal].is-visible {
   color: var(--color-fg-subtle);
 }
 
-.cmdk-empty {
-  padding: 24px;
-  text-align: center;
-  color: var(--color-fg-subtle);
-  font-size: 13px;
-}
-
-/* Hover preview for cards — tilt + lift */
-.card-tilt {
-  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 200ms ease;
-}
-
-.card-tilt:hover {
-  transform: translateY(-2px);
-}
-
-.card-tilt img {
-  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1),
-              filter 400ms ease;
-}
-
-.card-tilt:hover img {
-  transform: scale(1.03);
-}
-
-/* Mark — accent highlight in long text */
-mark {
-  background: linear-gradient(180deg, transparent 60%, var(--color-accent-bg) 60%);
-  color: inherit;
-  padding: 0 2px;
-}
-
-/* Number tick — for stat blocks */
-.tabular {
-  font-variant-numeric: tabular-nums;
-}
-
-/* Bento card variants */
-.bento-tall { grid-row: span 2; }
-.bento-wide { grid-column: span 2; }
-
-/* Pre-formatted code blocks (mdx) */
+/* Code */
 pre {
-  background: var(--color-bg-elevated);
+  background: var(--color-bg-soft);
   border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 16px;
@@ -351,14 +413,10 @@ pre {
 code {
   font-family: var(--font-mono);
   font-size: 0.9em;
-  background: var(--color-bg-elevated);
+  background: var(--color-bg-soft);
   padding: 1px 5px;
   border-radius: 4px;
   border: 1px solid var(--color-border);
 }
 
-pre code {
-  background: transparent;
-  border: none;
-  padding: 0;
-}
+pre code { background: transparent; border: none; padding: 0; }

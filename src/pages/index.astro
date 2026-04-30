@@ -12,94 +12,140 @@ const clients = [
   "Rotary",
   "VOA Digital",
 ];
+
+const fullName = "Gabriel Oliveira";
+const chars = Array.from(fullName);
 ---
 
 <BaseLayout>
-  <!-- Hero — monumental type -->
-  <section class="relative overflow-hidden">
-    <div class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pt-12 md:pt-20 pb-20 md:pb-32">
-      <!-- Status -->
-      <div class="flex items-center justify-between mb-10 md:mb-16" data-reveal>
-        <div class="flex items-center gap-3">
+  <!-- Hero — recruiter-friendly, compact, motion-rich -->
+  <section class="relative">
+    <div class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pt-12 md:pt-20 pb-16 md:pb-24">
+      <!-- Top status row -->
+      <div class="flex items-center justify-between mb-10 md:mb-14" data-reveal>
+        <div class="flex items-center gap-2.5">
           <span class="relative flex size-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-success)] opacity-75"></span>
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-success)] opacity-60"></span>
             <span class="relative inline-flex rounded-full size-2 bg-[var(--color-success)]"></span>
           </span>
           <span class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-muted)]">
-            Currently shipping <span class="text-[var(--color-fg)]">IRIS V3</span> @ NETZSCH
+            Available for new projects · April 2026
           </span>
         </div>
-        <span class="hidden sm:block font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
-          Curitiba, BR · UTC−3
+        <span class="hidden sm:flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+          Curitiba, BR
+          <span class="size-1 rounded-full bg-[var(--color-fg-faint)]"></span>
+          UTC−3
         </span>
       </div>
 
-      <!-- Massive type -->
-      <h1
-        class="display tracking-[-0.055em] font-extrabold leading-[0.9] text-[clamp(3rem,10vw,9rem)]"
-        data-reveal
-        data-reveal-delay="1"
-      >
-        <span class="block">Senior Product</span>
-        <span class="block">Designer
-          <span class="inline-block align-baseline ml-2 md:ml-4 size-3 md:size-5 rounded-full bg-[var(--color-accent)]"></span>
-        </span>
-        <span class="display-italic block text-[var(--color-fg-muted)] text-[clamp(2rem,7vw,6rem)] mt-2 md:mt-4">
-          building for B2B, AI &amp; design systems.
-        </span>
-      </h1>
+      <!-- Main hero grid -->
+      <div class="grid lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16 items-center">
+        <div class="flex flex-col gap-6 md:gap-7">
+          <span class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)]" data-reveal>
+            Senior Product Designer
+          </span>
 
-      <!-- Subtitle row -->
-      <div class="grid md:grid-cols-[1fr_auto] gap-8 md:gap-16 items-end mt-12 md:mt-20" data-reveal data-reveal-delay="2">
-        <p class="text-base md:text-lg text-[var(--color-fg-muted)] max-w-2xl leading-relaxed">
-          I work on <span class="text-[var(--color-fg)]">IRIS V3</span> at NETZSCH and
-          run <span class="text-[var(--color-fg)]">VOA Digital</span> with my sister.
-          Lately I'm building products where design intent and AI execution ship together —
-          <mark>multi-tenant SaaS</mark>, <mark>AI-native CLIs</mark>, internal tools.
-        </p>
+          <h1
+            class="display text-[clamp(2.75rem,7vw,5.5rem)] leading-[0.95]"
+            aria-label={fullName}
+          >
+            <span class="hero-name" aria-hidden="true">
+              {chars.map((c, i) => (
+                <span class="ch" data-i={i}>{c === " " ? "\u00A0" : c}</span>
+              ))}
+            </span>
+          </h1>
 
-        <!-- Avatar small -->
-        <a href="/about" class="group flex items-center gap-3 self-start md:self-end">
-          <div class="size-12 rounded-full overflow-hidden border border-[var(--color-border)]">
-            <img
-              src="https://storage.googleapis.com/2026portfolio/Home/Link.jpg"
-              alt="Gabriel Oliveira"
-              class="w-full h-full object-cover [filter:grayscale(15%)] group-hover:[filter:grayscale(0)] transition-all duration-500"
-            />
+          <p class="text-lg md:text-2xl text-[var(--color-fg-muted)] leading-snug max-w-2xl" data-reveal data-reveal-delay="3">
+            I design and ship
+            <span class="kw">industrial SaaS</span>,
+            <span class="kw">design systems</span>, and
+            <span class="kw">AI-native tools</span> —
+            currently at <span class="font-medium text-[var(--color-fg)]">NETZSCH</span>
+            and <span class="font-medium text-[var(--color-fg)]">VOA Digital</span>.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-3 mt-2" data-reveal data-reveal-delay="4">
+            <span class="magnetic" data-magnetic-strength="14">
+              <a
+                href="/work"
+                class="magnetic-inner group inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[var(--color-fg)] hover:bg-[var(--color-accent)] text-[var(--color-fg-inverted)] text-sm font-medium transition-colors"
+              >
+                View selected work
+                <svg class="size-4 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </span>
+            <span class="magnetic" data-magnetic-strength="10">
+              <a
+                href="https://storage.googleapis.com/2026portfolio/CV/Gabriel_Oliveira_CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="magnetic-inner inline-flex items-center gap-2 px-5 py-3 rounded-md border border-[var(--color-border-strong)] hover:border-[var(--color-fg)] text-[var(--color-fg)] text-sm font-medium transition-colors"
+              >
+                Download CV
+                <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                </svg>
+              </a>
+            </span>
           </div>
-          <div class="flex flex-col">
-            <span class="text-sm font-medium">Gabriel Oliveira</span>
-            <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">About →</span>
-          </div>
-        </a>
-      </div>
 
-      <!-- Stats row -->
-      <div class="mt-16 md:mt-24 grid grid-cols-2 md:grid-cols-4 gap-px bg-[var(--color-border)] border border-[var(--color-border)] rounded-xl overflow-hidden" data-reveal data-reveal-delay="3">
-        <div class="bg-[var(--color-bg)] p-5 md:p-6 flex flex-col gap-1">
-          <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Years</span>
-          <span class="text-3xl md:text-4xl font-bold tabular tracking-tight">10<span class="text-[var(--color-fg-subtle)]">+</span></span>
+          <!-- Stats inline -->
+          <dl class="mt-6 md:mt-8 flex flex-wrap gap-8 md:gap-12" data-reveal data-reveal-delay="5">
+            <div class="flex flex-col gap-1">
+              <dt class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Years</dt>
+              <dd class="text-2xl md:text-3xl font-bold tabular tracking-tight">10<span class="text-[var(--color-fg-subtle)]">+</span></dd>
+            </div>
+            <div class="flex flex-col gap-1">
+              <dt class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Shipped</dt>
+              <dd class="text-2xl md:text-3xl font-bold tabular tracking-tight">14<span class="text-[var(--color-fg-subtle)]">/cases</span></dd>
+            </div>
+            <div class="flex flex-col gap-1">
+              <dt class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Onboarding</dt>
+              <dd class="text-2xl md:text-3xl font-bold tabular tracking-tight text-[var(--color-accent)]">−40<span class="text-[var(--color-fg-subtle)]">%</span></dd>
+            </div>
+            <div class="flex flex-col gap-1">
+              <dt class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Reach</dt>
+              <dd class="text-2xl md:text-3xl font-bold tabular tracking-tight">M<span class="text-[var(--color-fg-subtle)]">+ users</span></dd>
+            </div>
+          </dl>
         </div>
-        <div class="bg-[var(--color-bg)] p-5 md:p-6 flex flex-col gap-1">
-          <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Shipped</span>
-          <span class="text-3xl md:text-4xl font-bold tabular tracking-tight">14<span class="text-[var(--color-fg-subtle)]">/cases</span></span>
-        </div>
-        <div class="bg-[var(--color-bg)] p-5 md:p-6 flex flex-col gap-1">
-          <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Onboarding</span>
-          <span class="text-3xl md:text-4xl font-bold tabular tracking-tight text-[var(--color-accent)]">−40<span class="text-[var(--color-fg-subtle)]">%</span></span>
-        </div>
-        <div class="bg-[var(--color-bg)] p-5 md:p-6 flex flex-col gap-1">
-          <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Reach</span>
-          <span class="text-3xl md:text-4xl font-bold tabular tracking-tight">M<span class="text-[var(--color-fg-subtle)]">+ users</span></span>
+
+        <!-- Photo — tilt 3D + stripe reveal -->
+        <div class="tilt-wrap relative max-w-[440px] mx-auto lg:mx-0 w-full" data-reveal data-reveal-delay="2">
+          <div class="tilt relative aspect-[4/5] rounded-2xl overflow-hidden border border-[var(--color-border)] bg-[var(--color-bg-soft)] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.18)]">
+            <div class="stripe-reveal w-full h-full">
+              <img
+                src="https://storage.googleapis.com/2026portfolio/Home/Link.jpg"
+                alt="Gabriel Oliveira"
+                class="w-full h-full object-cover"
+              />
+            </div>
+
+            <!-- Floating tag bottom-left -->
+            <div class="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3 pointer-events-none">
+              <div class="px-3 py-2 rounded-lg bg-[rgba(255,255,255,0.92)] backdrop-blur border border-[var(--color-border)] shadow-sm">
+                <div class="font-mono text-[9px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Now</div>
+                <div class="text-xs font-medium text-[var(--color-fg)]">IRIS V3 @ NETZSCH</div>
+              </div>
+              <div class="px-3 py-2 rounded-lg bg-[rgba(255,255,255,0.92)] backdrop-blur border border-[var(--color-border)] shadow-sm">
+                <div class="font-mono text-[9px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Co-founder</div>
+                <div class="text-xs font-medium text-[var(--color-fg)]">VOA Digital</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Marquee ticker of clients -->
-  <section class="border-y border-[var(--color-border)] py-6 overflow-hidden bg-[var(--color-bg-soft)]/40">
-    <div class="flex marquee whitespace-nowrap gap-12 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-fg-subtle)]">
-      {[...Array(3)].flatMap((_, i) =>
+  <section class="border-y border-[var(--color-border)] py-5 overflow-hidden bg-[var(--color-bg-soft)]/60">
+    <div class="flex marquee whitespace-nowrap gap-12 font-mono text-xs uppercase tracking-[0.18em] text-[var(--color-fg-subtle)]">
+      {[...Array(3)].flatMap(() =>
         clients.map((c) => (
           <span class="inline-flex items-center gap-12">
             {c}
@@ -110,12 +156,12 @@ const clients = [
     </div>
   </section>
 
-  <!-- Bento grid of selected work -->
-  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-20 md:py-32">
+  <!-- Bento grid -->
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-20 md:py-28">
     <div class="flex items-end justify-between mb-12" data-reveal>
       <div>
         <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Selected work</span>
-        <h2 class="mt-2 text-4xl md:text-6xl font-extrabold display-tight">
+        <h2 class="mt-2 text-3xl md:text-5xl font-extrabold display">
           Recent projects.
         </h2>
       </div>
@@ -132,12 +178,12 @@ const clients = [
     </div>
   </section>
 
-  <!-- Approach — type-driven, no list -->
-  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-20 md:py-32 border-t border-[var(--color-border)]">
+  <!-- Approach -->
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-20 md:py-28 border-t border-[var(--color-border)]">
     <div class="grid md:grid-cols-[1fr_2fr] gap-10 md:gap-16">
       <div data-reveal>
         <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Approach</span>
-        <h2 class="mt-2 text-4xl md:text-6xl font-extrabold display-tight">
+        <h2 class="mt-2 text-3xl md:text-5xl font-extrabold display">
           How I work.
         </h2>
       </div>
@@ -164,7 +210,7 @@ const clients = [
             d: "Prototyping, scripting, scaffolding — using LLMs to ship faster without giving up taste.",
           },
         ].map((step, i) => (
-          <div class="bg-[var(--color-bg)] p-6 md:p-8 grid grid-cols-[auto_1fr] gap-5 md:gap-8 items-start" data-reveal data-reveal-delay={i + 1}>
+          <div class="bg-[var(--color-bg)] p-6 md:p-7 grid grid-cols-[auto_1fr] gap-5 md:gap-7 items-start" data-reveal data-reveal-delay={i + 1}>
             <span class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)] mt-1">{step.n}</span>
             <div>
               <h3 class="text-xl md:text-2xl font-bold tracking-tight" style="letter-spacing:-0.03em;">{step.t}</h3>
@@ -177,33 +223,29 @@ const clients = [
   </section>
 
   <!-- CTA -->
-  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-20 md:py-32 border-t border-[var(--color-border)]">
-    <div class="flex flex-col items-start gap-8" data-reveal>
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-20 md:py-28 border-t border-[var(--color-border)]">
+    <div class="flex flex-col items-start gap-7" data-reveal>
       <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Get in touch</span>
-      <h2 class="text-5xl md:text-8xl font-extrabold display-tight max-w-4xl">
+      <h2 class="text-4xl md:text-6xl font-extrabold display max-w-3xl">
         Got a hard product problem?
-        <span class="block text-[var(--color-fg-muted)] display-italic">Let's solve it.</span>
+        <span class="block text-[var(--color-fg-muted)] display-italic mt-2">Let's solve it.</span>
       </h2>
       <p class="text-base md:text-lg text-[var(--color-fg-muted)] max-w-xl">
         Currently open to product design and AI-native build engagements.
         I respond within a few days.
       </p>
-      <div class="flex flex-wrap items-center gap-3">
-        <a
-          href="mailto:oliveibriel@gmail.com"
-          class="group inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white text-sm font-medium transition-colors"
-        >
-          oliveibriel@gmail.com
-          <svg class="size-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M7 17 17 7M7 7h10v10"/>
-          </svg>
-        </a>
-        <a
-          href="/contact"
-          class="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-[var(--color-border)] hover:bg-[var(--color-bg-soft)] text-sm font-medium transition-colors"
-        >
-          Book a call
-        </a>
+      <div class="flex flex-wrap items-center gap-3 mt-2">
+        <span class="magnetic" data-magnetic-strength="14">
+          <a
+            href="mailto:oliveibriel@gmail.com"
+            class="magnetic-inner group inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[var(--color-fg)] hover:bg-[var(--color-accent)] text-[var(--color-fg-inverted)] text-sm font-medium transition-colors"
+          >
+            oliveibriel@gmail.com
+            <svg class="size-4 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 17 17 7M7 7h10v10"/>
+            </svg>
+          </a>
+        </span>
       </div>
     </div>
   </section>

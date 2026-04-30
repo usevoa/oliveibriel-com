@@ -5,7 +5,7 @@ const isActive = (href: string) =>
 ---
 
 <header
-  class="sticky top-0 z-50 border-b border-[var(--color-border-soft)] backdrop-blur-xl bg-[color-mix(in_srgb,var(--color-bg)_72%,transparent)]"
+  class="sticky top-0 z-40 border-b border-[var(--color-border)] backdrop-blur-xl bg-[color-mix(in_srgb,var(--color-bg)_82%,transparent)]"
 >
   <nav
     class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 h-14 flex items-center justify-between"
@@ -42,79 +42,24 @@ const isActive = (href: string) =>
         id="cmdk-trigger"
         type="button"
         aria-label="Open command palette"
-        class="ml-2 hidden sm:inline-flex items-center gap-2 px-2.5 py-1.5 rounded-md border border-[var(--color-border)] text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] hover:border-[var(--color-fg-subtle)] transition-colors text-xs font-mono"
+        class="ml-2 hidden sm:inline-flex items-center gap-2 px-2.5 py-1.5 rounded-md border border-[var(--color-border)] text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] hover:border-[var(--color-border-strong)] transition-colors text-xs font-mono"
       >
         <svg class="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         ⌘K
       </button>
 
-      <button
-        id="theme-toggle"
-        type="button"
-        aria-label="Toggle theme"
-        class="size-8 grid place-items-center rounded-md text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-bg-soft)] transition-colors"
+      <a
+        href="mailto:oliveibriel@gmail.com"
+        class="ml-2 px-3 py-1.5 rounded-md bg-[var(--color-fg)] hover:bg-[var(--color-accent)] text-[var(--color-fg-inverted)] text-sm font-medium transition-colors"
       >
-        <svg class="theme-icon-dark size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </svg>
-        <svg class="theme-icon-light size-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="4" />
-          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-        </svg>
-      </button>
+        Get in touch
+      </a>
     </div>
   </nav>
 </header>
 
-<script is:inline>
-  // Dark by default. Only go light if user explicitly chose it.
-  (() => {
-    const stored = localStorage.getItem("theme");
-    if (stored === "light") document.documentElement.classList.add("light");
-  })();
-</script>
-
 <script>
   function setupNav() {
-    const themeBtn = document.getElementById("theme-toggle");
-    if (themeBtn && !themeBtn.dataset.bound) {
-      themeBtn.dataset.bound = "true";
-
-      const updateIcons = () => {
-        const isLight = document.documentElement.classList.contains("light");
-        document.querySelectorAll(".theme-icon-dark").forEach((el) => {
-          el.classList.toggle("hidden", isLight);
-        });
-        document.querySelectorAll(".theme-icon-light").forEach((el) => {
-          el.classList.toggle("hidden", !isLight);
-        });
-      };
-      updateIcons();
-
-      themeBtn.addEventListener("click", (e) => {
-        const root = document.documentElement;
-        const toLight = !root.classList.contains("light");
-        const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-        const x = ((rect.left + rect.width / 2) / window.innerWidth) * 100;
-        const y = ((rect.top + rect.height / 2) / window.innerHeight) * 100;
-        root.style.setProperty("--ripple-x", `${x}%`);
-        root.style.setProperty("--ripple-y", `${y}%`);
-
-        const apply = () => {
-          root.classList.toggle("light", toLight);
-          localStorage.setItem("theme", toLight ? "light" : "dark");
-          updateIcons();
-        };
-        // @ts-expect-error - View Transitions API
-        if (document.startViewTransition) {
-          // @ts-expect-error
-          document.startViewTransition(apply);
-        } else {
-          apply();
-        }
-      });
-    }
-
     const cmdkTrigger = document.getElementById("cmdk-trigger");
     if (cmdkTrigger && !cmdkTrigger.dataset.bound) {
       cmdkTrigger.dataset.bound = "true";

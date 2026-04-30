@@ -1,0 +1,40 @@
+---
+---
+
+<script>
+  function setupSpotlight() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(hover: none)").matches) return; // skip touch
+    if ((document.body as any).__spotlightBound) return;
+    (document.body as any).__spotlightBound = true;
+
+    let raf = 0;
+    let tx = window.innerWidth / 2;
+    let ty = window.innerHeight / 2;
+    let cx = tx;
+    let cy = ty;
+
+    document.body.classList.add("cursor-active");
+
+    const move = (e: MouseEvent) => {
+      tx = e.clientX;
+      ty = e.clientY;
+      if (!raf) raf = requestAnimationFrame(loop);
+    };
+
+    const loop = () => {
+      cx += (tx - cx) * 0.18;
+      cy += (ty - cy) * 0.18;
+      document.body.style.setProperty("--mouse-x", `${cx}px`);
+      document.body.style.setProperty("--mouse-y", `${cy}px`);
+      if (Math.abs(tx - cx) > 0.5 || Math.abs(ty - cy) > 0.5) {
+        raf = requestAnimationFrame(loop);
+      } else {
+        raf = 0;
+      }
+    };
+
+    window.addEventListener("mousemove", move, { passive: true });
+  }
+  setupSpotlight();
+</script>
