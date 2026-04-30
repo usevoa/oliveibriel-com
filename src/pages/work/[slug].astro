@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { projects } from "../../data/projects";
+
+export async function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+---
+
+<BaseLayout
+  title={`${project.title} — Gabriel Oliveira`}
+  description={project.summary}
+  type="article"
+>
+  <article class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pt-16 md:pt-24 pb-12">
+    <a href="/work" class="inline-flex items-center gap-1 text-sm text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors mb-8">
+      ← All work
+    </a>
+
+    <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-wider text-[var(--color-fg-subtle)] mb-4">
+      <span>{project.number}</span>
+      <span>·</span>
+      <span>{project.client}</span>
+      <span>·</span>
+      <span>{project.year}</span>
+      {project.ai && (
+        <>
+          <span>·</span>
+          <span class="text-[var(--color-accent-soft)]">AI</span>
+        </>
+      )}
+    </div>
+
+    <h1
+      class="text-4xl md:text-6xl font-extrabold leading-[1.02]"
+      style="letter-spacing: -0.045em;"
+    >
+      {project.title}
+    </h1>
+
+    <p class="mt-5 text-lg text-[var(--color-fg-muted)] max-w-2xl leading-relaxed">
+      {project.summary}
+    </p>
+  </article>
+
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pb-16">
+    <div class="aspect-[16/9] rounded-xl overflow-hidden border border-[var(--color-border)] bg-[var(--color-bg-elevated)]">
+      <img
+        src={project.image}
+        alt={`${project.title} cover`}
+        class="w-full h-full object-cover"
+      />
+    </div>
+  </section>
+
+  <section class="max-w-[var(--container-prose)] mx-auto px-6 md:px-10 py-16">
+    <p class="font-mono text-sm text-[var(--color-fg-subtle)]">
+      Full case study being migrated. Reach out if you'd like to see the
+      work in detail before it's published here.
+    </p>
+  </section>
+</BaseLayout>

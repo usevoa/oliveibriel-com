@@ -1,0 +1,44 @@
+---
+import type { Project } from "../data/projects";
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<a
+  href={`/work/${project.slug}`}
+  class="group block rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] overflow-hidden hover:border-[var(--color-accent)] transition-colors"
+>
+  <div class="aspect-[16/10] overflow-hidden bg-[var(--color-bg)]">
+    <img
+      src={project.image}
+      alt={`${project.title} cover`}
+      loading="lazy"
+      decoding="async"
+      class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] [filter:grayscale(15%)] group-hover:[filter:grayscale(0)]"
+    />
+  </div>
+  <div class="p-5 flex flex-col gap-2">
+    <div class="flex items-center justify-between font-mono text-[11px] tracking-wider uppercase text-[var(--color-fg-subtle)]">
+      <span>{project.number} · {project.client}</span>
+      <span>{project.year}</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <h3 class="text-lg font-semibold tracking-tight">{project.title}</h3>
+      {project.ai && (
+        <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono uppercase tracking-wider bg-[var(--color-accent-bg)] text-[var(--color-accent-soft)]">
+          AI
+        </span>
+      )}
+    </div>
+    <p class="text-sm text-[var(--color-fg-muted)] leading-relaxed">
+      {project.summary}
+    </p>
+    <div class="font-mono text-[11px] text-[var(--color-fg-subtle)] mt-1">
+      {project.type}
+    </div>
+  </div>
+</a>
