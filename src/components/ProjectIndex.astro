@@ -1,0 +1,216 @@
+---
+import type { Project } from "../data/projects";
+
+interface Props {
+  items: Project[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="project-index" data-project-index>
+  <header class="grid grid-cols-[3rem_1fr_1fr_auto] md:grid-cols-[3rem_1.6fr_1fr_1fr_5rem] gap-4 md:gap-6 px-2 pb-3 mb-2 border-b border-[var(--color-border)] font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+    <span>Nº</span>
+    <span>Project</span>
+    <span class="hidden md:block">Client</span>
+    <span>Type</span>
+    <span class="text-right">Year</span>
+  </header>
+
+  <ul class="divide-y divide-[var(--color-border)]">
+    {items.map((p, i) => (
+      <li>
+        <a
+          href={`/work/${p.slug}`}
+          class="project-row group grid grid-cols-[3rem_1fr_1fr_auto] md:grid-cols-[3rem_1.6fr_1fr_1fr_5rem] gap-4 md:gap-6 items-center px-2 py-5 md:py-6 transition-colors hover:bg-[var(--color-bg-soft)]"
+          data-image={p.image ?? ""}
+          data-gradient={p.gradient ?? ""}
+          data-title={p.title}
+          data-index={i}
+        >
+          <span class="font-mono text-xs text-[var(--color-fg-subtle)] tabular">{p.number}</span>
+          <span class="flex items-center gap-3 min-w-0">
+            <span class="text-2xl md:text-3xl font-bold tracking-tight truncate" style="letter-spacing:-0.03em;">
+              {p.title}
+            </span>
+            {p.ai && (
+              <span class="hidden md:inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-mono uppercase tracking-wider bg-[var(--color-accent-bg)] text-[var(--color-accent)] shrink-0">
+                AI
+              </span>
+            )}
+            {p.metric && (
+              <span class="hidden lg:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[var(--color-accent-tint)] text-[var(--color-accent-hover)] text-[10px] font-mono shrink-0">
+                {p.metric.value} {p.metric.label}
+              </span>
+            )}
+          </span>
+          <span class="hidden md:block text-sm text-[var(--color-fg-muted)] truncate">{p.client}</span>
+          <span class="text-xs md:text-sm text-[var(--color-fg-muted)] font-mono truncate">{p.type}</span>
+          <span class="font-mono text-sm text-[var(--color-fg-subtle)] text-right tabular flex items-center justify-end gap-2">
+            {p.year}
+            <svg class="size-3.5 text-[var(--color-fg-faint)] group-hover:text-[var(--color-accent)] group-hover:translate-x-0.5 transition-all" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<!-- Floating hover preview (single instance) -->
+<div
+  class="hover-preview pointer-events-none fixed top-0 left-0 z-30 hidden lg:block"
+  id="hover-preview"
+  aria-hidden="true"
+>
+  <div class="hover-preview-card">
+    <img id="hover-preview-img" alt="" class="hover-preview-img" />
+    <div id="hover-preview-grad" class="hover-preview-grad"></div>
+    <div class="hover-preview-meta">
+      <span id="hover-preview-title"></span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hover-preview {
+    width: 320px;
+    aspect-ratio: 4/3;
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.95);
+    transition: opacity 200ms ease, transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+  }
+  .hover-preview.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  .hover-preview-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-soft);
+    box-shadow: 0 24px 48px -16px rgba(0, 0, 0, 0.22);
+  }
+  .hover-preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+  }
+  .hover-preview-img.is-active {
+    display: block;
+  }
+  .hover-preview-grad {
+    position: absolute;
+    inset: 0;
+    display: none;
+  }
+  .hover-preview-grad.is-active {
+    display: grid;
+    place-items: center;
+  }
+  .hover-preview-grad::after {
+    content: attr(data-title);
+    color: rgba(255, 255, 255, 0.92);
+    font-weight: 800;
+    font-size: 28px;
+    letter-spacing: -0.04em;
+    mix-blend-mode: overlay;
+  }
+  .hover-preview-meta {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-fg);
+  }
+</style>
+
+<script>
+  function setupProjectIndex() {
+    if (window.matchMedia("(hover: none)").matches) return;
+
+    const containers = document.querySelectorAll<HTMLElement>("[data-project-index]");
+    if (!containers.length) return;
+
+    const preview = document.getElementById("hover-preview") as HTMLDivElement | null;
+    const img = document.getElementById("hover-preview-img") as HTMLImageElement | null;
+    const grad = document.getElementById("hover-preview-grad") as HTMLDivElement | null;
+    const titleEl = document.getElementById("hover-preview-title");
+    if (!preview || !img || !grad || !titleEl) return;
+
+    let tx = 0;
+    let ty = 0;
+    let cx = 0;
+    let cy = 0;
+    let raf = 0;
+
+    const loop = () => {
+      cx += (tx - cx) * 0.15;
+      cy += (ty - cy) * 0.15;
+      preview.style.transform = `translate3d(${cx}px, ${cy}px, 0) scale(${preview.classList.contains("is-visible") ? 1 : 0.95})`;
+      if (Math.abs(tx - cx) > 0.5 || Math.abs(ty - cy) > 0.5) {
+        raf = requestAnimationFrame(loop);
+      } else {
+        raf = 0;
+      }
+    };
+
+    const updatePos = (e: MouseEvent) => {
+      const offsetX = 24;
+      const offsetY = 24;
+      const previewW = 320;
+      const previewH = 240;
+      let x = e.clientX + offsetX;
+      let y = e.clientY + offsetY;
+      // Flip when near right/bottom edges
+      if (x + previewW > window.innerWidth - 12) x = e.clientX - previewW - offsetX;
+      if (y + previewH > window.innerHeight - 12) y = e.clientY - previewH - offsetY;
+      tx = x;
+      ty = y;
+      if (!raf) raf = requestAnimationFrame(loop);
+    };
+
+    containers.forEach((container) => {
+      const rows = container.querySelectorAll<HTMLAnchorElement>(".project-row");
+      rows.forEach((row) => {
+        row.addEventListener("mouseenter", () => {
+          const src = row.dataset.image || "";
+          const grd = row.dataset.gradient || "";
+          const title = row.dataset.title || "";
+          if (src) {
+            img.src = src;
+            img.classList.add("is-active");
+            grad.classList.remove("is-active");
+            grad.removeAttribute("style");
+          } else if (grd) {
+            img.classList.remove("is-active");
+            grad.style.background = grd;
+            grad.setAttribute("data-title", title);
+            grad.classList.add("is-active");
+          }
+          titleEl.textContent = title;
+          preview.classList.add("is-visible");
+        });
+        row.addEventListener("mouseleave", () => {
+          preview.classList.remove("is-visible");
+        });
+        row.addEventListener("mousemove", updatePos);
+      });
+    });
+  }
+
+  setupProjectIndex();
+  document.addEventListener("astro:after-swap", setupProjectIndex);
+</script>

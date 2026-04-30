@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ProjectCard from "../components/ProjectCard.astro";
+import ProjectIndex from "../components/ProjectIndex.astro";
 import { featured } from "../data/projects";
 
 const clients = [
@@ -153,9 +153,9 @@ const chars = Array.from(fullName);
     </div>
   </section>
 
-  <!-- Bento grid -->
+  <!-- Project index — list with hover preview -->
   <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-20 md:py-28">
-    <div class="flex items-end justify-between mb-12" data-reveal>
+    <div class="flex items-end justify-between mb-10 md:mb-14" data-reveal>
       <div>
         <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Selected work</span>
         <h2 class="mt-2 text-3xl md:text-5xl font-extrabold display">
@@ -170,8 +170,8 @@ const chars = Array.from(fullName);
       </a>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 auto-rows-[minmax(280px,auto)] gap-4 md:gap-5">
-      {featured.map((project, i) => <ProjectCard project={project} index={i} />)}
+    <div data-reveal data-reveal-delay="1">
+      <ProjectIndex items={featured} />
     </div>
   </section>
 
