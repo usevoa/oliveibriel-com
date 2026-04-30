@@ -1,15 +1,31 @@
 ---
 ---
 
+<script is:inline>
+  document.documentElement.classList.add("js");
+</script>
+
 <script>
   function setupReveal() {
     const els = document.querySelectorAll<HTMLElement>("[data-reveal]");
     if (!els.length) return;
 
-    if (typeof IntersectionObserver === "undefined") {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduced || typeof IntersectionObserver === "undefined") {
       els.forEach((el) => el.classList.add("is-visible"));
       return;
     }
+
+    // Reveal anything already in viewport on load
+    const initialReveal = (el: HTMLElement) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        el.classList.add("is-visible");
+        return true;
+      }
+      return false;
+    };
 
     const io = new IntersectionObserver(
       (entries) => {
@@ -20,10 +36,19 @@
           }
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+      { threshold: 0.05, rootMargin: "0px 0px -4% 0px" },
     );
 
-    els.forEach((el) => io.observe(el));
+    els.forEach((el) => {
+      if (!initialReveal(el)) io.observe(el);
+    });
+
+    // Hard fallback: anything not revealed after 4s shows up regardless
+    setTimeout(() => {
+      document
+        .querySelectorAll("[data-reveal]:not(.is-visible)")
+        .forEach((el) => el.classList.add("is-visible"));
+    }, 4000);
   }
   setupReveal();
   document.addEventListener("astro:after-swap", setupReveal);
