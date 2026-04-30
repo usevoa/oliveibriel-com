@@ -1,0 +1,41 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+}
+
+const {
+  title = "Gabriel Oliveira — Senior Product Designer",
+  description = "Senior Product Designer working on industrial SaaS at NETZSCH and running VOA Digital. B2B, design systems, and AI-native workflows.",
+  image = "/og-default.png",
+  type = "website",
+} = Astro.props;
+
+const siteUrl = "https://oliveibriel.com";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? siteUrl).toString();
+const ogImage = new URL(image, Astro.site ?? siteUrl).toString();
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:site_name" content="Gabriel Oliveira" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<meta name="theme-color" content="#0a0e14" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#f4f4f5" media="(prefers-color-scheme: light)" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="alternate" type="application/rss+xml" title="Gabriel Oliveira" href="/rss.xml" />

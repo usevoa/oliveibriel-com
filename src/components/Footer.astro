@@ -1,0 +1,45 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-[var(--color-border)] mt-32">
+  <div
+    class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6 text-sm text-[var(--color-fg-muted)]"
+  >
+    <div class="flex flex-col gap-1">
+      <span class="text-[var(--color-fg)]">Gabriel Oliveira</span>
+      <span class="font-mono text-xs text-[var(--color-fg-subtle)]">
+        Curitiba, BR · {year}
+      </span>
+    </div>
+
+    <div class="flex items-center gap-5">
+      <a
+        href="mailto:oliveibriel@gmail.com"
+        class="link-underline hover:text-[var(--color-fg)] transition-colors"
+      >
+        Email
+      </a>
+      <a
+        href="https://www.linkedin.com/in/oliveibriel"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link-underline hover:text-[var(--color-fg)] transition-colors"
+      >
+        LinkedIn
+      </a>
+      <a
+        href="/rss.xml"
+        class="link-underline hover:text-[var(--color-fg)] transition-colors"
+      >
+        RSS
+      </a>
+      <a
+        href="/uses"
+        class="link-underline hover:text-[var(--color-fg)] transition-colors"
+      >
+        Uses
+      </a>
+    </div>
+  </div>
+</footer>
