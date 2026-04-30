@@ -67,30 +67,27 @@ const chars = Array.from(fullName);
           </p>
 
           <div class="flex flex-wrap items-center gap-3 mt-2" data-reveal data-reveal-delay="4">
-            <span class="magnetic" data-magnetic-strength="14">
-              <a
-                href="/work"
-                class="magnetic-inner group inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[var(--color-fg)] hover:bg-[var(--color-accent)] text-[var(--color-fg-inverted)] text-sm font-medium transition-colors"
-              >
-                View selected work
-                <svg class="size-4 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </a>
-            </span>
-            <span class="magnetic" data-magnetic-strength="10">
-              <a
-                href="https://storage.googleapis.com/2026portfolio/CV/Gabriel_Oliveira_CV.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="magnetic-inner inline-flex items-center gap-2 px-5 py-3 rounded-md border border-[var(--color-border-strong)] hover:border-[var(--color-fg)] text-[var(--color-fg)] text-sm font-medium transition-colors"
-              >
-                Download CV
-                <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-                </svg>
-              </a>
-            </span>
+            <a
+              href="/work"
+              class="magnetic group inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[var(--color-fg)] hover:bg-[var(--color-accent)] text-[var(--color-fg-inverted)] text-sm font-medium transition-colors"
+              data-magnetic-strength="10"
+            >
+              View selected work
+              <svg class="size-4 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a
+              href="https://storage.googleapis.com/2026portfolio/CV/Gabriel_Oliveira_CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-[var(--color-border-strong)] hover:border-[var(--color-fg)] hover:bg-[var(--color-bg-soft)] text-[var(--color-fg)] text-sm font-medium transition-colors"
+            >
+              Download CV
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+              </svg>
+            </a>
           </div>
 
           <!-- Stats inline -->
@@ -235,17 +232,16 @@ const chars = Array.from(fullName);
         I respond within a few days.
       </p>
       <div class="flex flex-wrap items-center gap-3 mt-2">
-        <span class="magnetic" data-magnetic-strength="14">
-          <a
-            href="mailto:oliveibriel@gmail.com"
-            class="magnetic-inner group inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[var(--color-fg)] hover:bg-[var(--color-accent)] text-[var(--color-fg-inverted)] text-sm font-medium transition-colors"
-          >
-            oliveibriel@gmail.com
-            <svg class="size-4 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M7 17 17 7M7 7h10v10"/>
-            </svg>
-          </a>
-        </span>
+        <a
+          href="mailto:oliveibriel@gmail.com"
+          class="magnetic group inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[var(--color-fg)] hover:bg-[var(--color-accent)] text-[var(--color-fg-inverted)] text-sm font-medium transition-colors"
+          data-magnetic-strength="12"
+        >
+          oliveibriel@gmail.com
+          <svg class="size-4 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17 17 7M7 7h10v10"/>
+          </svg>
+        </a>
       </div>
     </div>
   </section>

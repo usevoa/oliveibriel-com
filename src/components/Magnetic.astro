@@ -10,22 +10,18 @@
       if ((el as any).__magnetic) return;
       (el as any).__magnetic = true;
 
-      const inner = el.querySelector<HTMLElement>(".magnetic-inner") ?? el;
-      const strength = Number(el.dataset.magneticStrength ?? 18);
+      const strength = Number(el.dataset.magneticStrength ?? 12);
 
       const onMove = (e: MouseEvent) => {
         const rect = el.getBoundingClientRect();
         const x = e.clientX - (rect.left + rect.width / 2);
         const y = e.clientY - (rect.top + rect.height / 2);
         const distMax = Math.max(rect.width, rect.height);
-        const factor = Math.min(1, Math.hypot(x, y) / distMax);
         el.style.transform = `translate(${(x / distMax) * strength}px, ${(y / distMax) * strength}px)`;
-        inner.style.transform = `translate(${(x / distMax) * (strength / 2)}px, ${(y / distMax) * (strength / 2)}px)`;
       };
 
       const reset = () => {
         el.style.transform = "translate(0, 0)";
-        inner.style.transform = "translate(0, 0)";
       };
 
       el.addEventListener("mousemove", onMove);
@@ -37,7 +33,7 @@
       (el as any).__tilt = true;
 
       const wrap = el.closest<HTMLElement>(".tilt-wrap") ?? el;
-      const strength = Number(el.dataset.tiltStrength ?? 8);
+      const strength = Number(el.dataset.tiltStrength ?? 6);
 
       const onMove = (e: MouseEvent) => {
         const rect = wrap.getBoundingClientRect();

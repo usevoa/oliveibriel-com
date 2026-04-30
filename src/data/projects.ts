@@ -63,14 +63,14 @@ export const projects: Project[] = [
   },
   {
     id: "04",
-    slug: "voa-clinic",
+    slug: "nerida",
     number: "04",
-    title: "VOA Clinic",
-    client: "VOA Digital",
+    title: "Nerida",
+    client: "Solo founder",
     year: "2025",
-    type: "Multi-tenant SaaS · AI-built",
+    type: "SaaS for solo psychologists · AI-built",
     summary:
-      "Designed and shipped a multi-tenant clinical SaaS end-to-end with Claude Code as build partner.",
+      "A focused SaaS for solo psychologists. Designed, shipped, and deployed end-to-end with Claude Code as build partner.",
     gradient:
       "linear-gradient(135deg,#1e3a8a 0%,#3b82f6 60%,#93c5fd 100%)",
     featured: true,
