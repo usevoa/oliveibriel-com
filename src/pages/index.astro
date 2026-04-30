@@ -1,17 +1,62 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pt-20 md:pt-32 pb-20">
+    <div class="flex flex-col gap-8">
+      <span
+        class="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-accent-bg)] text-[var(--color-accent-soft)] text-xs font-medium"
+      >
+        <span class="size-1.5 rounded-full bg-[var(--color-success)] animate-pulse"></span>
+        Available for new projects
+      </span>
+
+      <h1
+        class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] max-w-3xl"
+        style="letter-spacing: var(--tracking-tightest);"
+      >
+        Senior Product Designer building&nbsp;<span class="text-[var(--color-accent)]">industrial SaaS</span>.
+      </h1>
+
+      <p class="text-lg md:text-xl text-[var(--color-fg-muted)] max-w-2xl leading-relaxed">
+        I work on IRIS V3 at NETZSCH and run VOA Digital. Currently exploring
+        AI-native product workflows for B2B and enterprise systems.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-3 pt-2">
+        <a
+          href="/work"
+          class="group inline-flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white text-sm font-medium transition-colors"
+        >
+          View selected work
+          <svg class="size-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a
+          href="/about"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border border-[var(--color-border)] hover:bg-[var(--color-bg-elevated)] text-sm font-medium transition-colors"
+        >
+          About me
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-16">
+    <div class="flex items-baseline justify-between mb-10">
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Selected work</h2>
+      <a
+        href="/work"
+        class="link-underline text-sm text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]"
+      >
+        All projects →
+      </a>
+    </div>
+
+    <p class="font-mono text-sm text-[var(--color-fg-subtle)]">
+      Case studies coming soon — under construction.
+    </p>
+  </section>
+</BaseLayout>
