@@ -5,15 +5,16 @@ const isActive = (href: string) =>
 ---
 
 <header
-  class="sticky top-0 z-50 border-b border-[var(--color-border)] backdrop-blur-md bg-[color-mix(in_srgb,var(--color-bg)_80%,transparent)]"
+  class="sticky top-0 z-50 border-b border-[var(--color-border-soft)] backdrop-blur-xl bg-[color-mix(in_srgb,var(--color-bg)_72%,transparent)]"
 >
   <nav
     class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 h-14 flex items-center justify-between"
   >
     <a
       href="/"
-      class="text-sm font-semibold tracking-tight hover:text-[var(--color-accent-soft)] transition-colors"
+      class="flex items-center gap-2 text-sm font-semibold tracking-tight"
     >
+      <span class="size-2 rounded-full bg-[var(--color-accent)]"></span>
       Gabriel Oliveira
     </a>
 
@@ -32,16 +33,26 @@ const isActive = (href: string) =>
       </a>
       <a
         href="/writing"
-        class={`px-3 py-1.5 rounded-md transition-colors ${isActive("/writing") ? "text-[var(--color-fg)]" : "text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]"}`}
+        class={`px-3 py-1.5 rounded-md transition-colors hidden sm:inline-block ${isActive("/writing") ? "text-[var(--color-fg)]" : "text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]"}`}
       >
         Writing
       </a>
 
       <button
+        id="cmdk-trigger"
+        type="button"
+        aria-label="Open command palette"
+        class="ml-2 hidden sm:inline-flex items-center gap-2 px-2.5 py-1.5 rounded-md border border-[var(--color-border)] text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] hover:border-[var(--color-fg-subtle)] transition-colors text-xs font-mono"
+      >
+        <svg class="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        ⌘K
+      </button>
+
+      <button
         id="theme-toggle"
         type="button"
         aria-label="Toggle theme"
-        class="ml-2 size-8 grid place-items-center rounded-md text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-bg-elevated)] transition-colors"
+        class="size-8 grid place-items-center rounded-md text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-bg-soft)] transition-colors"
       >
         <svg class="theme-icon-dark size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
@@ -51,13 +62,6 @@ const isActive = (href: string) =>
           <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
         </svg>
       </button>
-
-      <a
-        href="/contact"
-        class="ml-2 px-3 py-1.5 rounded-md bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white text-sm font-medium transition-colors"
-      >
-        Get in touch
-      </a>
     </div>
   </nav>
 </header>
@@ -71,41 +75,59 @@ const isActive = (href: string) =>
 </script>
 
 <script>
-  function setupThemeToggle() {
-    const btn = document.getElementById("theme-toggle");
-    if (!btn || btn.dataset.bound) return;
-    btn.dataset.bound = "true";
+  function setupNav() {
+    const themeBtn = document.getElementById("theme-toggle");
+    if (themeBtn && !themeBtn.dataset.bound) {
+      themeBtn.dataset.bound = "true";
 
-    const updateIcons = () => {
-      const isLight = document.documentElement.classList.contains("light");
-      document.querySelectorAll(".theme-icon-dark").forEach((el) => {
-        el.classList.toggle("hidden", isLight);
-      });
-      document.querySelectorAll(".theme-icon-light").forEach((el) => {
-        el.classList.toggle("hidden", !isLight);
-      });
-    };
-
-    updateIcons();
-
-    btn.addEventListener("click", () => {
-      const root = document.documentElement;
-      const toLight = !root.classList.contains("light");
-      const apply = () => {
-        root.classList.toggle("light", toLight);
-        localStorage.setItem("theme", toLight ? "light" : "dark");
-        updateIcons();
+      const updateIcons = () => {
+        const isLight = document.documentElement.classList.contains("light");
+        document.querySelectorAll(".theme-icon-dark").forEach((el) => {
+          el.classList.toggle("hidden", isLight);
+        });
+        document.querySelectorAll(".theme-icon-light").forEach((el) => {
+          el.classList.toggle("hidden", !isLight);
+        });
       };
-      // @ts-expect-error - View Transitions API
-      if (document.startViewTransition) {
-        // @ts-expect-error
-        document.startViewTransition(apply);
-      } else {
-        apply();
-      }
-    });
-  }
+      updateIcons();
 
-  setupThemeToggle();
-  document.addEventListener("astro:after-swap", setupThemeToggle);
+      themeBtn.addEventListener("click", (e) => {
+        const root = document.documentElement;
+        const toLight = !root.classList.contains("light");
+        const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+        const x = ((rect.left + rect.width / 2) / window.innerWidth) * 100;
+        const y = ((rect.top + rect.height / 2) / window.innerHeight) * 100;
+        root.style.setProperty("--ripple-x", `${x}%`);
+        root.style.setProperty("--ripple-y", `${y}%`);
+
+        const apply = () => {
+          root.classList.toggle("light", toLight);
+          localStorage.setItem("theme", toLight ? "light" : "dark");
+          updateIcons();
+        };
+        // @ts-expect-error - View Transitions API
+        if (document.startViewTransition) {
+          // @ts-expect-error
+          document.startViewTransition(apply);
+        } else {
+          apply();
+        }
+      });
+    }
+
+    const cmdkTrigger = document.getElementById("cmdk-trigger");
+    if (cmdkTrigger && !cmdkTrigger.dataset.bound) {
+      cmdkTrigger.dataset.bound = "true";
+      cmdkTrigger.addEventListener("click", () => {
+        const overlay = document.getElementById("cmdk");
+        if (overlay) {
+          overlay.classList.add("open");
+          const input = document.getElementById("cmdk-input") as HTMLInputElement | null;
+          setTimeout(() => input?.focus(), 50);
+        }
+      });
+    }
+  }
+  setupNav();
+  document.addEventListener("astro:after-swap", setupNav);
 </script>

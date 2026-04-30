@@ -3,42 +3,71 @@ import type { Project } from "../data/projects";
 
 interface Props {
   project: Project;
+  size?: "wide" | "tall" | "normal";
+  index?: number;
 }
 
-const { project } = Astro.props;
+const { project, size = project.size ?? "normal", index = 0 } = Astro.props;
+
+const aspect = size === "wide" ? "aspect-[16/9]" : size === "tall" ? "aspect-[4/5]" : "aspect-[16/10]";
+const span =
+  size === "wide" ? "md:col-span-2" :
+  size === "tall" ? "md:row-span-2" : "";
 ---
 
 <a
   href={`/work/${project.slug}`}
-  class="group block rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] overflow-hidden hover:border-[var(--color-accent)] transition-colors"
+  data-reveal
+  data-reveal-delay={Math.min(index, 5)}
+  class={`group card-tilt block rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] overflow-hidden hover:border-[var(--color-fg-subtle)] ${span}`}
 >
-  <div class="aspect-[16/10] overflow-hidden bg-[var(--color-bg)]">
-    <img
-      src={project.image}
-      alt={`${project.title} cover`}
-      loading="lazy"
-      decoding="async"
-      class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] [filter:grayscale(15%)] group-hover:[filter:grayscale(0)]"
-    />
+  <div class={`${aspect} overflow-hidden relative`}>
+    {project.image ? (
+      <img
+        src={project.image}
+        alt={`${project.title} cover`}
+        loading="lazy"
+        decoding="async"
+        class="w-full h-full object-cover [filter:grayscale(15%)_contrast(1.02)] group-hover:[filter:grayscale(0)_contrast(1)]"
+      />
+    ) : (
+      <div
+        class="w-full h-full relative noise"
+        style={`background:${project.gradient ?? "linear-gradient(135deg,#1f2937,#111827)"}`}
+      >
+        <div class="absolute inset-0 grid place-items-center">
+          <span class="font-extrabold text-white/90 text-[clamp(2rem,5vw,4rem)] tracking-[-0.05em] mix-blend-overlay">
+            {project.title}
+          </span>
+        </div>
+      </div>
+    )}
+    {project.ai && (
+      <span class="absolute top-3 left-3 inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-mono uppercase tracking-wider bg-[rgba(0,0,0,0.6)] backdrop-blur text-[var(--color-accent-soft)] border border-[rgba(255,255,255,0.08)]">
+        ◆ AI-native
+      </span>
+    )}
+    {project.metric && (
+      <div class="absolute bottom-3 right-3 text-right">
+        <div class="font-mono text-[9px] uppercase tracking-wider text-white/60">{project.metric.label}</div>
+        <div class="text-white text-base md:text-lg font-bold tabular tracking-tight">{project.metric.value}</div>
+      </div>
+    )}
   </div>
-  <div class="p-5 flex flex-col gap-2">
-    <div class="flex items-center justify-between font-mono text-[11px] tracking-wider uppercase text-[var(--color-fg-subtle)]">
+  <div class="p-5 md:p-6 flex flex-col gap-2">
+    <div class="flex items-center justify-between font-mono text-[10px] tracking-wider uppercase text-[var(--color-fg-subtle)]">
       <span>{project.number} · {project.client}</span>
       <span>{project.year}</span>
     </div>
-    <div class="flex items-center gap-2">
-      <h3 class="text-lg font-semibold tracking-tight">{project.title}</h3>
-      {project.ai && (
-        <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono uppercase tracking-wider bg-[var(--color-accent-bg)] text-[var(--color-accent-soft)]">
-          AI
-        </span>
-      )}
-    </div>
+    <h3 class="text-xl md:text-2xl font-bold tracking-tight" style="letter-spacing:-0.03em;">
+      {project.title}
+    </h3>
     <p class="text-sm text-[var(--color-fg-muted)] leading-relaxed">
       {project.summary}
     </p>
-    <div class="font-mono text-[11px] text-[var(--color-fg-subtle)] mt-1">
-      {project.type}
+    <div class="font-mono text-[11px] text-[var(--color-fg-subtle)] mt-1 flex items-center gap-2">
+      <span>{project.type}</span>
+      <span class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-[var(--color-accent-soft)]">View →</span>
     </div>
   </div>
 </a>

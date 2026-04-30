@@ -2,86 +2,120 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import { featured } from "../data/projects";
+
+const clients = [
+  "NETZSCH",
+  "Connecticut.gov",
+  "Dell",
+  "Santander",
+  "TechCo.lab",
+  "Rotary",
+  "VOA Digital",
+];
 ---
 
 <BaseLayout>
-  <!-- Hero -->
-  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pt-16 md:pt-24 pb-16">
-    <div class="grid md:grid-cols-[1fr_auto] gap-10 md:gap-16 items-start">
-      <div class="flex flex-col gap-7 max-w-3xl">
-        <span
-          class="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-accent-bg)] text-[var(--color-accent-soft)] text-xs font-medium"
-        >
-          <span class="size-1.5 rounded-full bg-[var(--color-success)] animate-pulse"></span>
-          Available for new projects
-        </span>
-
-        <h1
-          class="text-[2.75rem] md:text-6xl lg:text-[5rem] font-extrabold leading-[0.98]"
-          style="letter-spacing: -0.045em;"
-        >
-          Senior Product Designer.
-          <span class="block text-[var(--color-fg-muted)] font-light italic" style="letter-spacing: -0.04em;">
-            Industrial SaaS, design systems, AI-native tools.
+  <!-- Hero — monumental type -->
+  <section class="relative overflow-hidden">
+    <div class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pt-12 md:pt-20 pb-20 md:pb-32">
+      <!-- Status -->
+      <div class="flex items-center justify-between mb-10 md:mb-16" data-reveal>
+        <div class="flex items-center gap-3">
+          <span class="relative flex size-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-success)] opacity-75"></span>
+            <span class="relative inline-flex rounded-full size-2 bg-[var(--color-success)]"></span>
           </span>
-        </h1>
-
-        <p class="text-base md:text-lg text-[var(--color-fg-muted)] max-w-xl leading-relaxed">
-          I work on <span class="text-[var(--color-fg)]">IRIS V3</span> at NETZSCH and
-          run <span class="text-[var(--color-fg)]">VOA Digital</span> with my sister.
-          Currently building products where design and AI ship together.
-        </p>
-
-        <div class="flex flex-wrap items-center gap-3 pt-1">
-          <a
-            href="/work"
-            class="group inline-flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white text-sm font-medium transition-colors"
-          >
-            View selected work
-            <svg class="size-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
-          <a
-            href="/about"
-            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border border-[var(--color-border)] hover:bg-[var(--color-bg-elevated)] text-sm font-medium transition-colors"
-          >
-            About me
-          </a>
+          <span class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-muted)]">
+            Currently shipping <span class="text-[var(--color-fg)]">IRIS V3</span> @ NETZSCH
+          </span>
         </div>
-
-        <dl class="mt-6 grid grid-cols-3 gap-4 max-w-md font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
-          <div class="flex flex-col gap-1">
-            <dt>Based in</dt>
-            <dd class="text-[var(--color-fg)] normal-case tracking-normal text-sm font-sans">Curitiba, BR</dd>
-          </div>
-          <div class="flex flex-col gap-1">
-            <dt>Currently</dt>
-            <dd class="text-[var(--color-fg)] normal-case tracking-normal text-sm font-sans">NETZSCH · VOA</dd>
-          </div>
-          <div class="flex flex-col gap-1">
-            <dt>Years</dt>
-            <dd class="text-[var(--color-fg)] normal-case tracking-normal text-sm font-sans">10+</dd>
-          </div>
-        </dl>
+        <span class="hidden sm:block font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+          Curitiba, BR · UTC−3
+        </span>
       </div>
 
-      <div class="hidden md:block w-[280px] lg:w-[320px] aspect-[4/5] rounded-xl overflow-hidden border border-[var(--color-border)] bg-[var(--color-bg-elevated)]">
-        <img
-          src="https://storage.googleapis.com/2026portfolio/Home/Link.jpg"
-          alt="Gabriel Oliveira"
-          class="w-full h-full object-cover [filter:grayscale(15%)] hover:[filter:grayscale(0)] transition-all duration-700 hover:scale-[1.02]"
-        />
+      <!-- Massive type -->
+      <h1
+        class="display tracking-[-0.055em] font-extrabold leading-[0.9] text-[clamp(3rem,10vw,9rem)]"
+        data-reveal
+        data-reveal-delay="1"
+      >
+        <span class="block">Senior Product</span>
+        <span class="block">Designer
+          <span class="inline-block align-baseline ml-2 md:ml-4 size-3 md:size-5 rounded-full bg-[var(--color-accent)]"></span>
+        </span>
+        <span class="display-italic block text-[var(--color-fg-muted)] text-[clamp(2rem,7vw,6rem)] mt-2 md:mt-4">
+          building for B2B, AI &amp; design systems.
+        </span>
+      </h1>
+
+      <!-- Subtitle row -->
+      <div class="grid md:grid-cols-[1fr_auto] gap-8 md:gap-16 items-end mt-12 md:mt-20" data-reveal data-reveal-delay="2">
+        <p class="text-base md:text-lg text-[var(--color-fg-muted)] max-w-2xl leading-relaxed">
+          I work on <span class="text-[var(--color-fg)]">IRIS V3</span> at NETZSCH and
+          run <span class="text-[var(--color-fg)]">VOA Digital</span> with my sister.
+          Lately I'm building products where design intent and AI execution ship together —
+          <mark>multi-tenant SaaS</mark>, <mark>AI-native CLIs</mark>, internal tools.
+        </p>
+
+        <!-- Avatar small -->
+        <a href="/about" class="group flex items-center gap-3 self-start md:self-end">
+          <div class="size-12 rounded-full overflow-hidden border border-[var(--color-border)]">
+            <img
+              src="https://storage.googleapis.com/2026portfolio/Home/Link.jpg"
+              alt="Gabriel Oliveira"
+              class="w-full h-full object-cover [filter:grayscale(15%)] group-hover:[filter:grayscale(0)] transition-all duration-500"
+            />
+          </div>
+          <div class="flex flex-col">
+            <span class="text-sm font-medium">Gabriel Oliveira</span>
+            <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">About →</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Stats row -->
+      <div class="mt-16 md:mt-24 grid grid-cols-2 md:grid-cols-4 gap-px bg-[var(--color-border)] border border-[var(--color-border)] rounded-xl overflow-hidden" data-reveal data-reveal-delay="3">
+        <div class="bg-[var(--color-bg)] p-5 md:p-6 flex flex-col gap-1">
+          <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Years</span>
+          <span class="text-3xl md:text-4xl font-bold tabular tracking-tight">10<span class="text-[var(--color-fg-subtle)]">+</span></span>
+        </div>
+        <div class="bg-[var(--color-bg)] p-5 md:p-6 flex flex-col gap-1">
+          <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Shipped</span>
+          <span class="text-3xl md:text-4xl font-bold tabular tracking-tight">14<span class="text-[var(--color-fg-subtle)]">/cases</span></span>
+        </div>
+        <div class="bg-[var(--color-bg)] p-5 md:p-6 flex flex-col gap-1">
+          <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Onboarding</span>
+          <span class="text-3xl md:text-4xl font-bold tabular tracking-tight text-[var(--color-accent)]">−40<span class="text-[var(--color-fg-subtle)]">%</span></span>
+        </div>
+        <div class="bg-[var(--color-bg)] p-5 md:p-6 flex flex-col gap-1">
+          <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Reach</span>
+          <span class="text-3xl md:text-4xl font-bold tabular tracking-tight">M<span class="text-[var(--color-fg-subtle)]">+ users</span></span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Selected work -->
-  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-20">
-    <div class="flex items-baseline justify-between mb-10">
+  <!-- Marquee ticker of clients -->
+  <section class="border-y border-[var(--color-border)] py-6 overflow-hidden bg-[var(--color-bg-soft)]/40">
+    <div class="flex marquee whitespace-nowrap gap-12 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-fg-subtle)]">
+      {[...Array(3)].flatMap((_, i) =>
+        clients.map((c) => (
+          <span class="inline-flex items-center gap-12">
+            {c}
+            <span class="size-1 rounded-full bg-[var(--color-fg-faint)]"></span>
+          </span>
+        ))
+      )}
+    </div>
+  </section>
+
+  <!-- Bento grid of selected work -->
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-20 md:py-32">
+    <div class="flex items-end justify-between mb-12" data-reveal>
       <div>
-        <span class="font-mono text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">Selected work</span>
-        <h2 class="mt-2 text-2xl md:text-3xl font-bold tracking-tight" style="letter-spacing: -0.03em;">
+        <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Selected work</span>
+        <h2 class="mt-2 text-4xl md:text-6xl font-extrabold display-tight">
           Recent projects.
         </h2>
       </div>
@@ -89,62 +123,88 @@ import { featured } from "../data/projects";
         href="/work"
         class="link-underline text-sm text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]"
       >
-        All projects →
+        All 14 projects →
       </a>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-5">
-      {featured.slice(0, 6).map((project) => <ProjectCard project={project} />)}
+    <div class="grid grid-cols-1 md:grid-cols-3 auto-rows-[minmax(280px,auto)] gap-4 md:gap-5">
+      {featured.map((project, i) => <ProjectCard project={project} index={i} />)}
     </div>
   </section>
 
-  <!-- Approach -->
-  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-20 border-t border-[var(--color-border)]">
-    <div class="grid md:grid-cols-[280px_1fr] gap-10">
-      <div>
-        <span class="font-mono text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">Approach</span>
-        <h2 class="mt-2 text-2xl md:text-3xl font-bold tracking-tight" style="letter-spacing: -0.03em;">
+  <!-- Approach — type-driven, no list -->
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-20 md:py-32 border-t border-[var(--color-border)]">
+    <div class="grid md:grid-cols-[1fr_2fr] gap-10 md:gap-16">
+      <div data-reveal>
+        <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Approach</span>
+        <h2 class="mt-2 text-4xl md:text-6xl font-extrabold display-tight">
           How I work.
         </h2>
       </div>
-      <ol class="grid gap-6">
-        <li class="flex gap-4">
-          <span class="font-mono text-xs text-[var(--color-fg-subtle)] mt-1 w-8 shrink-0">01</span>
-          <div>
-            <h3 class="text-base font-semibold mb-1">Evidence-based design</h3>
-            <p class="text-sm text-[var(--color-fg-muted)] leading-relaxed">
-              Research, testing, and workshops drive what we build — not opinions.
-            </p>
+      <div class="grid gap-px bg-[var(--color-border)] rounded-xl overflow-hidden border border-[var(--color-border)]">
+        {[
+          {
+            n: "01",
+            t: "Evidence-based design",
+            d: "Research, testing, and workshops drive decisions — not opinions or aesthetics.",
+          },
+          {
+            n: "02",
+            t: "Systems thinking",
+            d: "Flows, IA, and reusable components. Never just isolated screens.",
+          },
+          {
+            n: "03",
+            t: "Cross-functional craft",
+            d: "Aligned with PMs and engineers from kickoff through ship.",
+          },
+          {
+            n: "04",
+            t: "AI as a build partner",
+            d: "Prototyping, scripting, scaffolding — using LLMs to ship faster without giving up taste.",
+          },
+        ].map((step, i) => (
+          <div class="bg-[var(--color-bg)] p-6 md:p-8 grid grid-cols-[auto_1fr] gap-5 md:gap-8 items-start" data-reveal data-reveal-delay={i + 1}>
+            <span class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)] mt-1">{step.n}</span>
+            <div>
+              <h3 class="text-xl md:text-2xl font-bold tracking-tight" style="letter-spacing:-0.03em;">{step.t}</h3>
+              <p class="mt-1.5 text-[var(--color-fg-muted)] leading-relaxed">{step.d}</p>
+            </div>
           </div>
-        </li>
-        <li class="flex gap-4">
-          <span class="font-mono text-xs text-[var(--color-fg-subtle)] mt-1 w-8 shrink-0">02</span>
-          <div>
-            <h3 class="text-base font-semibold mb-1">Systems thinking</h3>
-            <p class="text-sm text-[var(--color-fg-muted)] leading-relaxed">
-              Flows, IA, and reusable components — never just isolated screens.
-            </p>
-          </div>
-        </li>
-        <li class="flex gap-4">
-          <span class="font-mono text-xs text-[var(--color-fg-subtle)] mt-1 w-8 shrink-0">03</span>
-          <div>
-            <h3 class="text-base font-semibold mb-1">Cross-functional craft</h3>
-            <p class="text-sm text-[var(--color-fg-muted)] leading-relaxed">
-              Aligning with PMs and engineers from kickoff through ship.
-            </p>
-          </div>
-        </li>
-        <li class="flex gap-4">
-          <span class="font-mono text-xs text-[var(--color-fg-subtle)] mt-1 w-8 shrink-0">04</span>
-          <div>
-            <h3 class="text-base font-semibold mb-1">AI as a build partner</h3>
-            <p class="text-sm text-[var(--color-fg-muted)] leading-relaxed">
-              Prototyping, scripting, scaffolding — using LLMs to ship faster without giving up taste.
-            </p>
-          </div>
-        </li>
-      </ol>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-20 md:py-32 border-t border-[var(--color-border)]">
+    <div class="flex flex-col items-start gap-8" data-reveal>
+      <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Get in touch</span>
+      <h2 class="text-5xl md:text-8xl font-extrabold display-tight max-w-4xl">
+        Got a hard product problem?
+        <span class="block text-[var(--color-fg-muted)] display-italic">Let's solve it.</span>
+      </h2>
+      <p class="text-base md:text-lg text-[var(--color-fg-muted)] max-w-xl">
+        Currently open to product design and AI-native build engagements.
+        I respond within a few days.
+      </p>
+      <div class="flex flex-wrap items-center gap-3">
+        <a
+          href="mailto:oliveibriel@gmail.com"
+          class="group inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white text-sm font-medium transition-colors"
+        >
+          oliveibriel@gmail.com
+          <svg class="size-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17 17 7M7 7h10v10"/>
+          </svg>
+        </a>
+        <a
+          href="/contact"
+          class="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-[var(--color-border)] hover:bg-[var(--color-bg-soft)] text-sm font-medium transition-colors"
+        >
+          Book a call
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>

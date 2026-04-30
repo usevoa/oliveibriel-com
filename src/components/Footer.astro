@@ -1,45 +1,70 @@
 ---
 const year = new Date().getFullYear();
+const lastUpdate = new Date().toLocaleDateString("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
 ---
 
 <footer class="border-t border-[var(--color-border)] mt-32">
-  <div
-    class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6 text-sm text-[var(--color-fg-muted)]"
-  >
-    <div class="flex flex-col gap-1">
-      <span class="text-[var(--color-fg)] font-medium">Gabriel Oliveira</span>
-      <span class="font-mono text-xs text-[var(--color-fg-subtle)]">
-        Curitiba, BR · © {year}
-      </span>
+  <div class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-16">
+    <div class="grid md:grid-cols-[1fr_auto] gap-10 mb-12">
+      <div class="max-w-md">
+        <p class="text-[var(--color-fg-muted)] text-sm leading-relaxed">
+          Currently open to new projects and full-time roles in product design,
+          design systems, and AI-native tools.
+        </p>
+        <a
+          href="mailto:oliveibriel@gmail.com"
+          class="mt-4 inline-flex items-center gap-2 text-base font-medium link-underline"
+        >
+          oliveibriel@gmail.com
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17 17 7M7 7h10v10"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-3 gap-8 text-sm">
+        <div class="flex flex-col gap-2">
+          <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Site</span>
+          <a href="/work" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">Work</a>
+          <a href="/about" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">About</a>
+          <a href="/writing" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">Writing</a>
+          <a href="/contact" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">Contact</a>
+        </div>
+        <div class="flex flex-col gap-2">
+          <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Connect</span>
+          <a href="https://www.linkedin.com/in/oliveibriel" target="_blank" rel="noopener noreferrer" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">LinkedIn ↗</a>
+          <a href="https://github.com/oliveibriel" target="_blank" rel="noopener noreferrer" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">GitHub ↗</a>
+          <a href="https://read.cv/oliveibriel" target="_blank" rel="noopener noreferrer" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">Read.cv ↗</a>
+          <a href="/rss.xml" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">RSS</a>
+        </div>
+        <div class="flex flex-col gap-2">
+          <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Meta</span>
+          <a href="/uses" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">Uses</a>
+          <a href="/colophon" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">Colophon</a>
+        </div>
+      </div>
     </div>
 
-    <div class="flex items-center gap-5">
-      <a
-        href="mailto:oliveibriel@gmail.com"
-        class="link-underline hover:text-[var(--color-fg)] transition-colors"
-      >
-        Email
-      </a>
-      <a
-        href="https://www.linkedin.com/in/oliveibriel"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="link-underline hover:text-[var(--color-fg)] transition-colors"
-      >
-        LinkedIn
-      </a>
-      <a
-        href="/rss.xml"
-        class="link-underline hover:text-[var(--color-fg)] transition-colors"
-      >
-        RSS
-      </a>
-      <a
-        href="/uses"
-        class="link-underline hover:text-[var(--color-fg)] transition-colors"
-      >
-        Uses
-      </a>
+    <div class="pt-8 border-t border-[var(--color-border-soft)] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 font-mono text-[11px] text-[var(--color-fg-subtle)] uppercase tracking-wider">
+      <div class="flex items-center gap-3">
+        <span>© {year} Gabriel Oliveira</span>
+        <span>·</span>
+        <span>Curitiba, BR</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="size-1.5 rounded-full bg-[var(--color-success)] animate-pulse"></span>
+        <span>Last updated {lastUpdate}</span>
+        <span>·</span>
+        <button
+          type="button"
+          onclick="document.getElementById('cmdk-trigger')?.click()"
+          class="hover:text-[var(--color-fg)] transition-colors"
+        >Press ⌘K</button>
+      </div>
     </div>
   </div>
 </footer>

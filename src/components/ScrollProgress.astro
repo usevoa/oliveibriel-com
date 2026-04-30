@@ -1,0 +1,22 @@
+---
+---
+
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+<script>
+  function setupScrollProgress() {
+    const bar = document.getElementById("scroll-progress");
+    if (!bar) return;
+    const update = () => {
+      const scrolled = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = max > 0 ? (scrolled / max) * 100 : 0;
+      bar.style.width = `${pct}%`;
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+  }
+  setupScrollProgress();
+  document.addEventListener("astro:after-swap", setupScrollProgress);
+</script>
