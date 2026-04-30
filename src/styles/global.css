@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
 @theme {
+  /* Base */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
   /* Colors — Light Industrial */
   --color-bg: #fafaf9;
   --color-bg-elevated: #ffffff;
