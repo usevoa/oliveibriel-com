@@ -228,21 +228,75 @@ const paragraphs = (text: string) =>
         </section>
 
         <!-- Optional extra sections -->
-        {study.sections && study.sections.length > 0 && study.sections.map((sec, i) => (
-          <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 md:py-16 border-t border-[var(--color-border)]">
-            <div class="grid md:grid-cols-[14rem_1fr] gap-6 md:gap-12" data-reveal>
-              <div>
-                <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">{String(i + 4).padStart(2, "0")}</span>
-                <h2 class="mt-2 text-2xl md:text-3xl font-extrabold display" style="letter-spacing:-0.035em;">
-                  {sec.heading}
-                </h2>
+        {study.sections && study.sections.length > 0 && study.sections.map((sec, i) => {
+          const img = sec.image;
+          const showImgPlaceholder = img && !img.src && img.placeholder;
+          const aspectClass = !img
+            ? ""
+            : img.aspect === "tall"
+            ? "aspect-[3/4]"
+            : img.aspect === "square"
+            ? "aspect-square"
+            : "aspect-[16/9]";
+          const defaultGradient =
+            "linear-gradient(135deg, #1e293b 0%, #1e3a8a 55%, #1d4ed8 100%)";
+          return (
+            <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 md:py-16 border-t border-[var(--color-border)]">
+              <div class="grid md:grid-cols-[14rem_1fr] gap-6 md:gap-12" data-reveal>
+                <div>
+                  <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">{String(i + 4).padStart(2, "0")}</span>
+                  <h2 class="mt-2 text-2xl md:text-3xl font-extrabold display" style="letter-spacing:-0.035em;">
+                    {sec.heading}
+                  </h2>
+                </div>
+                <div class="flex flex-col gap-8">
+                  <div class="prose-content text-[var(--color-fg)] text-base md:text-lg leading-relaxed max-w-prose flex flex-col gap-4">
+                    {paragraphs(sec.body).map((p) => <p>{p}</p>)}
+                  </div>
+
+                  {img && (
+                    <figure class="mt-2">
+                      <div
+                        class={`relative overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] ${aspectClass}`}
+                        style={showImgPlaceholder ? `background: ${img.placeholder!.gradient || defaultGradient};` : undefined}
+                      >
+                        {img.src && (
+                          <img
+                            src={img.src}
+                            alt={img.alt}
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        )}
+                        {showImgPlaceholder && (
+                          <div class="absolute inset-0 flex flex-col items-start justify-end p-6 md:p-8 gap-3 text-white">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.16em] opacity-75 inline-flex items-center gap-2">
+                              <span class="size-1.5 rounded-full bg-[var(--color-accent-tint)] animate-pulse"></span>
+                              Placeholder · capture pending
+                            </span>
+                            <span class="text-2xl md:text-3xl font-extrabold tracking-tight leading-tight" style="letter-spacing:-0.025em;">
+                              {img.placeholder!.label}
+                            </span>
+                            {img.placeholder!.sublabel && (
+                              <span class="font-mono text-[11px] uppercase tracking-wider opacity-80">
+                                {img.placeholder!.sublabel}
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                      {img.caption && (
+                        <figcaption class="mt-3 font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+                          {img.caption}
+                        </figcaption>
+                      )}
+                    </figure>
+                  )}
+                </div>
               </div>
-              <div class="prose-content text-[var(--color-fg)] text-base md:text-lg leading-relaxed max-w-prose flex flex-col gap-4">
-                {paragraphs(sec.body).map((p) => <p>{p}</p>)}
-              </div>
-            </div>
-          </section>
-        ))}
+            </section>
+          );
+        })}
 
         <!-- Gallery -->
         {study.gallery && study.gallery.length > 0 && (
