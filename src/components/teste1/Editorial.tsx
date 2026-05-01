@@ -29,6 +29,14 @@ export default function Editorial() {
       </header>
 
       <main>
+      {/* Visually-hidden bio for parsers/AI crawlers — compensates for the metaphorical H1 */}
+      <p className="sr-only">
+        Gabriel Oliveira — Senior Product Designer with 10+ years of experience.
+        Currently leading UX on IRIS V3 at NETZSCH, and co-founder of VOA Digital.
+        Focus areas: industrial SaaS, design systems, AI-native tools, and B2B
+        enterprise platforms. Based in Curitiba, Brazil.
+      </p>
+
       {/* Editorial masthead */}
       <section ref={heroRef} className="relative" aria-labelledby="hero-h1">
         <div className="max-w-[1400px] mx-auto px-6 md:px-10 pt-10 md:pt-14">

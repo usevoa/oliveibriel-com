@@ -1,0 +1,77 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  variant: "teste1" | "teste2" | "teste3";
+}
+
+const { title, description, variant } = Astro.props;
+const url = `https://oliveibriel.com/${variant}`;
+const ogImage = "https://storage.googleapis.com/2026portfolio/Home/Link.jpg";
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Gabriel Oliveira",
+  alternateName: "oliveibriel",
+  jobTitle: "Senior Product Designer",
+  url: "https://oliveibriel.com",
+  email: "mailto:oliveibriel@gmail.com",
+  image: ogImage,
+  sameAs: [
+    "https://www.linkedin.com/in/oliveibriel",
+    "https://github.com/oliveibriel",
+  ],
+  worksFor: [
+    {
+      "@type": "Organization",
+      name: "NETZSCH",
+      description: "Industrial SaaS — IRIS V3",
+    },
+    {
+      "@type": "Organization",
+      name: "VOA Digital",
+      url: "https://usevoa.com",
+      description: "Co-founder",
+    },
+  ],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Curitiba",
+    addressRegion: "PR",
+    addressCountry: "BR",
+  },
+  knowsAbout: [
+    "Product Design",
+    "UX Strategy",
+    "Design Systems",
+    "Industrial SaaS",
+    "AI-native tools",
+    "B2B SaaS",
+    "Accessibility (WCAG 2.1 AA)",
+  ],
+  description:
+    "Senior Product Designer with 10+ years across industrial SaaS, design systems, and AI-native tools. Lead UX on IRIS V3 at NETZSCH; co-founder of VOA Digital.",
+};
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={url} />
+
+<meta property="og:type" content="profile" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={url} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:site_name" content="Gabriel Oliveira" />
+<meta property="profile:first_name" content="Gabriel" />
+<meta property="profile:last_name" content="Oliveira" />
+<meta property="profile:username" content="oliveibriel" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<script type="application/ld+json" set:html={JSON.stringify(personSchema)} is:inline />
