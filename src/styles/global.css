@@ -186,14 +186,11 @@ html.js [data-reveal].is-visible {
 }
 .hero-name .ch-inner {
   display: inline-block;
-  transition: color 220ms ease, transform 460ms cubic-bezier(0.34, 1.4, 0.64, 1);
+  font-variant-numeric: tabular-nums;
+  transition: color 250ms ease;
 }
-
-/* Wave on hover — staggered per character */
-.hero-name:hover .ch-inner {
+.hero-name.is-scrambling .ch-inner {
   color: var(--color-accent);
-  transform: translateY(-0.18em);
-  transition-delay: calc(var(--i, 0) * 28ms);
 }
 .hero-name .ch[data-i="0"] { animation-delay: 0ms; }
 .hero-name .ch[data-i="1"] { animation-delay: 30ms; }
