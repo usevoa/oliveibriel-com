@@ -1,10 +1,5 @@
 ---
 const year = new Date().getFullYear();
-const lastUpdate = new Date().toLocaleDateString("en-US", {
-  month: "short",
-  day: "numeric",
-  year: "numeric",
-});
 ---
 
 <footer class="border-t border-[var(--color-border)] mt-32">
@@ -12,8 +7,8 @@ const lastUpdate = new Date().toLocaleDateString("en-US", {
     <div class="grid md:grid-cols-[1fr_auto] gap-10 mb-12">
       <div class="max-w-md">
         <p class="text-[var(--color-fg-muted)] text-sm leading-relaxed">
-          Currently open to new projects and full-time roles in product design,
-          design systems, and AI-native tools.
+          Got a hard product problem? I'm taking on a small number of design
+          and AI-native build engagements through 2026.
         </p>
         <a
           href="mailto:gabriel@oliveibriel.com"
@@ -26,7 +21,7 @@ const lastUpdate = new Date().toLocaleDateString("en-US", {
         </a>
       </div>
 
-      <div class="grid grid-cols-3 gap-8 text-sm">
+      <div class="grid grid-cols-2 gap-8 text-sm">
         <div class="flex flex-col gap-2">
           <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Site</span>
           <a href="/work" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">Work</a>
@@ -37,14 +32,9 @@ const lastUpdate = new Date().toLocaleDateString("en-US", {
         <div class="flex flex-col gap-2">
           <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Connect</span>
           <a href="https://www.linkedin.com/in/oliveibriel" target="_blank" rel="noopener noreferrer" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">LinkedIn ↗</a>
-          <a href="https://github.com/oliveibriel" target="_blank" rel="noopener noreferrer" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">GitHub ↗</a>
-          <a href="https://read.cv/oliveibriel" target="_blank" rel="noopener noreferrer" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">Read.cv ↗</a>
-          <a href="/rss.xml" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">RSS</a>
-        </div>
-        <div class="flex flex-col gap-2">
-          <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Meta</span>
-          <a href="/uses" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">Uses</a>
-          <a href="/colophon" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">Colophon</a>
+          <a href="https://wa.me/5541984541993" target="_blank" rel="noopener noreferrer" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">WhatsApp ↗</a>
+          <a href="https://instagram.com/o.gabebastos" target="_blank" rel="noopener noreferrer" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">Instagram ↗</a>
+          <a href="mailto:gabriel@oliveibriel.com" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] transition-colors">Email</a>
         </div>
       </div>
     </div>
@@ -55,16 +45,11 @@ const lastUpdate = new Date().toLocaleDateString("en-US", {
         <span>·</span>
         <span>Curitiba, BR</span>
       </div>
-      <div class="flex items-center gap-3">
-        <span class="size-1.5 rounded-full bg-[var(--color-success)] animate-pulse"></span>
-        <span>Last updated {lastUpdate}</span>
-        <span>·</span>
-        <button
-          type="button"
-          onclick="document.getElementById('cmdk-trigger')?.click()"
-          class="hover:text-[var(--color-fg)] transition-colors"
-        >Press ⌘K</button>
-      </div>
+      <button
+        type="button"
+        onclick="document.getElementById('cmdk-trigger')?.click()"
+        class="hover:text-[var(--color-fg)] transition-colors text-left"
+      >Press ⌘K to search</button>
     </div>
   </div>
 </footer>
