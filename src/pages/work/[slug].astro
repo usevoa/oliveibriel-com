@@ -247,30 +247,66 @@ const paragraphs = (text: string) =>
         <!-- Gallery -->
         {study.gallery && study.gallery.length > 0 && (
           <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 md:py-16 border-t border-[var(--color-border)]">
+            <div class="flex items-baseline justify-between mb-8">
+              <h2 class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Selected screens</h2>
+              <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">{study.gallery.length} captures</span>
+            </div>
             <div class="grid md:grid-cols-2 gap-6 md:gap-8">
-              {study.gallery.map((img) => (
-                <figure class={img.aspect === "wide" ? "md:col-span-2" : ""}>
-                  <div class={`overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] ${
-                    img.aspect === "tall"
-                      ? "aspect-[3/4]"
-                      : img.aspect === "square"
-                      ? "aspect-square"
-                      : "aspect-[16/9]"
-                  }`}>
-                    <img
-                      src={img.src}
-                      alt={img.alt}
-                      class="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                  {img.caption && (
-                    <figcaption class="mt-3 font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
-                      {img.caption}
-                    </figcaption>
-                  )}
-                </figure>
-              ))}
+              {study.gallery.map((img) => {
+                const aspectClass =
+                  img.aspect === "tall"
+                    ? "aspect-[3/4]"
+                    : img.aspect === "square"
+                    ? "aspect-square"
+                    : "aspect-[16/9]";
+                const wide = img.aspect === "wide";
+                const showPlaceholder = !img.src && img.placeholder;
+                const defaultGradient =
+                  "linear-gradient(135deg, #1e293b 0%, #1e3a8a 55%, #1d4ed8 100%)";
+                return (
+                  <figure class={wide ? "md:col-span-2" : ""}>
+                    <div
+                      class={`relative overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] ${aspectClass}`}
+                      style={showPlaceholder ? `background: ${img.placeholder!.gradient || defaultGradient};` : undefined}
+                    >
+                      {img.src && (
+                        <img
+                          src={img.src}
+                          alt={img.alt}
+                          class="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      )}
+                      {showPlaceholder && (
+                        <div class="absolute inset-0 flex flex-col items-start justify-end p-6 md:p-8 gap-3 text-white">
+                          <span class="font-mono text-[10px] uppercase tracking-[0.16em] opacity-75 inline-flex items-center gap-2">
+                            <span class="size-1.5 rounded-full bg-[var(--color-accent-tint)] animate-pulse"></span>
+                            Placeholder · capture pending
+                          </span>
+                          <span class="text-2xl md:text-3xl font-extrabold tracking-tight leading-tight" style="letter-spacing:-0.025em;">
+                            {img.placeholder!.label}
+                          </span>
+                          {img.placeholder!.sublabel && (
+                            <span class="font-mono text-[11px] uppercase tracking-wider opacity-80">
+                              {img.placeholder!.sublabel}
+                            </span>
+                          )}
+                          <div class="absolute top-6 right-6 md:top-8 md:right-8 flex items-center gap-1.5">
+                            {[0, 1, 2].map(() => (
+                              <span class="size-1 rounded-full bg-white/40"></span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    {img.caption && (
+                      <figcaption class="mt-3 font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+                        {img.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                );
+              })}
             </div>
           </section>
         )}

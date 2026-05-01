@@ -9,10 +9,17 @@ export type CaseSection = {
 };
 
 export type GalleryItem = {
-  src: string;
+  src?: string; // optional when placeholder is present
   alt: string;
   caption?: string;
   aspect?: "wide" | "square" | "tall"; // controls grid span
+  // Renders a styled placeholder until the real screen ships.
+  // Keep both `placeholder` and `src` and the placeholder wins until src is set.
+  placeholder?: {
+    label: string; // big label, e.g. "Dashboard · Flowchart"
+    sublabel?: string; // small one, e.g. "InView V3 · 12.1\""
+    gradient?: string; // optional CSS gradient override
+  };
 };
 
 export type CaseLink = {
@@ -50,31 +57,164 @@ export const cases: Record<string, CaseStudy> = {
     yearRange: "2023 →",
     stack: [
       "Figma",
+      "Zeroheight",
       "Jira (NEM)",
       "Confluence",
       "Maze",
       "COPA-DATA Zenon v12",
-      "Siemens TIA Portal",
-      "Rockwell Studio 5000",
+      "Siemens TIA Portal v19",
+      "Rockwell Studio 5000 v36",
     ],
     contextOneLiner:
-      "IRIS is the on-machine HMI platform that runs every NETZSCH bead mill, disperser, mixer, and confectionery system the company ships globally. V3 is the unified rewrite — one design system, seven product lines, two panel sizes, deployed on factory floors 24/7.",
+      "IRIS is the on-machine HMI platform that runs every NETZSCH bead mill, disperser, mixer, and confectionery system the company ships globally. V3 is the unified rewrite — one design system, seven product lines, two panel sizes, deployed on factory floors 24/7 across PT, EN, and ES markets.",
     highlights: [
       { label: "Tickets shipped (Jira NEM)", value: "921" },
       { label: "Product lines on one DS", value: "7" },
       { label: "Completion rate", value: "99.6%" },
     ],
     challenge:
-      "Before V3, every NETZSCH machine had its own HMI — overlapping patterns, inconsistent navigation, duplicated design work across product lines. Operators trained on InView couldn't switch to a Confectionery panel without relearning the interface. Each new product cost months of design from scratch.\n\nThe constraints stacked up fast: 12.1\" and 15\" panels running Zenon v12 SCADA on Windows 10 IoT, two PLC stacks (Siemens S7-1500sp and Rockwell CompactLogix 5380), industrial environments where operators wear gloves under variable lighting, and a hard requirement that any V3 change couldn't break the running fleet.",
+      "Before V3, every NETZSCH machine had its own HMI. Overlapping patterns, inconsistent navigation, duplicated design work across product lines. Operators trained on InView couldn't switch to a Confectionery panel without relearning the interface. Each new product cost months of bespoke design from scratch.\n\nThe constraints stacked up fast: 12.1\" (1280×800) and 15\" (1920×1080) industrial panels running COPA-DATA Zenon v12 on Windows 10 IoT Enterprise LTSC. Two PLC stacks to support — Siemens S7-1500sp via TIA Portal v19, Rockwell CompactLogix 5380 via Studio 5000 v36 — without letting that divergence leak into design. Operators in the field wear gloves under variable lighting, work 24/7 shifts, and need answers in seconds. And the V3 design had to land without breaking the running fleet of V2 machines already deployed at customer plants.\n\nThe ask: one design system, seven products, zero inconsistency — while respecting that each machine has unique operational requirements that nobody outside that domain understands.",
     approach:
-      "Built the platform module by module against real machines. Started with InView (BeadMill) as the reference implementation, then extracted the patterns into the Plants design system as adjacent products came online — Confectionery, Epsilon, Mixers (PMH/PML), ZetaRS, Inside, Resino.\n\nStandardized a numbered module structure (Dashboard, Recipes, Alarms, Maintenance, Settings, History, etc.) so an operator finds the same function in the same place across any NETZSCH machine. Product-exclusive modules (Bead Filling, Scale Calibration, Operation Bar) slot into the standard nav without breaking it.\n\nValidated systematically — Maze testing, Dev Reviews, formal QA passes documenting divergence between Figma and the deployed HMI. The role spans the full chain: discovery → design → handoff → on-machine validation, plus training scripts, multilingual sales decks (PT/EN/ES), and integration design with NETZSCH Notify and IRIS Cloud.",
+      "Built the platform module by module against real machines, with InView (BeadMill) as the reference implementation. Every pattern that survived three product lines made it into the Plants design system; everything else stayed product-local until it earned its place.\n\nStandardized a numbered module architecture so an operator finds the same function in the same place across any NETZSCH machine — Dashboard at 02, Alarms at 04, Recipes at 09, Settings at 07, regardless of whether they're in front of an InView, a Confectionery, a ZetaRS, or a Mixer. Product-exclusive modules (Bead Filling at 17, Scale Calibration at 15, Cleaning at 16, Operation Bar at 02.3) slot into the standard nav without breaking it.\n\nValidated systematically — Maze studies for high-friction flows, Dev Reviews aligning Figma to Zenon implementation, and formal QA documentation of every divergence between mockup and deployed HMI. Beyond UI: training scripts and video edits in PT/EN, multilingual sales decks (PT/EN/ES), success cases, leaflets, board-level presentations, and integration design connecting IRIS to NETZSCH Notify (remote monitoring) and IRIS Cloud.",
     outcome:
-      "Seven product lines now run on one design system. New product onboarding compressed from months of bespoke design to weeks of configuration on top of the Plants DS. The InView Dashboard alone has 163+ frames in production; the Settings module on ZetaRS hits 107 frames — all on the same primitives.\n\nAcross 35 months and 921 Jira tickets (99.6% closed), the platform now covers the full NETZSCH G&D portfolio: BeadMill InView V3 / V3.2 / V3.3 (ZetaRS), Inside, Essentials, Confectionery V3 / V3.1, Epsilon InView V3, Mixer InView (PMH/PML), and Resino. Same operators, same training, same DS — every machine the company ships.",
+      "Seven product lines now run on one design system. New product onboarding compressed from months of bespoke design to weeks of configuration on top of the Plants DS. The InView Dashboard alone has 163+ frames in production; the Settings module on ZetaRS hits 107 frames; Confectionery's process settings is a 28k-pixel-tall composition of 21 frames — all on the same primitives.\n\nAcross 35 months and 921 Jira tickets (99.6% closed), the platform now covers the full G&D portfolio: BeadMill InView V3 / V3.2 / V3.3 (ZetaRS), Inside, Essentials, Confectionery V3 / V3.1, Epsilon InView V3, Mixer InView (PMH/PML), and Resino. Same operators, same training, same DS — every machine the company ships, in every market it sells.\n\nThe project's Jira footprint reads like a build log of the platform: 213 tasks in 2023 (ramp-up), 470 in 2024 (peak — 108 in January alone, mid-V3 expansion), 231 in 2025 (multi-product refinement and Cloud integration), and continuing through 2026.",
+    sections: [
+      {
+        heading: "Personas — designed for, not assumed",
+        body:
+          "Four personas drive every design decision. Each one has a different relationship to the machine, and the HMI has to serve all of them without pandering to any.\n\n**Operator** — on the factory floor, often PT or DE-speaking, running batches under shift pressure. Needs simple controls, low cognitive load, and no surprises. The Operation Bar and Dashboard are tuned for this user.\n\n**Maintenance Technician** — diagnostic context. Needs error logs, troubleshooting flows, and PLC status. The Alarms and Maintenance modules surface the right depth of detail without forcing it on operators.\n\n**Maintenance Coordinator** — equipment health overview, maintenance history, predictive alerts, planning. Sees the longitudinal view across a fleet of machines.\n\n**Production Supervisor** — KPIs, throughput, batch tracking, trends. The Production Indicators module (exclusive to InView, Epsilon, Mixers, and Confectionery) was built for this user.",
+      },
+      {
+        heading: "Design system — Plants",
+        body:
+          "The Plants DS is the foundation under all seven products. Tokens-first: Figma variables map to runtime CSS via documented contracts, so a color or spacing change in design flows to Zenon implementation without manual translation.\n\n**Tokens.** Neutral, Primary, Secondary, Error, Warning, Success, Background palettes. Inter as the typography system (Regular / Semibold / Bold), tuned for industrial readability at distance. Layout tokens cover both 12\" and 15\" form factors via a shared anatomy. System icons at 16px with 10 states (Blocked, Powered Off, Active, Force, Error, Selected, Warning, etc.).\n\n**40+ components.** Top Menu and Side Menu (with collapsible sections), Operation Bar with 14+ variants across 12\"/15\". Buttons with 12 specialized contexts (Main, Small, Top Menu, Login, Status, Action, Sidelined, Underlined, Side Menu, Trends, Control, Operation Bar). Modals (confirmation, input, multi-step), tooltips, snackbars. Industrial keypad for numeric input under gloves. Cards for Dashboard, Batch, Recipe. Trends with zoom & drag. Domain components — AlarmRow, BatchProgress, RecipeStep, P&ID flowchart with 13+ component modals (VFD, Discharge Valve, Proportional Valve, Sealing Pump, Promag, Promass).\n\n**Documented in Zeroheight** for the engineering team, owned in Figma, governed via a contribution flow that lets product squads propose components without losing system coherence.",
+      },
+      {
+        heading: "Modular architecture — same place, every machine",
+        body:
+          "Every IRIS product shares the same numbered module structure. This is the single most adoption-driving decision in the system — operators trained on one machine can navigate any other without retraining.\n\n00 System screens · 01 User Login · 02 Dashboard · 03 Maintenance · 04 Alarms · 05 Help · 06 History · 07 Settings · 08 Idle Power · 09 Recipes · 10 PID · 11 User Management · 12 Manual Actions.\n\nProduct-exclusive modules slot in without disrupting that structure: 13 Production Indicators (InView, Epsilon, Mixers, Confectionery), 15 Scale Calibration (Epsilon, Mixers, Confectionery), 16 Cleaning (same trio), 17 Bead Filling (InView, Confectionery), 02.3 Operation Bar (Mixers only).\n\n**Operation modes** layer on top: Circulation, Pass, Specific Energy (all grinding products), Dispersing (Epsilon only), Dosing and Mixing (Mixers, Confectionery), Remote (InView, ZetaRS via VPN with physical key switch). Different workflows, identical interaction model.",
+      },
+      {
+        heading: "Safety, permissions, and warranty tiers",
+        body:
+          "Industrial HMI demands strict access control. NETZSCH-only screens (PLC Status, technician-only Settings sections) are gated explicitly. Warranty tiers — Yellow / Green / Red — determine what the customer can modify without voiding warranty, and the UI surfaces that boundary at every actionable control.\n\nVPN remote access requires a physical key switch on the panel — software alone can't enable it. Irreversible actions (batch cancel, emergency stop) carry confirmation modals with two-step intent. Error states are explicit, never inferential.",
+      },
+      {
+        heading: "Validation — Maze, Dev Review, on-machine QA",
+        body:
+          "Validation runs at three layers. Maze tests for high-friction flows (recipe edit, alarm acknowledgment, manual sample-taking). Dev Reviews catch implementation drift between Figma and Zenon as the engineering team builds out screens. And once a machine ships, formal QA passes document every observed divergence between deployed HMI and the source mockup — 25 such reviews on file across the project.\n\nThe QA loop is intentionally slow and explicit. Industrial software lives 10+ years on a customer floor; cleaning up a UI mistake post-deploy costs more than catching it pre-handoff.",
+      },
+      {
+        heading: "Beyond UI — training, sales enablement, integration",
+        body:
+          "The role spans the chain. **Training:** 21+ Service Training scripts, 29+ video edits in PT and EN. Onboarding flows for the Kratos team and end customers. Help screens integrated directly into the interface so operators don't have to leave the panel for documentation.\n\n**Sales enablement:** IRIS Sales Decks versioned across 3 years and translated into PT/EN/ES. The IRISV3 Main Features Overview deck. Security and warranty-tier comparison leaflets. Documented success cases. Webinars and board-level presentations.\n\n**Integration design:** the IRIS ↔ NETZSCH Notify connection (including the NAT interface for remote operation), and the 2025 IRIS Cloud rollout. Each integration ships as a designed surface with the same DS primitives, so an operator never has to context-switch.",
+      },
+      {
+        heading: "Multi-product expansion",
+        body:
+          "The platform grew product by product as the DS matured. **2023 (213 tasks)** — InView reference build, Recipes / Batch / Dashboard / Operation Bar foundations. **2024 (470 tasks)** — peak year, with 108 tasks in January alone driving the Confectionery, Epsilon, and Plants DS expansion. Multilingual sales decks land. **2025 (231 tasks)** — Mixer InView (PMH/PML), Confectionery V3.1, sustained 15\"→12.1\" adaptation, IRIS Cloud integration, start/stop sequence design, system health management, CO² footprint surfaces. **2026 (in progress)** — Confectionery V3.1 Cleaning Air Process, water-based CIP, MasterRefiner Discharge Pump, Simple Recipe / Batch creation flows.\n\nProduct breakdown: BeadMill InView V3 (465 tasks), Confectionery V3 (186), InView V3.2 / V3.3 (45 + 20, latter is ZetaRS), Epsilon V3 (45), Mixer V3 (38), Confectionery V3.1 (37), Inside V3 (26), Plants DS (28), BeadMill Essentials V3 (6), Resino (5).",
+      },
+    ],
     links: [
       { label: "Jira NEM project", href: "https://netzsch.atlassian.net", external: true },
     ],
     reflection:
-      "Industrial UX is unforgiving in a useful way. Every design decision has to survive a 12-hour shift in PPE under bad lighting, not a 12-minute review with stakeholders. The compounding return is real — the same pattern, multiplied across seven product lines and thousands of operators, is where the value lives.",
+      "Industrial UX is unforgiving in a useful way. Every design decision has to survive a 12-hour shift in PPE under bad lighting, not a 12-minute review with stakeholders. The compounding return is real — the same pattern, multiplied across seven product lines and thousands of operators worldwide, is where the value lives.",
+    gallery: [
+      {
+        alt: "InView V3 dashboard with the live P&ID flowchart and operation bar",
+        caption: "InView · Dashboard · 12.1\"",
+        aspect: "wide",
+        placeholder: {
+          label: "Dashboard · Flowchart",
+          sublabel: "InView V3 · 12.1\" reference",
+          gradient: "linear-gradient(135deg,#0f172a 0%,#1e3a8a 60%,#1d4ed8 100%)",
+        },
+      },
+      {
+        alt: "Recipe management — circulation parameters and recipe metadata",
+        caption: "InView · Recipes · Circulation mode",
+        placeholder: {
+          label: "Recipe management",
+          sublabel: "InView V3 · 12.1\"",
+          gradient: "linear-gradient(135deg,#1e293b 0%,#334155 60%,#475569 100%)",
+        },
+      },
+      {
+        alt: "Trends chart with zoom and drag interaction",
+        caption: "InView · Trends · Zoom & Drag",
+        placeholder: {
+          label: "Trends · Zoom & Drag",
+          sublabel: "InView V3 · 12.1\"",
+          gradient: "linear-gradient(135deg,#0f766e 0%,#0d9488 60%,#14b8a6 100%)",
+        },
+      },
+      {
+        alt: "Active alarms queue with severity ranking",
+        caption: "Alarms · Active queue",
+        placeholder: {
+          label: "Alarms · Active queue",
+          sublabel: "Shared module · 12.1\"",
+          gradient: "linear-gradient(135deg,#7f1d1d 0%,#b91c1c 60%,#ef4444 100%)",
+        },
+      },
+      {
+        alt: "ZetaRS settings module with hardware configuration",
+        caption: "ZetaRS · Settings · 107 frames",
+        placeholder: {
+          label: "Settings · Hardware config",
+          sublabel: "ZetaRS · 12.1\" · 107 frames",
+          gradient: "linear-gradient(135deg,#1e293b 0%,#475569 60%,#64748b 100%)",
+        },
+      },
+      {
+        alt: "Confectionery widescreen dashboard with operation modes",
+        caption: "Confectionery V3.1 · Dashboard · 15\"",
+        aspect: "wide",
+        placeholder: {
+          label: "Confectionery 15\" Dashboard",
+          sublabel: "V3.1 · native widescreen · 1920×1080",
+          gradient: "linear-gradient(135deg,#7c2d12 0%,#c2410c 60%,#f97316 100%)",
+        },
+      },
+      {
+        alt: "Inside dashboard — simplified product, same DS",
+        caption: "Inside · Dashboard · 12.1\"",
+        placeholder: {
+          label: "Inside · simplified DS",
+          sublabel: "8 pages total",
+          gradient: "linear-gradient(135deg,#312e81 0%,#4338ca 60%,#6366f1 100%)",
+        },
+      },
+      {
+        alt: "Mixers exclusive operation bar module",
+        caption: "Mixer InView V3 · Operation Bar · 02.3",
+        placeholder: {
+          label: "Operation Bar · 02.3",
+          sublabel: "Mixer InView V3 · PMH/PML",
+          gradient: "linear-gradient(135deg,#3f6212 0%,#65a30d 60%,#84cc16 100%)",
+        },
+      },
+      {
+        alt: "Plants design system — selected components and tokens",
+        caption: "Plants DS · Component library",
+        aspect: "wide",
+        placeholder: {
+          label: "Plants Design System",
+          sublabel: "40+ components · 12\" + 15\" variants",
+          gradient: "linear-gradient(135deg,#1d4ed8 0%,#3b82f6 60%,#93c5fd 100%)",
+        },
+      },
+      {
+        alt: "Start and stop sequence — process logic visualization",
+        caption: "InView V3.2 · Start/stop sequence",
+        placeholder: {
+          label: "Start/Stop sequence",
+          sublabel: "Process logic · NEM-15769",
+          gradient: "linear-gradient(135deg,#7c3aed 0%,#a855f7 60%,#d946ef 100%)",
+        },
+      },
+    ],
   },
 
   "netzsch-design-system": {
