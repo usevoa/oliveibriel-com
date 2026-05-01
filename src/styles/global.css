@@ -173,6 +173,10 @@ html.js [data-reveal].is-visible {
 .hero-name {
   display: inline-block;
 }
+.hero-name .word {
+  display: inline-block;
+  white-space: nowrap;
+}
 .hero-name .ch {
   display: inline-block;
   opacity: 0;

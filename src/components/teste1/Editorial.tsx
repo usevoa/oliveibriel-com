@@ -597,13 +597,13 @@ function ContactSection() {
 
             <div className="mt-10 flex flex-wrap items-center gap-3">
               <motion.a
-                href="mailto:oliveibriel@gmail.com"
+                href="mailto:gabriel@oliveibriel.com"
                 whileHover={{ x: 4 }}
                 transition={{ type: "spring", stiffness: 300, damping: 26 }}
                 className="inline-flex items-center gap-2 px-6 py-4 rounded-full text-base font-medium"
                 style={{ backgroundColor: ACCENT, color: "white" }}
               >
-                oliveibriel@gmail.com →
+                gabriel@oliveibriel.com →
               </motion.a>
               <a
                 href="https://www.linkedin.com/in/oliveibriel"

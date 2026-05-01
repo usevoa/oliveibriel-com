@@ -50,7 +50,7 @@ function Nav() {
           <a className="px-3 py-1.5 rounded-full text-[#1d1d1f]/70 hover:text-[#1d1d1f] transition-colors" href="/work">Work</a>
           <a className="px-3 py-1.5 rounded-full text-[#1d1d1f]/70 hover:text-[#1d1d1f] transition-colors" href="/about">About</a>
           <a
-            href="mailto:oliveibriel@gmail.com"
+            href="mailto:gabriel@oliveibriel.com"
             className="ml-1 px-3.5 py-1.5 rounded-full bg-[#1d1d1f] text-white text-[13px] font-medium hover:bg-[#0071E3] transition-colors"
           >
             Get in touch
@@ -463,8 +463,8 @@ function Closing() {
           transition={{ duration: 0.7, ease: easeOut, delay: 0.3 }}
           className="mt-10 flex justify-center gap-3"
         >
-          <SoftButton href="mailto:oliveibriel@gmail.com" primary>
-            oliveibriel@gmail.com
+          <SoftButton href="mailto:gabriel@oliveibriel.com" primary>
+            gabriel@oliveibriel.com
           </SoftButton>
           <SoftButton href="https://www.linkedin.com/in/oliveibriel">LinkedIn</SoftButton>
         </motion.div>

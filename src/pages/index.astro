@@ -14,7 +14,8 @@ const clients = [
 ];
 
 const fullName = "Gabriel Oliveira";
-const chars = Array.from(fullName);
+const words = fullName.split(" ").map((w) => Array.from(w));
+let charIndex = 0;
 ---
 
 <BaseLayout>
@@ -29,7 +30,7 @@ const chars = Array.from(fullName);
             <span class="relative inline-flex rounded-full size-2 bg-[var(--color-success)]"></span>
           </span>
           <span class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-muted)]">
-            Available for new projects · April 2026
+            Available for new projects · May 2026
           </span>
         </div>
         <span class="hidden sm:flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
@@ -39,117 +40,104 @@ const chars = Array.from(fullName);
         </span>
       </div>
 
-      <!-- Main hero grid -->
-      <div class="grid lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16 items-center">
-        <div class="flex flex-col gap-6 md:gap-7">
-          <span class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)]" data-reveal>
-            Senior Product Designer
+      <!-- Hero — single column, text-led (video bg incoming) -->
+      <div class="flex flex-col gap-7 md:gap-9 max-w-[60ch]">
+        <span class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)]" data-reveal>
+          Senior Product Designer
+        </span>
+
+        <h1
+          class="display text-[clamp(2.75rem,7.4vw,6rem)] leading-[0.95]"
+          aria-label={fullName}
+        >
+          <span class="hero-name" aria-hidden="true">
+            {words.map((wordChars, wIdx) => (
+              <>
+                <span class="word">
+                  {wordChars.map((c) => {
+                    const i = charIndex++;
+                    return <span class="ch" data-i={i}>{c}</span>;
+                  })}
+                </span>{wIdx < words.length - 1 ? "\u00A0" : ""}
+              </>
+            ))}
           </span>
+        </h1>
 
-          <h1
-            class="display text-[clamp(2.75rem,7vw,5.5rem)] leading-[0.95]"
-            aria-label={fullName}
+        <p class="text-xl md:text-2xl text-[var(--color-fg-muted)] leading-snug" data-reveal data-reveal-delay="3">
+          I design and ship
+          <span class="kw">industrial SaaS</span>,
+          <span class="kw">design systems</span>, and
+          <span class="kw">AI-native tools</span>.
+          Currently leading UX on
+          <span class="font-medium text-[var(--color-fg)]">IRIS V3</span> at
+          <span class="font-medium text-[var(--color-fg)]">NETZSCH</span>
+          and co-running
+          <span class="font-medium text-[var(--color-fg)]">VOA Digital</span>
+          with my sister.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3 mt-2" data-reveal data-reveal-delay="4">
+          <a
+            href="/work"
+            class="magnetic group inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[var(--color-fg)] hover:bg-[var(--color-accent)] text-white text-sm font-medium transition-colors"
+            data-magnetic-strength="10"
           >
-            <span class="hero-name" aria-hidden="true">
-              {chars.map((c, i) => (
-                <span class="ch" data-i={i}>{c === " " ? "\u00A0" : c}</span>
-              ))}
-            </span>
-          </h1>
-
-          <p class="text-lg md:text-2xl text-[var(--color-fg-muted)] leading-snug max-w-2xl" data-reveal data-reveal-delay="3">
-            I design and ship
-            <span class="kw">industrial SaaS</span>,
-            <span class="kw">design systems</span>, and
-            <span class="kw">AI-native tools</span> —
-            currently at <span class="font-medium text-[var(--color-fg)]">NETZSCH</span>
-            and <span class="font-medium text-[var(--color-fg)]">VOA Digital</span>.
-          </p>
-
-          <div class="flex flex-wrap items-center gap-3 mt-2" data-reveal data-reveal-delay="4">
-            <a
-              href="/work"
-              class="magnetic group inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[var(--color-fg)] hover:bg-[var(--color-accent)] text-white text-sm font-medium transition-colors"
-              data-magnetic-strength="10"
-            >
-              View selected work
-              <svg class="size-4 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
-            <a
-              href="https://storage.googleapis.com/2026portfolio/CV/Gabriel_Oliveira_CV.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-[var(--color-border-strong)] hover:border-[var(--color-fg)] hover:bg-[var(--color-bg-soft)] text-[var(--color-fg)] text-sm font-medium transition-colors"
-            >
-              Download CV
-              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-              </svg>
-            </a>
-          </div>
-
-          <!-- Stats inline -->
-          <dl class="mt-6 md:mt-8 flex flex-wrap gap-8 md:gap-12" data-reveal data-reveal-delay="5">
-            <div class="flex flex-col gap-1">
-              <dt class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Years</dt>
-              <dd class="text-2xl md:text-3xl font-bold tabular tracking-tight">10<span class="text-[var(--color-fg-subtle)]">+</span></dd>
-            </div>
-            <div class="flex flex-col gap-1">
-              <dt class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Shipped</dt>
-              <dd class="text-2xl md:text-3xl font-bold tabular tracking-tight">14<span class="text-[var(--color-fg-subtle)]">/cases</span></dd>
-            </div>
-            <div class="flex flex-col gap-1">
-              <dt class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Onboarding</dt>
-              <dd class="text-2xl md:text-3xl font-bold tabular tracking-tight text-[var(--color-accent)]">−40<span class="text-[var(--color-fg-subtle)]">%</span></dd>
-            </div>
-            <div class="flex flex-col gap-1">
-              <dt class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Reach</dt>
-              <dd class="text-2xl md:text-3xl font-bold tabular tracking-tight">M<span class="text-[var(--color-fg-subtle)]">+ users</span></dd>
-            </div>
-          </dl>
+            View selected work
+            <svg class="size-4 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a
+            href="mailto:gabriel@oliveibriel.com"
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-[var(--color-border-strong)] hover:border-[var(--color-fg)] hover:bg-[var(--color-bg-soft)] text-[var(--color-fg)] text-sm font-medium transition-colors"
+          >
+            Get in touch
+            <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
         </div>
 
-        <!-- Photo — tilt 3D + stripe reveal -->
-        <div class="tilt-wrap relative max-w-[440px] mx-auto lg:mx-0 w-full" data-reveal data-reveal-delay="2">
-          <div class="tilt relative aspect-[4/5] rounded-2xl overflow-hidden border border-[var(--color-border)] bg-[var(--color-bg-soft)] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.18)]">
-            <div class="stripe-reveal w-full h-full">
-              <img
-                src="https://storage.googleapis.com/2026portfolio/Home/Link.jpg"
-                alt="Gabriel Oliveira"
-                class="w-full h-full object-cover"
-              />
-            </div>
-
-            <!-- Floating tag bottom-left -->
-            <div class="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3 pointer-events-none">
-              <div class="px-3 py-2 rounded-lg bg-[rgba(255,255,255,0.92)] backdrop-blur border border-[var(--color-border)] shadow-sm">
-                <div class="font-mono text-[9px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Now</div>
-                <div class="text-xs font-medium text-[var(--color-fg)]">IRIS V3 @ NETZSCH</div>
-              </div>
-              <div class="px-3 py-2 rounded-lg bg-[rgba(255,255,255,0.92)] backdrop-blur border border-[var(--color-border)] shadow-sm">
-                <div class="font-mono text-[9px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Co-founder</div>
-                <div class="text-xs font-medium text-[var(--color-fg)]">VOA Digital</div>
-              </div>
-            </div>
+        <!-- Stats — concrete, attributed to projects -->
+        <dl class="mt-8 md:mt-12 grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-6 max-w-3xl" data-reveal data-reveal-delay="5">
+          <div class="flex flex-col gap-1.5 border-l-2 border-[var(--color-border)] pl-4">
+            <dt class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Years shipping</dt>
+            <dd class="text-2xl md:text-[28px] font-bold tabular tracking-tight">10<span class="text-[var(--color-fg-subtle)]">+</span></dd>
           </div>
-        </div>
+          <div class="flex flex-col gap-1.5 border-l-2 border-[var(--color-border)] pl-4">
+            <dt class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Case studies</dt>
+            <dd class="text-2xl md:text-[28px] font-bold tabular tracking-tight">14</dd>
+          </div>
+          <div class="flex flex-col gap-1.5 border-l-2 border-[var(--color-accent)] pl-4">
+            <dt class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">IRIS V3 onboarding</dt>
+            <dd class="text-2xl md:text-[28px] font-bold tabular tracking-tight text-[var(--color-accent)]">−40<span>%</span></dd>
+          </div>
+          <div class="flex flex-col gap-1.5 border-l-2 border-[var(--color-border)] pl-4">
+            <dt class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">SuperDigital reach</dt>
+            <dd class="text-2xl md:text-[28px] font-bold tabular tracking-tight">3M<span class="text-[var(--color-fg-subtle)]">+ users</span></dd>
+          </div>
+        </dl>
       </div>
     </div>
   </section>
 
-  <!-- Marquee ticker of clients -->
-  <section class="border-y border-[var(--color-border)] py-5 overflow-hidden bg-[var(--color-bg-soft)]/60">
-    <div class="flex marquee whitespace-nowrap gap-12 font-mono text-xs uppercase tracking-[0.18em] text-[var(--color-fg-subtle)]">
-      {[...Array(3)].flatMap(() =>
-        clients.map((c) => (
-          <span class="inline-flex items-center gap-12">
-            {c}
-            <span class="size-1 rounded-full bg-[var(--color-fg-faint)]"></span>
-          </span>
-        ))
-      )}
+  <!-- Trusted by — readable, framed -->
+  <section class="border-y border-[var(--color-border)] py-7 overflow-hidden bg-[var(--color-bg-soft)]">
+    <div class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10">
+      <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-fg-subtle)] mb-4">
+        Trusted by · Selected clients
+      </div>
+      <div class="flex marquee whitespace-nowrap gap-x-14 font-mono text-sm uppercase tracking-[0.16em] text-[var(--color-fg)] font-medium">
+        {[...Array(3)].flatMap(() =>
+          clients.map((c) => (
+            <span class="inline-flex items-center gap-x-14">
+              {c}
+              <span class="size-1.5 rounded-full bg-[var(--color-accent)]"></span>
+            </span>
+          ))
+        )}
+      </div>
     </div>
   </section>
 
@@ -175,7 +163,7 @@ const chars = Array.from(fullName);
     </div>
   </section>
 
-  <!-- Approach -->
+  <!-- How I work — evidence over slogans -->
   <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-20 md:py-28 border-t border-[var(--color-border)]">
     <div class="grid md:grid-cols-[1fr_2fr] gap-10 md:gap-16">
       <div data-reveal>
@@ -183,28 +171,36 @@ const chars = Array.from(fullName);
         <h2 class="mt-2 text-3xl md:text-5xl font-extrabold display">
           How I work.
         </h2>
+        <p class="mt-4 text-[var(--color-fg-muted)] leading-relaxed text-sm md:text-base max-w-sm">
+          Less manifesto, more receipts. Each principle below maps to something
+          I've actually shipped.
+        </p>
       </div>
       <div class="grid gap-px bg-[var(--color-border)] rounded-xl overflow-hidden border border-[var(--color-border)]">
         {[
           {
             n: "01",
-            t: "Evidence-based design",
-            d: "Research, testing, and workshops drive decisions — not opinions or aesthetics.",
+            t: "Ship before you generalize",
+            d: "I build the messy v1 with real users, then extract the patterns. The IRIS V3 design system started as five operator screens — not an abstract token table.",
+            tag: "IRIS V3",
           },
           {
             n: "02",
-            t: "Systems thinking",
-            d: "Flows, IA, and reusable components. Never just isolated screens.",
+            t: "Design for the operator, not the demo",
+            d: "Industrial software is used by people in PPE under time pressure. Color, hierarchy, and feedback decisions are made for the worst lighting and shortest attention — not the marketing screenshot.",
+            tag: "NETZSCH HMIs",
           },
           {
             n: "03",
-            t: "Cross-functional craft",
-            d: "Aligned with PMs and engineers from kickoff through ship.",
+            t: "Own the full stack of the artifact",
+            d: "I move from Figma to React to deploy when it's faster. I shipped Nerida (multi-tenant SaaS) and the VOA Portal solo, end-to-end, with Claude Code as build partner.",
+            tag: "Nerida · VOA Portal",
           },
           {
             n: "04",
-            t: "AI as a build partner",
-            d: "Prototyping, scripting, scaffolding — using LLMs to ship faster without giving up taste.",
+            t: "AI compresses the boring parts",
+            d: "LLMs handle scaffolding, schema mapping, copy iteration, and one-off scripts. Taste, decisions, and the system itself stay mine.",
+            tag: "Garmin Coach",
           },
         ].map((step, i) => (
           <div class="bg-[var(--color-bg)] p-6 md:p-7 grid grid-cols-[auto_1fr] gap-5 md:gap-7 items-start" data-reveal data-reveal-delay={i + 1}>
@@ -212,6 +208,10 @@ const chars = Array.from(fullName);
             <div>
               <h3 class="text-xl md:text-2xl font-bold tracking-tight" style="letter-spacing:-0.03em;">{step.t}</h3>
               <p class="mt-1.5 text-[var(--color-fg-muted)] leading-relaxed">{step.d}</p>
+              <div class="mt-3 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)]">
+                <span class="size-1 rounded-full bg-[var(--color-accent)]"></span>
+                Receipts: {step.tag}
+              </div>
             </div>
           </div>
         ))}
@@ -233,11 +233,11 @@ const chars = Array.from(fullName);
       </p>
       <div class="flex flex-wrap items-center gap-3 mt-2">
         <a
-          href="mailto:oliveibriel@gmail.com"
+          href="mailto:gabriel@oliveibriel.com"
           class="magnetic group inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[var(--color-fg)] hover:bg-[var(--color-accent)] text-white text-sm font-medium transition-colors"
           data-magnetic-strength="12"
         >
-          oliveibriel@gmail.com
+          gabriel@oliveibriel.com
           <svg class="size-4 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M7 17 17 7M7 7h10v10"/>
           </svg>

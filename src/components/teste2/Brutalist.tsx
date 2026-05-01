@@ -158,7 +158,7 @@ function Hero({ reduced }: { reduced: boolean }) {
               <CtaButton href="/work" variant="primary">
                 cd ./work
               </CtaButton>
-              <CtaButton href="mailto:oliveibriel@gmail.com" variant="ghost">
+              <CtaButton href="mailto:gabriel@oliveibriel.com" variant="ghost">
                 ./contact.sh
               </CtaButton>
             </motion.div>
@@ -378,14 +378,14 @@ function Closing() {
           I respond within a few days.
         </p>
         <motion.a
-          href="mailto:oliveibriel@gmail.com"
+          href="mailto:gabriel@oliveibriel.com"
           whileHover={{ x: -1, y: -1, boxShadow: "6px 6px 0 0 #65A30D" }}
           whileTap={{ x: 2, y: 2, boxShadow: "0 0 0 0 #65A30D" }}
           transition={{ type: "spring", stiffness: 500, damping: 30 }}
           className="inline-flex items-center gap-3 px-5 py-3 bg-[#0a0a0a] text-[#F4F4EE] border-2 border-[#0a0a0a] font-mono text-base hover:bg-[#65A30D] hover:border-[#65A30D] transition-colors"
         >
           <span className="text-[#65A30D] group-hover:text-[#0a0a0a]">→</span>
-          oliveibriel@gmail.com
+          gabriel@oliveibriel.com
         </motion.a>
       </motion.div>
     </section>

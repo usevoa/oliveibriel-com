@@ -1,62 +1,242 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import { featured, archive } from "../data/projects";
+import { projects } from "../data/projects";
+
+// Distinct types for filter pills
+const types = Array.from(
+  new Set(projects.map((p) => p.type.split("·")[0].trim()))
+);
+
+// All featured + archive sorted by year desc for the index list
+const sortedAll = [...projects].sort((a, b) =>
+  parseInt(b.year) - parseInt(a.year)
+);
 ---
 
 <BaseLayout
   title="Work — Gabriel Oliveira"
-  description="Selected case studies in industrial SaaS, design systems, and AI-native product design."
+  description="14 case studies across industrial SaaS, design systems, AI-native tools, fintech, and public-sector platforms."
 >
-  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pt-16 md:pt-24 pb-12">
-    <span class="font-mono text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">
-      Work
+  <!-- Page hero -->
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pt-14 md:pt-20 pb-10">
+    <span class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+      Work · 14 projects · 2016 → 2025
     </span>
     <h1
-      class="mt-3 text-4xl md:text-6xl font-extrabold"
-      style="letter-spacing: -0.045em;"
+      class="mt-3 text-4xl md:text-6xl font-extrabold display"
+      style="letter-spacing:-0.045em;"
     >
-      Selected case studies.
+      Everything I've shipped<br />in the last decade.
     </h1>
     <p class="mt-5 text-lg text-[var(--color-fg-muted)] max-w-2xl leading-relaxed">
-      A curated set of projects in B2B SaaS, design systems, and AI-native tools.
-      Each one documents process, decisions, and trade-offs.
+      Industrial SaaS, design systems, AI-native tools, fintech, public-sector
+      platforms, and a couple of indie games to prove I started somewhere weird.
+      Filter by type or scroll the index.
     </p>
   </section>
 
-  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12">
-    <div class="flex items-baseline justify-between mb-8">
-      <h2 class="font-mono text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">
-        Featured
-      </h2>
-      <span class="font-mono text-xs text-[var(--color-fg-subtle)]">{featured.length} projects</span>
-    </div>
-    <div class="grid md:grid-cols-2 gap-5">
-      {featured.map((project) => <ProjectCard project={project} />)}
+  <!-- Filter pills -->
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pb-10">
+    <div class="flex flex-wrap items-center gap-2" id="filter-bar">
+      <button
+        type="button"
+        data-filter="all"
+        class="filter-pill active"
+        aria-pressed="true"
+      >
+        All <span class="opacity-60">{projects.length}</span>
+      </button>
+      {types.map((t) => {
+        const count = projects.filter((p) => p.type.startsWith(t)).length;
+        return (
+          <button
+            type="button"
+            data-filter={t}
+            class="filter-pill"
+            aria-pressed="false"
+          >
+            {t} <span class="opacity-60">{count}</span>
+          </button>
+        );
+      })}
     </div>
   </section>
 
-  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 border-t border-[var(--color-border)]">
-    <div class="flex items-baseline justify-between mb-8">
-      <h2 class="font-mono text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">
-        Archive
+  <!-- Featured grid — bento-style, mixed sizes to differ from /home -->
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pb-16">
+    <div class="flex items-baseline justify-between mb-6">
+      <h2 class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+        Featured cases
       </h2>
-      <span class="font-mono text-xs text-[var(--color-fg-subtle)]">{archive.length} projects</span>
+      <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+        Click to read the story
+      </span>
     </div>
-    <ul class="divide-y divide-[var(--color-border)]">
-      {archive.map((project) => (
-        <li>
+    <div class="grid md:grid-cols-3 gap-5 md:gap-6 auto-rows-auto" id="featured-grid">
+      {projects.filter((p) => p.featured).map((project, i) => (
+        <div
+          class="project-tile"
+          data-type={project.type.split("·")[0].trim()}
+          data-size={project.size ?? "normal"}
+          style={
+            project.size === "wide"
+              ? "grid-column: span 2;"
+              : project.size === "tall"
+              ? "grid-row: span 2;"
+              : ""
+          }
+        >
+          <ProjectCard project={project} index={i} size={project.size} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Index table — every project, dense, sortable feel -->
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-14 border-t border-[var(--color-border)]">
+    <div class="flex items-baseline justify-between mb-6">
+      <h2 class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+        Full index
+      </h2>
+      <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]" id="index-count">
+        {sortedAll.length} projects
+      </span>
+    </div>
+
+    <div class="hidden md:grid grid-cols-[3rem_2.4fr_1.6fr_1.4fr_5rem_1.5rem] gap-4 px-3 pb-2 mb-1 border-b border-[var(--color-border)] font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+      <span>#</span><span>Project</span><span>Client</span><span>Type</span><span>Year</span><span></span>
+    </div>
+
+    <ul class="divide-y divide-[var(--color-border)]" id="index-list">
+      {sortedAll.map((project) => (
+        <li
+          class="index-row"
+          data-type={project.type.split("·")[0].trim()}
+        >
           <a
             href={`/work/${project.slug}`}
-            class="grid grid-cols-[3rem_1fr_auto] md:grid-cols-[3rem_1fr_1fr_auto] items-center gap-4 py-4 hover:bg-[var(--color-bg-elevated)] -mx-4 px-4 rounded-lg transition-colors"
+            class="grid md:grid-cols-[3rem_2.4fr_1.6fr_1.4fr_5rem_1.5rem] grid-cols-[2.4rem_1fr_auto] items-center gap-3 md:gap-4 py-3.5 px-3 -mx-3 rounded-lg hover:bg-[var(--color-bg-elevated)] transition-colors group"
           >
-            <span class="font-mono text-xs text-[var(--color-fg-subtle)]">{project.number}</span>
-            <span class="font-medium">{project.title}</span>
+            <span class="font-mono text-[11px] text-[var(--color-fg-subtle)]">{project.number}</span>
+            <span class="font-medium text-[var(--color-fg)] flex items-center gap-2">
+              {project.title}
+              {project.ai && (
+                <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-mono uppercase tracking-wider bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20">
+                  AI
+                </span>
+              )}
+              {project.featured && (
+                <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-mono uppercase tracking-wider text-[var(--color-fg-subtle)] border border-[var(--color-border)]">
+                  Featured
+                </span>
+              )}
+            </span>
+            <span class="hidden md:block font-mono text-xs text-[var(--color-fg-muted)]">{project.client}</span>
             <span class="hidden md:block font-mono text-xs text-[var(--color-fg-subtle)]">{project.type}</span>
-            <span class="font-mono text-xs text-[var(--color-fg-subtle)]">{project.year}</span>
+            <span class="hidden md:block font-mono text-xs text-[var(--color-fg-subtle)] tabular">{project.year}</span>
+            <span class="font-mono text-xs text-[var(--color-fg-subtle)] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">→</span>
           </a>
         </li>
       ))}
     </ul>
+
+    <p class="empty-state mt-8 text-center text-sm text-[var(--color-fg-muted)] hidden">
+      No projects match this filter. <button type="button" class="underline" id="clear-filter">Reset</button>
+    </p>
+  </section>
+
+  <!-- CTA -->
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-20 border-t border-[var(--color-border)]">
+    <div class="flex flex-col gap-5 max-w-2xl">
+      <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+        Working on something hard?
+      </span>
+      <h2 class="text-3xl md:text-5xl font-extrabold display" style="letter-spacing:-0.045em;">
+        Let's get into the weeds together.
+      </h2>
+      <a
+        href="mailto:gabriel@oliveibriel.com"
+        class="self-start inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[var(--color-fg)] hover:bg-[var(--color-accent)] text-white text-sm font-medium transition-colors mt-2"
+      >
+        gabriel@oliveibriel.com
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7 17 17 7M7 7h10v10"/>
+        </svg>
+      </a>
+    </div>
   </section>
 </BaseLayout>
+
+<style>
+  .filter-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-fg-muted);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .filter-pill:hover {
+    border-color: var(--color-fg-subtle);
+    color: var(--color-fg);
+  }
+  .filter-pill.active {
+    background: var(--color-fg);
+    color: #fff;
+    border-color: var(--color-fg);
+  }
+  .project-tile.is-hidden,
+  .index-row.is-hidden {
+    display: none;
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const bar = document.getElementById("filter-bar");
+    const tiles = document.querySelectorAll(".project-tile");
+    const rows = document.querySelectorAll(".index-row");
+    const counter = document.getElementById("index-count");
+    const empty = document.querySelector(".empty-state");
+    const clearBtn = document.getElementById("clear-filter");
+
+    if (!bar) return;
+
+    const apply = (filter) => {
+      let visible = 0;
+      tiles.forEach((el) => {
+        const match = filter === "all" || el.dataset.type === filter;
+        el.classList.toggle("is-hidden", !match);
+      });
+      rows.forEach((el) => {
+        const match = filter === "all" || el.dataset.type === filter;
+        el.classList.toggle("is-hidden", !match);
+        if (match) visible++;
+      });
+      if (counter) counter.textContent = `${visible} project${visible === 1 ? "" : "s"}`;
+      if (empty) empty.classList.toggle("hidden", visible !== 0);
+      bar.querySelectorAll(".filter-pill").forEach((p) => {
+        const isActive = p.dataset.filter === filter;
+        p.classList.toggle("active", isActive);
+        p.setAttribute("aria-pressed", String(isActive));
+      });
+    };
+
+    bar.addEventListener("click", (e) => {
+      const target = e.target.closest(".filter-pill");
+      if (!target) return;
+      apply(target.dataset.filter);
+    });
+
+    if (clearBtn) clearBtn.addEventListener("click", () => apply("all"));
+  })();
+</script>
