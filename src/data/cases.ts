@@ -44,26 +44,37 @@ const CDN = "https://storage.googleapis.com/2026portfolio/Projects";
 export const cases: Record<string, CaseStudy> = {
   "iris-v3": {
     slug: "iris-v3",
-    role: "Senior Product Designer · UX lead",
-    team: "Cross-functional: PM, 4 engineers, firmware, field-ops",
-    duration: "16 months",
-    yearRange: "2023 → 2024",
-    stack: ["Figma", "Storybook", "React", "TypeScript", "Industrial OPC-UA"],
+    role: "Senior UX/UI Designer — sole designer on the platform",
+    team: "Cross-functional with PMs, BE/FE engineers, firmware, QA, field service · NETZSCH G&D + Techco.lab",
+    duration: "35 months · 2023-04 → present",
+    yearRange: "2023 →",
+    stack: [
+      "Figma",
+      "Jira (NEM)",
+      "Confluence",
+      "Maze",
+      "COPA-DATA Zenon v12",
+      "Siemens TIA Portal",
+      "Rockwell Studio 5000",
+    ],
     contextOneLiner:
-      "IRIS is the operator HMI that runs NETZSCH industrial machines on factory floors across 30+ countries. V3 was a full UX rewrite — recipes, alarms, diagnostics, maintenance, the works.",
+      "IRIS is the on-machine HMI platform that runs every NETZSCH bead mill, disperser, mixer, and confectionery system the company ships globally. V3 is the unified rewrite — one design system, seven product lines, two panel sizes, deployed on factory floors 24/7.",
     highlights: [
-      { label: "Operator onboarding", value: "−40%" },
-      { label: "Touch targets reworked", value: "100%" },
-      { label: "Languages shipped", value: "11" },
+      { label: "Tickets shipped (Jira NEM)", value: "921" },
+      { label: "Product lines on one DS", value: "7" },
+      { label: "Completion rate", value: "99.6%" },
     ],
     challenge:
-      "V2 was a desktop-era HMI ported into industrial touchscreens. Operators wore gloves, worked in dim plants, and needed answers in seconds — not menus three deep. New hires took weeks to ship a recipe end-to-end. Field service spent half their time fielding questions that the UI should have answered.\n\nWe needed a system that worked for the senior operator who knew the machine cold *and* the new hire on day three, without dumbing it down for either.",
+      "Before V3, every NETZSCH machine had its own HMI — overlapping patterns, inconsistent navigation, duplicated design work across product lines. Operators trained on InView couldn't switch to a Confectionery panel without relearning the interface. Each new product cost months of design from scratch.\n\nThe constraints stacked up fast: 12.1\" and 15\" panels running Zenon v12 SCADA on Windows 10 IoT, two PLC stacks (Siemens S7-1500sp and Rockwell CompactLogix 5380), industrial environments where operators wear gloves under variable lighting, and a hard requirement that any V3 change couldn't break the running fleet.",
     approach:
-      "Started with five real screens — recipe edit, batch monitoring, alarm queue, maintenance log, and an operator dashboard — built end-to-end with PM and engineering before extracting any patterns. Shadowed three plants over two weeks before any pixels.\n\nAll color, typography, and feedback decisions were made for the worst-case lighting and shortest attention span. Big touch targets, locked critical actions behind two-step intent, and a visual language that scaled from the 7-inch HMI to the 24-inch supervisor monitor. The IRIS DS (case below) crystallized out of these screens.",
+      "Built the platform module by module against real machines. Started with InView (BeadMill) as the reference implementation, then extracted the patterns into the Plants design system as adjacent products came online — Confectionery, Epsilon, Mixers (PMH/PML), ZetaRS, Inside, Resino.\n\nStandardized a numbered module structure (Dashboard, Recipes, Alarms, Maintenance, Settings, History, etc.) so an operator finds the same function in the same place across any NETZSCH machine. Product-exclusive modules (Bead Filling, Scale Calibration, Operation Bar) slot into the standard nav without breaking it.\n\nValidated systematically — Maze testing, Dev Reviews, formal QA passes documenting divergence between Figma and the deployed HMI. The role spans the full chain: discovery → design → handoff → on-machine validation, plus training scripts, multilingual sales decks (PT/EN/ES), and integration design with NETZSCH Notify and IRIS Cloud.",
     outcome:
-      "Onboarding for new operators dropped ~40% in time-to-first-recipe across pilot plants. Alarm acknowledgment time improved enough that a long-running KPI on missed alarms went green for the first time in years.\n\nIRIS V3 shipped in 11 languages and is now the default HMI on new lines. The DS extracted from this work is now the basis for three other NETZSCH product lines.",
+      "Seven product lines now run on one design system. New product onboarding compressed from months of bespoke design to weeks of configuration on top of the Plants DS. The InView Dashboard alone has 163+ frames in production; the Settings module on ZetaRS hits 107 frames — all on the same primitives.\n\nAcross 35 months and 921 Jira tickets (99.6% closed), the platform now covers the full NETZSCH G&D portfolio: BeadMill InView V3 / V3.2 / V3.3 (ZetaRS), Inside, Essentials, Confectionery V3 / V3.1, Epsilon InView V3, Mixer InView (PMH/PML), and Resino. Same operators, same training, same DS — every machine the company ships.",
+    links: [
+      { label: "Jira NEM project", href: "https://netzsch.atlassian.net", external: true },
+    ],
     reflection:
-      "Industrial software is a domain where UX has compounding returns — every saved second multiplies across thousands of operators. The trap is over-designing for the demo. Every decision had to survive a 12-hour shift, not a 12-minute review.",
+      "Industrial UX is unforgiving in a useful way. Every design decision has to survive a 12-hour shift in PPE under bad lighting, not a 12-minute review with stakeholders. The compounding return is real — the same pattern, multiplied across seven product lines and thousands of operators, is where the value lives.",
   },
 
   "netzsch-design-system": {

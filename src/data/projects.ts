@@ -25,13 +25,13 @@ export const projects: Project[] = [
     number: "01",
     title: "IRIS V3",
     client: "NETZSCH",
-    year: "2024",
-    type: "Industrial SaaS",
+    year: "2023→",
+    type: "Industrial HMI Platform",
     summary:
-      "End-to-end UX for a global industrial HMI platform. Led from strategy to ship.",
+      "Sole UX designer on NETZSCH's global HMI platform. 7 product lines, one design system, 35 months and counting.",
     image: `${CDN}/IRIS/IRIS_Cover.png`,
     featured: true,
-    metric: { label: "Onboarding time", value: "−40%" },
+    metric: { label: "Product lines unified", value: "7" },
     size: "wide",
   },
   {
