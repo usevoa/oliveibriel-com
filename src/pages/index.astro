@@ -35,7 +35,11 @@ let charIndex = 0;
                 <span class="word">
                   {wordChars.map((c) => {
                     const i = charIndex++;
-                    return <span class="ch" data-i={i}>{c}</span>;
+                    return (
+                      <span class="ch" data-i={i} style={`--i:${i}`}>
+                        <span class="ch-inner">{c}</span>
+                      </span>
+                    );
                   })}
                 </span>{wIdx < words.length - 1 ? "\u00A0" : ""}
               </>
