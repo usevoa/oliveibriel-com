@@ -1,0 +1,35 @@
+---
+import Editorial from "../components/teste1/Editorial.tsx";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teste 01 — Editorial · Gabriel Oliveira</title>
+    <meta name="description" content="Variant 01 — Editorial Magazine direction for the portfolio home." />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style is:global>
+      :root { color-scheme: light; }
+      html, body { background: #FAF7F2; color: #1A1814; }
+      html { font-family: "Inter", ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+      body { font-feature-settings: "cv11","ss01","ss03"; min-height: 100vh; }
+      ::selection { background: #1A1814; color: #FAF7F2; }
+      .font-mono, [class*="font-mono"] { font-family: "JetBrains Mono", ui-monospace, monospace; }
+      :focus-visible { outline: 2px solid #1A1814; outline-offset: 3px; border-radius: 2px; }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <Editorial client:load />
+  </body>
+</html>

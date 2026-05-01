@@ -4,12 +4,14 @@ import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 
+import react from "@astrojs/react";
+
 export default defineConfig({
   site: "https://oliveibriel.com",
   vite: {
     plugins: [tailwindcss()],
   },
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx(), sitemap(), react()],
   prefetch: {
     prefetchAll: true,
     defaultStrategy: "viewport",
