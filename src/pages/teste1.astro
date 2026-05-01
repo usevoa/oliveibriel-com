@@ -23,14 +23,16 @@ import "../styles/tailwind-only.css";
     />
     <style is:global>
       :root { color-scheme: light; }
-      html, body { background: #FAF7F2; color: #1A1814; }
+      html, body { background: #E9E9EB; color: #1A1A1F; }
       html { font-family: "Inter", ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
       body { font-feature-settings: "cv11","ss01","ss03"; min-height: 100vh; }
-      ::selection { background: #1A1814; color: #FAF7F2; }
+      ::selection { background: #1d4ed8; color: #fff; }
       .font-mono, [class*="font-mono"] { font-family: "JetBrains Mono", ui-monospace, monospace; }
-      :focus-visible { outline: 2px solid #1A1814; outline-offset: 3px; border-radius: 2px; }
+      :focus-visible { outline: 2px solid #1d4ed8; outline-offset: 3px; border-radius: 4px; }
+      html { scroll-behavior: smooth; }
+      @keyframes pulse { 0%, 100% { opacity: 1 } 50% { opacity: 0.4 } }
       @media (prefers-reduced-motion: reduce) {
-        *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
       }
     </style>
   </head>
