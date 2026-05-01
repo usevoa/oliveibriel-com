@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import { featured } from "../data/projects";
+import ContactForm from "../components/ContactForm.astro";
+import { featured, personal } from "../data/projects";
 
 const clients = [
   "NETZSCH",
@@ -163,86 +164,120 @@ let charIndex = 0;
     </div>
   </section>
 
-  <!-- How I work — evidence over slogans -->
+  {personal.length > 0 && (
+    <!-- Personal projects — side bets, OSS, vibe-coded experiments -->
+    <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pb-20 md:pb-28">
+      <div class="flex items-end justify-between mb-10 gap-6 flex-wrap" data-reveal>
+        <div>
+          <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Personal projects</span>
+          <h2 class="mt-2 text-3xl md:text-5xl font-extrabold display">
+            Side bets &amp; weekend builds.
+          </h2>
+        </div>
+        <p class="text-[var(--color-fg-muted)] leading-relaxed text-sm md:text-base max-w-md">
+          Things I built for myself — open source, AI-native, shipped because I wanted them to exist.
+        </p>
+      </div>
+      <div class={`grid gap-6 md:gap-8 ${personal.length === 1 ? "grid-cols-1 max-w-3xl" : "grid-cols-1 md:grid-cols-2"}`}>
+        {personal.map((project, i) => <ProjectCard project={project} index={i} size={personal.length === 1 ? "wide" : "normal"} />)}
+      </div>
+    </section>
+  )}
+
+  <!-- How I work — 4 horizontal cards -->
   <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-20 md:py-28 border-t border-[var(--color-border)]">
-    <div class="grid md:grid-cols-[1fr_2fr] gap-10 md:gap-16">
-      <div data-reveal>
+    <div class="flex items-end justify-between mb-10 md:mb-14 gap-6 flex-wrap" data-reveal>
+      <div>
         <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Approach</span>
         <h2 class="mt-2 text-3xl md:text-5xl font-extrabold display">
           How I work.
         </h2>
-        <p class="mt-4 text-[var(--color-fg-muted)] leading-relaxed text-sm md:text-base max-w-sm">
-          Less manifesto, more receipts. Each principle below maps to something
-          I've actually shipped.
-        </p>
       </div>
-      <div class="grid gap-px bg-[var(--color-border)] rounded-xl overflow-hidden border border-[var(--color-border)]">
-        {[
-          {
-            n: "01",
-            t: "Ship before you generalize",
-            d: "I build the messy v1 with real users, then extract the patterns. The IRIS V3 design system started as five operator screens — not an abstract token table.",
-            tag: "IRIS V3",
-          },
-          {
-            n: "02",
-            t: "Design for the operator, not the demo",
-            d: "Industrial software is used by people in PPE under time pressure. Color, hierarchy, and feedback decisions are made for the worst lighting and shortest attention — not the marketing screenshot.",
-            tag: "NETZSCH HMIs",
-          },
-          {
-            n: "03",
-            t: "Own the full stack of the artifact",
-            d: "I move from Figma to React to deploy when it's faster. I shipped Nerida (multi-tenant SaaS) and the VOA Portal solo, end-to-end, with Claude Code as build partner.",
-            tag: "Nerida · VOA Portal",
-          },
-          {
-            n: "04",
-            t: "AI compresses the boring parts",
-            d: "LLMs handle scaffolding, schema mapping, copy iteration, and one-off scripts. Taste, decisions, and the system itself stay mine.",
-            tag: "Garmin Coach",
-          },
-        ].map((step, i) => (
-          <div class="bg-[var(--color-bg)] p-6 md:p-7 grid grid-cols-[auto_1fr] gap-5 md:gap-7 items-start" data-reveal data-reveal-delay={i + 1}>
-            <span class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)] mt-1">{step.n}</span>
-            <div>
-              <h3 class="text-xl md:text-2xl font-bold tracking-tight" style="letter-spacing:-0.03em;">{step.t}</h3>
-              <p class="mt-1.5 text-[var(--color-fg-muted)] leading-relaxed">{step.d}</p>
-              <div class="mt-3 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)]">
-                <span class="size-1 rounded-full bg-[var(--color-accent)]"></span>
-                Receipts: {step.tag}
-              </div>
-            </div>
+      <p class="text-[var(--color-fg-muted)] leading-relaxed text-sm md:text-base max-w-md">
+        Less manifesto, more receipts. Each principle maps to something I've actually shipped.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {[
+        {
+          n: "01",
+          t: "Ship before you generalize",
+          d: "Build the messy v1 with real users, then extract patterns. IRIS V3's DS started as five operator screens — not a token table.",
+          tag: "IRIS V3",
+        },
+        {
+          n: "02",
+          t: "Design for the operator",
+          d: "Industrial software lives under PPE and time pressure. Color, hierarchy, and feedback are tuned for worst lighting — not the marketing shot.",
+          tag: "NETZSCH HMIs",
+        },
+        {
+          n: "03",
+          t: "Own the full stack",
+          d: "I move from Figma to React to deploy when it's faster. Nerida and the VOA Portal shipped solo, end-to-end, with Claude Code as build partner.",
+          tag: "Nerida · VOA Portal",
+        },
+        {
+          n: "04",
+          t: "AI for the boring parts",
+          d: "LLMs handle scaffolding, schema mapping, copy drafts, and scripts. Taste, decisions, and the system itself stay mine.",
+          tag: "Garmin Coach",
+        },
+      ].map((step, i) => (
+        <article
+          class="howiwork-card group bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-xl p-6 flex flex-col gap-4 transition-all"
+          data-reveal
+          data-reveal-delay={i + 1}
+        >
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)]">{step.n}</span>
+            <span class="size-1.5 rounded-full bg-[var(--color-border-strong)] group-hover:bg-[var(--color-accent)] transition-colors"></span>
           </div>
-        ))}
-      </div>
+          <h3 class="text-lg md:text-xl font-bold tracking-tight leading-snug" style="letter-spacing:-0.025em;">
+            {step.t}
+          </h3>
+          <p class="text-sm text-[var(--color-fg-muted)] leading-relaxed flex-1">
+            {step.d}
+          </p>
+          <div class="pt-3 border-t border-[var(--color-border)] inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)]">
+            <span class="size-1 rounded-full bg-[var(--color-accent)]"></span>
+            {step.tag}
+          </div>
+        </article>
+      ))}
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-20 md:py-28 border-t border-[var(--color-border)]">
-    <div class="flex flex-col items-start gap-7" data-reveal>
-      <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Get in touch</span>
-      <h2 class="text-4xl md:text-6xl font-extrabold display max-w-3xl">
-        Got a hard product problem?
-        <span class="block text-[var(--color-fg-muted)] display-italic mt-2">Let's solve it.</span>
-      </h2>
-      <p class="text-base md:text-lg text-[var(--color-fg-muted)] max-w-xl">
-        Currently open to product design and AI-native build engagements.
-        I respond within a few days.
-      </p>
-      <div class="flex flex-wrap items-center gap-3 mt-2">
-        <a
-          href="mailto:gabriel@oliveibriel.com"
-          class="magnetic group inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[var(--color-fg)] hover:bg-[var(--color-accent)] text-white text-sm font-medium transition-colors"
-          data-magnetic-strength="12"
-        >
-          gabriel@oliveibriel.com
-          <svg class="size-4 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M7 17 17 7M7 7h10v10"/>
-          </svg>
-        </a>
+  <!-- Get in touch — form -->
+  <section id="contact" class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-20 md:py-28 border-t border-[var(--color-border)]">
+    <div class="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-20">
+      <div class="flex flex-col items-start gap-6" data-reveal>
+        <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Get in touch</span>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold display">
+          Got a hard product problem?
+          <span class="block text-[var(--color-fg-muted)] display-italic mt-2">Let's solve it.</span>
+        </h2>
+        <p class="text-base md:text-lg text-[var(--color-fg-muted)] max-w-md">
+          Currently open to product design and AI-native build engagements. I respond within a few days.
+        </p>
+        <ul class="mt-2 flex flex-col gap-3 font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-muted)]">
+          <li class="flex items-center gap-3">
+            <span class="size-1.5 rounded-full bg-[var(--color-accent)]"></span>
+            Product design · AI-native builds
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="size-1.5 rounded-full bg-[var(--color-accent)]"></span>
+            Remote · UTC−3 · EN / PT-BR
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="size-1.5 rounded-full bg-[var(--color-accent)]"></span>
+            Available May 2026
+          </li>
+        </ul>
       </div>
+
+      <ContactForm />
     </div>
   </section>
 </BaseLayout>

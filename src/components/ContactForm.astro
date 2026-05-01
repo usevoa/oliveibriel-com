@@ -1,0 +1,157 @@
+---
+// Replace FORMSPREE_ID with your real Formspree form ID once set up.
+// Free plan: https://formspree.io
+const FORMSPREE_ID = "YOUR_FORMSPREE_ID";
+const ACTION = `https://formspree.io/f/${FORMSPREE_ID}`;
+---
+
+<form
+  id="contact-form"
+  action={ACTION}
+  method="POST"
+  class="w-full max-w-2xl flex flex-col gap-5"
+  data-reveal
+  data-reveal-delay="3"
+>
+  <input type="hidden" name="_subject" value="New message from oliveibriel.com" />
+  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" />
+
+  <div class="grid sm:grid-cols-2 gap-4">
+    <label class="flex flex-col gap-2">
+      <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Name</span>
+      <input
+        type="text"
+        name="name"
+        required
+        autocomplete="name"
+        placeholder="Your name"
+        class="form-input"
+      />
+    </label>
+    <label class="flex flex-col gap-2">
+      <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Email</span>
+      <input
+        type="email"
+        name="email"
+        required
+        autocomplete="email"
+        placeholder="you@company.com"
+        class="form-input"
+      />
+    </label>
+  </div>
+
+  <label class="flex flex-col gap-2">
+    <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Company <span class="opacity-60 normal-case tracking-normal">(optional)</span></span>
+    <input
+      type="text"
+      name="company"
+      autocomplete="organization"
+      placeholder="Where you work"
+      class="form-input"
+    />
+  </label>
+
+  <label class="flex flex-col gap-2">
+    <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">What's the problem?</span>
+    <textarea
+      name="message"
+      required
+      rows="5"
+      placeholder="A few lines about the product, the constraint, and the timeline."
+      class="form-input resize-y min-h-[140px]"
+    ></textarea>
+  </label>
+
+  <div class="flex flex-wrap items-center gap-4 mt-2">
+    <button
+      type="submit"
+      class="magnetic group inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[var(--color-fg)] hover:bg-[var(--color-accent)] disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-medium transition-colors"
+      data-magnetic-strength="10"
+    >
+      <span data-label-idle>Send message</span>
+      <span data-label-sending class="hidden">Sending…</span>
+      <svg class="size-4 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </button>
+    <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+      or
+      <a href="mailto:gabriel@oliveibriel.com" class="link-underline ml-1 normal-case tracking-normal text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]">gabriel@oliveibriel.com</a>
+    </span>
+  </div>
+
+  <p data-form-status data-state="success" class="hidden text-sm font-medium text-[var(--color-success)] mt-1">
+    Sent. I'll reply within a few days.
+  </p>
+  <p data-form-status data-state="error" class="hidden text-sm font-medium text-red-600 mt-1">
+    Something went wrong. Try again or email me directly.
+  </p>
+</form>
+
+<style>
+  .form-input {
+    width: 100%;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 15px;
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+  }
+  .form-input::placeholder { color: var(--color-fg-faint); }
+  .form-input:hover { border-color: var(--color-border-strong); }
+  .form-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-bg);
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const form = document.getElementById("contact-form");
+    if (!form) return;
+
+    const button = form.querySelector("button[type='submit']");
+    const idle = form.querySelector("[data-label-idle]");
+    const sending = form.querySelector("[data-label-sending]");
+    const successMsg = form.querySelector("[data-form-status][data-state='success']");
+    const errorMsg = form.querySelector("[data-form-status][data-state='error']");
+
+    const setLoading = (loading) => {
+      if (!button) return;
+      button.disabled = loading;
+      idle?.classList.toggle("hidden", loading);
+      sending?.classList.toggle("hidden", !loading);
+    };
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      successMsg?.classList.add("hidden");
+      errorMsg?.classList.add("hidden");
+      setLoading(true);
+
+      try {
+        const data = new FormData(form);
+        const res = await fetch(form.action, {
+          method: "POST",
+          body: data,
+          headers: { Accept: "application/json" },
+        });
+        if (res.ok) {
+          form.reset();
+          successMsg?.classList.remove("hidden");
+        } else {
+          errorMsg?.classList.remove("hidden");
+        }
+      } catch {
+        errorMsg?.classList.remove("hidden");
+      } finally {
+        setLoading(false);
+      }
+    });
+  })();
+</script>
