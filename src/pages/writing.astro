@@ -1,29 +1,139 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+// Drafts in the queue. Each one is a real essay-in-progress —
+// publishing as soon as they're not embarrassing.
+const queue = [
+  {
+    slug: "designer-builder-2026",
+    title: "The designer-builder, 12 months in",
+    summary:
+      "Lessons from shipping two SaaS products solo with Claude Code as build partner — what the AI actually does, where it fails, and what shifts in your role.",
+    tags: ["AI-native", "process"],
+    eta: "Jun 2026",
+    length: "~12 min",
+  },
+  {
+    slug: "industrial-ux-receipts",
+    title: "Industrial UX, with receipts",
+    summary:
+      "What changes when your users wear gloves, work under PPE, and have eight seconds to decide. A field-notes essay from three plants and one rebuilt HMI.",
+    tags: ["industrial SaaS", "UX"],
+    eta: "Jul 2026",
+    length: "~9 min",
+  },
+  {
+    slug: "design-system-adoption",
+    title: "Why nobody uses your design system",
+    summary:
+      "Adoption is the only metric that matters. Notes from owning a multi-team DS at NETZSCH and the boring decisions that did the heavy lifting.",
+    tags: ["design systems", "leadership"],
+    eta: "Aug 2026",
+    length: "~10 min",
+  },
+  {
+    slug: "ship-before-you-generalize",
+    title: "Ship before you generalize",
+    summary:
+      "The case against premature abstraction in design and code. Three concrete is better than one elegant. Stories from IRIS V3 and the IRIS DS.",
+    tags: ["process", "DS"],
+    eta: "Sep 2026",
+    length: "~7 min",
+  },
+];
 ---
 
 <BaseLayout
   title="Writing — Gabriel Oliveira"
-  description="Notes and essays on product design, design systems, and AI-native workflows."
+  description="Essays on product design, design systems, industrial UX, and AI-native building."
 >
-  <section class="max-w-[var(--container-prose)] mx-auto px-6 md:px-10 pt-20 pb-12">
-    <span class="font-mono text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">
-      Writing
+  <!-- Hero -->
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pt-14 md:pt-20 pb-10">
+    <span class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+      Writing · {queue.length} essays in the queue
     </span>
     <h1
-      class="mt-3 text-4xl md:text-5xl font-extrabold tracking-tight"
-      style="letter-spacing: var(--tracking-tightest);"
+      class="mt-3 text-4xl md:text-6xl font-extrabold display"
+      style="letter-spacing:-0.045em;"
     >
-      Notes & essays.
+      Notes from the trenches.
     </h1>
-    <p class="mt-4 text-lg text-[var(--color-fg-muted)]">
-      Short writing on product design, systems, and AI-native workflows.
+    <p class="mt-5 text-lg text-[var(--color-fg-muted)] max-w-2xl leading-relaxed">
+      Long-form essays on product design, design systems, industrial UX, and what
+      shipping looks like when AI is in the loop. Each one is a draft until it isn't —
+      I publish when it's no longer embarrassing.
     </p>
   </section>
 
-  <section class="max-w-[var(--container-prose)] mx-auto px-6 md:px-10 py-8">
-    <p class="font-mono text-sm text-[var(--color-fg-subtle)]">
-      First posts coming soon.
-    </p>
+  <!-- In the queue -->
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pb-16">
+    <div class="flex items-baseline justify-between mb-6">
+      <h2 class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+        In the queue
+      </h2>
+      <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+        Subscribe via RSS soon
+      </span>
+    </div>
+
+    <ul class="divide-y divide-[var(--color-border)] border-t border-[var(--color-border)]">
+      {queue.map((post, i) => (
+        <li
+          class="group py-6 md:py-8 grid md:grid-cols-[6rem_1fr_8rem] gap-3 md:gap-8 items-start"
+          data-reveal
+          data-reveal-delay={i + 1}
+        >
+          <span class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)] tabular">
+            {String(i + 1).padStart(2, "0")} / Draft
+          </span>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold tracking-tight" style="letter-spacing:-0.025em;">
+              {post.title}
+            </h3>
+            <p class="mt-2 text-[var(--color-fg-muted)] leading-relaxed max-w-2xl">
+              {post.summary}
+            </p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              {post.tags.map((t) => (
+                <span class="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded border border-[var(--color-border)] text-[var(--color-fg-muted)]">
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div class="flex md:flex-col gap-3 md:gap-1 font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)] md:text-right">
+            <span class="text-[var(--color-accent)]">ETA {post.eta}</span>
+            <span class="md:hidden">·</span>
+            <span>{post.length}</span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Notify me -->
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-16 md:py-20 border-t border-[var(--color-border)]">
+    <div class="flex flex-col gap-5 max-w-2xl">
+      <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+        Until then
+      </span>
+      <h2 class="text-3xl md:text-5xl font-extrabold display" style="letter-spacing:-0.045em;">
+        I think out loud on LinkedIn.
+      </h2>
+      <p class="text-[var(--color-fg-muted)] leading-relaxed">
+        Shorter takes, build logs, and screenshots from current work — usually a few times a week.
+      </p>
+      <a
+        href="https://www.linkedin.com/in/oliveibriel"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="self-start inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[var(--color-fg)] hover:bg-[var(--color-accent)] text-white text-sm font-medium transition-colors mt-2"
+      >
+        /in/oliveibriel
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7 17 17 7M7 7h10v10"/>
+        </svg>
+      </a>
+    </div>
   </section>
 </BaseLayout>

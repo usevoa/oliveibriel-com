@@ -1,54 +1,112 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactForm from "../components/ContactForm.astro";
+
+const channels = [
+  {
+    label: "Email",
+    value: "gabriel@oliveibriel.com",
+    href: "mailto:gabriel@oliveibriel.com",
+    note: "Best for project inquiries",
+  },
+  {
+    label: "WhatsApp",
+    value: "+55 41 98454 1993",
+    href: "https://wa.me/5541984541993",
+    note: "Quick questions, time-zone friendly",
+    external: true,
+  },
+  {
+    label: "LinkedIn",
+    value: "/in/oliveibriel",
+    href: "https://www.linkedin.com/in/oliveibriel",
+    note: "Roles, connections, references",
+    external: true,
+  },
+  {
+    label: "Instagram",
+    value: "@o.gabebastos",
+    href: "https://instagram.com/o.gabebastos",
+    note: "Behind the scenes, less work-y",
+    external: true,
+  },
+];
 ---
 
 <BaseLayout
   title="Contact — Gabriel Oliveira"
   description="Get in touch about new projects or collaborations."
 >
-  <section class="max-w-[var(--container-prose)] mx-auto px-6 md:px-10 pt-20 pb-20">
-    <span class="font-mono text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">
-      Contact
+  <!-- Hero -->
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pt-14 md:pt-20 pb-10">
+    <span class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+      Contact · 2026
     </span>
     <h1
-      class="mt-3 text-4xl md:text-5xl font-extrabold tracking-tight"
-      style="letter-spacing: var(--tracking-tightest);"
+      class="mt-3 text-4xl md:text-6xl font-extrabold display"
+      style="letter-spacing:-0.045em;"
     >
-      Let's talk.
+      Got a hard product problem?
+      <span class="block text-[var(--color-fg-muted)] display-italic mt-2">Let's solve it.</span>
     </h1>
-    <p class="mt-4 text-lg text-[var(--color-fg-muted)] max-w-xl">
-      I'm currently open to new freelance and full-time opportunities. Send a
-      note and I'll get back to you within a few days.
+    <p class="mt-5 text-lg text-[var(--color-fg-muted)] max-w-2xl leading-relaxed">
+      I'm taking on a small number of product design and AI-native build engagements through 2026.
+      Pick a channel below or send a note via the form.
     </p>
+  </section>
 
-    <div class="mt-10 flex flex-col gap-3">
-      <a
-        href="mailto:gabriel@oliveibriel.com"
-        class="inline-flex items-center justify-between gap-4 px-5 py-4 rounded-lg border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-bg-elevated)] transition-colors"
-      >
-        <div class="flex flex-col">
-          <span class="font-mono text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">
-            Email
-          </span>
-          <span class="text-base mt-1">gabriel@oliveibriel.com</span>
-        </div>
-        <span class="text-[var(--color-accent-soft)]">→</span>
-      </a>
+  <!-- Channel cards -->
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pb-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {channels.map((c, i) => (
+        <a
+          href={c.href}
+          target={c.external ? "_blank" : undefined}
+          rel={c.external ? "noopener noreferrer" : undefined}
+          class="group flex flex-col gap-3 p-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] hover:border-[var(--color-fg)] hover:shadow-[0_8px_24px_-12px_rgba(0,0,0,0.12)] transition-all"
+          data-reveal
+          data-reveal-delay={i + 1}
+        >
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">{c.label}</span>
+            <span class="text-[var(--color-fg-faint)] group-hover:text-[var(--color-accent)] group-hover:translate-x-0.5 transition-all">↗</span>
+          </div>
+          <span class="text-base font-medium text-[var(--color-fg)] break-all">{c.value}</span>
+          <span class="text-xs text-[var(--color-fg-muted)] mt-auto">{c.note}</span>
+        </a>
+      ))}
+    </div>
+  </section>
 
-      <a
-        href="https://www.linkedin.com/in/oliveibriel"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center justify-between gap-4 px-5 py-4 rounded-lg border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-bg-elevated)] transition-colors"
-      >
-        <div class="flex flex-col">
-          <span class="font-mono text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">
-            LinkedIn
-          </span>
-          <span class="text-base mt-1">/in/oliveibriel</span>
-        </div>
-        <span class="text-[var(--color-accent-soft)]">→</span>
-      </a>
+  <!-- Form -->
+  <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-16 md:py-20 border-t border-[var(--color-border)]">
+    <div class="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-20">
+      <div data-reveal>
+        <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Send a note</span>
+        <h2 class="mt-2 text-3xl md:text-4xl font-extrabold display" style="letter-spacing:-0.035em;">
+          Tell me about the project.
+        </h2>
+        <p class="mt-4 text-[var(--color-fg-muted)] max-w-md leading-relaxed">
+          What you're building, the constraint that's making it hard, and roughly when you'd want to start.
+          I respond within a few days.
+        </p>
+        <ul class="mt-8 flex flex-col gap-3 font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-muted)]">
+          <li class="flex items-center gap-3">
+            <span class="size-1.5 rounded-full bg-[var(--color-accent)]"></span>
+            Product design · AI-native builds
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="size-1.5 rounded-full bg-[var(--color-accent)]"></span>
+            Remote · UTC−3 · EN / PT-BR
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="size-1.5 rounded-full bg-[var(--color-accent)]"></span>
+            Available May 2026
+          </li>
+        </ul>
+      </div>
+
+      <ContactForm />
     </div>
   </section>
 </BaseLayout>
