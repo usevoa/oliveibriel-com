@@ -28,7 +28,7 @@ export default function Brutalist() {
       />
 
       {/* Top status bar — terminal style */}
-      <header className="relative z-20 border-b-2 border-[#0a0a0a] bg-[#F4F4EE]">
+      <header className="relative z-20 border-b-2 border-[#0a0a0a] bg-[#F4F4EE]" role="banner">
         <div className="max-w-[1400px] mx-auto px-6 md:px-10 h-12 flex items-center justify-between font-mono text-[11px]">
           <div className="flex items-center gap-3">
             <span className="size-2 rounded-full bg-[#65A30D] animate-pulse" aria-hidden="true" />
@@ -42,6 +42,7 @@ export default function Brutalist() {
         </div>
       </header>
 
+      <main>
       {/* Hero */}
       <Hero reduced={!!reduced} />
 
@@ -53,6 +54,7 @@ export default function Brutalist() {
 
       {/* CLI prompt closing */}
       <Closing />
+      </main>
     </div>
   );
 }

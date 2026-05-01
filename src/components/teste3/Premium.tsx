@@ -16,10 +16,12 @@ export default function Premium() {
   return (
     <div className="bg-white text-[#1d1d1f] min-h-screen">
       <Nav />
-      <Hero />
-      <ScrollMarquee />
-      <Showcase />
-      <Closing />
+      <main>
+        <Hero />
+        <ScrollMarquee />
+        <Showcase />
+        <Closing />
+      </main>
     </div>
   );
 }

@@ -20,7 +20,7 @@ export default function Editorial() {
   return (
     <div className="bg-[#FAF7F2] text-[#1A1814] overflow-x-hidden">
       {/* Top bar */}
-      <header className="relative z-20 border-b border-[#1A1814]/10">
+      <header className="relative z-20 border-b border-[#1A1814]/10" role="banner">
         <div className="max-w-[1400px] mx-auto px-6 md:px-10 h-14 flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.2em] text-[#1A1814]/70">
           <span>Vol. 01 · Issue 03</span>
           <span className="hidden sm:inline">Curitiba, BR · May 2026</span>
@@ -28,8 +28,9 @@ export default function Editorial() {
         </div>
       </header>
 
+      <main>
       {/* Editorial masthead */}
-      <section ref={heroRef} className="relative">
+      <section ref={heroRef} className="relative" aria-labelledby="hero-h1">
         <div className="max-w-[1400px] mx-auto px-6 md:px-10 pt-10 md:pt-14">
           {/* Issue meta */}
           <motion.div
@@ -52,6 +53,7 @@ export default function Editorial() {
               className="lg:col-span-7 relative z-10"
             >
               <motion.h1
+                id="hero-h1"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.9, ease: easeOut, delay: 0.1 }}
@@ -149,6 +151,7 @@ export default function Editorial() {
 
       {/* Closing */}
       <Closing />
+      </main>
     </div>
   );
 }
