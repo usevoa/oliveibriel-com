@@ -2,6 +2,12 @@
 const path = Astro.url.pathname;
 const isActive = (href: string) =>
   href === "/" ? path === "/" : path.startsWith(href);
+
+const navLinks = [
+  { href: "/work", label: "Work" },
+  { href: "/about", label: "About" },
+  { href: "/writing", label: "Writing", hideOn: "sm" as const },
+];
 ---
 
 <header
@@ -25,24 +31,19 @@ const isActive = (href: string) =>
     </a>
 
     <div class="flex items-center gap-1 text-sm">
-      <a
-        href="/work"
-        class={`px-3 py-1.5 rounded-md transition-colors ${isActive("/work") ? "text-[var(--color-fg)]" : "text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]"}`}
-      >
-        Work
-      </a>
-      <a
-        href="/about"
-        class={`px-3 py-1.5 rounded-md transition-colors ${isActive("/about") ? "text-[var(--color-fg)]" : "text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]"}`}
-      >
-        About
-      </a>
-      <a
-        href="/writing"
-        class={`px-3 py-1.5 rounded-md transition-colors hidden sm:inline-block ${isActive("/writing") ? "text-[var(--color-fg)]" : "text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]"}`}
-      >
-        Writing
-      </a>
+      <div id="nav-links" class="relative flex items-center">
+        <span id="nav-pill" class="absolute top-1/2 -translate-y-1/2 rounded-md bg-[var(--color-bg-soft)] border border-[var(--color-border)] pointer-events-none transition-[transform,width,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-0" aria-hidden="true"></span>
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            data-active={isActive(link.href) ? "true" : "false"}
+            class={`nav-link relative z-10 magnetic px-3 py-1.5 rounded-md transition-colors ${link.hideOn === "sm" ? "hidden sm:inline-block" : ""} ${isActive(link.href) ? "text-[var(--color-fg)]" : "text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]"}`}
+            data-magnetic-strength="6"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
 
       <button
         id="cmdk-trigger"
@@ -78,7 +79,41 @@ const isActive = (href: string) =>
         }
       });
     }
+
+    // Active pill — slides under hovered/active link
+    const container = document.getElementById("nav-links");
+    const pill = document.getElementById("nav-pill");
+    if (!container || !pill) return;
+    const links = Array.from(container.querySelectorAll<HTMLAnchorElement>(".nav-link"));
+
+    const positionPill = (target: HTMLElement | null) => {
+      if (!target) {
+        pill.style.opacity = "0";
+        return;
+      }
+      const cRect = container.getBoundingClientRect();
+      const tRect = target.getBoundingClientRect();
+      const x = tRect.left - cRect.left;
+      const w = tRect.width;
+      const h = tRect.height;
+      pill.style.transform = `translate(${x}px, -50%)`;
+      pill.style.width = `${w}px`;
+      pill.style.height = `${h}px`;
+      pill.style.opacity = "1";
+    };
+
+    const activeLink = links.find((l) => l.dataset.active === "true") ?? null;
+    // Defer one frame so layout has settled
+    requestAnimationFrame(() => positionPill(activeLink));
+
+    links.forEach((link) => {
+      link.addEventListener("mouseenter", () => positionPill(link));
+      link.addEventListener("focus", () => positionPill(link));
+    });
+    container.addEventListener("mouseleave", () => positionPill(activeLink));
+    window.addEventListener("resize", () => positionPill(activeLink));
   }
   setupNav();
   document.addEventListener("astro:after-swap", setupNav);
+  document.addEventListener("astro:page-load", setupNav);
 </script>
