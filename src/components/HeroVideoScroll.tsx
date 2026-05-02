@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { useScroll, useReducedMotion } from "framer-motion";
 
 interface Props {
   src?: string;
@@ -13,9 +12,13 @@ interface Props {
 
 /**
  * Scroll-controlled background video.
- * - No autoplay; scroll position drives currentTime via framer-motion.
+ * - No autoplay; scroll position drives currentTime.
  * - Falls back to a static image on touch, reduced motion, or no src.
  * - Mount inside a `relative` parent that defines the visible video box.
+ *
+ * Implementation note: uses a vanilla scroll listener + getBoundingClientRect
+ * instead of framer-motion's useScroll. Simpler, fewer moving parts, easier
+ * to debug.
  */
 export default function HeroVideoScroll({
   src,
@@ -26,31 +29,35 @@ export default function HeroVideoScroll({
 }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
   const [isTouch, setIsTouch] = useState(false);
+  const [reduced, setReduced] = useState(false);
   const [canVideo, setCanVideo] = useState(false);
 
   useEffect(() => {
     setIsTouch(window.matchMedia("(hover: none)").matches);
+    setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   }, []);
 
   const useStatic = !(src || srcWebm) || reduced || isTouch;
 
-  const { scrollYProgress } = useScroll({
-    target: triggerRef,
-    offset: ["start start", "end start"],
-  });
-
   useEffect(() => {
     if (useStatic) return;
     const video = videoRef.current;
-    if (!video) return;
+    const trigger = triggerRef.current;
+    if (!video || !trigger) return;
     video.pause();
 
-    const apply = (progress: number) => {
+    let raf = 0;
+    const apply = () => {
       const dur = video.duration;
       if (!dur || Number.isNaN(dur) || !Number.isFinite(dur)) return;
-      const t = Math.min(Math.max(progress, 0), 1) * dur;
+      const rect = trigger.getBoundingClientRect();
+      // Progress 0 when trigger.top === 0 (page anchored at hero top),
+      // progress 1 when trigger has scrolled fully out the top.
+      const range = rect.height;
+      if (range <= 0) return;
+      const progress = Math.max(0, Math.min(1, -rect.top / range));
+      const t = progress * dur;
       if (Math.abs(video.currentTime - t) > 0.03) {
         try {
           video.currentTime = t;
@@ -60,19 +67,33 @@ export default function HeroVideoScroll({
       }
     };
 
-    const onMeta = () => {
-      apply(scrollYProgress.get());
-      setCanVideo(true);
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        apply();
+        raf = 0;
+      });
     };
+
+    const onMeta = () => {
+      setCanVideo(true);
+      apply();
+    };
+
     if (video.readyState >= 1) onMeta();
     else video.addEventListener("loadedmetadata", onMeta);
 
-    const unsubscribe = scrollYProgress.on("change", apply);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    apply();
+
     return () => {
-      unsubscribe();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
       video.removeEventListener("loadedmetadata", onMeta);
+      if (raf) cancelAnimationFrame(raf);
     };
-  }, [useStatic, scrollYProgress]);
+  }, [useStatic]);
 
   return (
     <>
