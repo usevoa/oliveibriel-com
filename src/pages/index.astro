@@ -16,8 +16,6 @@ const clients = [
 ];
 
 const fullName = "Gabriel Oliveira";
-const words = fullName.split(" ").map((w) => Array.from(w));
-let charIndex = 0;
 ---
 
 <BaseLayout>
@@ -29,24 +27,8 @@ let charIndex = 0;
       <div class="flex flex-col gap-7 md:gap-9">
         <h1
           class="display text-[clamp(2rem,5.2vw,4.75rem)] leading-[0.95] whitespace-nowrap"
-          aria-label={fullName}
         >
-          <span class="hero-name" aria-hidden="true">
-            {words.map((wordChars, wIdx) => (
-              <>
-                <span class="word">
-                  {wordChars.map((c) => {
-                    const i = charIndex++;
-                    return (
-                      <span class="ch" data-i={i} style={`--i:${i}`}>
-                        <span class="ch-inner">{c}</span>
-                      </span>
-                    );
-                  })}
-                </span>{wIdx < words.length - 1 ? "\u00A0" : ""}
-              </>
-            ))}
-          </span>
+          {fullName}
         </h1>
 
         <p class="text-xl md:text-2xl text-[var(--color-fg-muted)] leading-snug max-w-[60ch]" data-reveal data-reveal-delay="3">
@@ -140,7 +122,7 @@ let charIndex = 0;
       </a>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
       {featured.map((project, i) => <ProjectCard project={project} index={i} size="normal" />)}
     </div>
   </section>

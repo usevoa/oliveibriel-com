@@ -31,7 +31,8 @@
 
   /* Typography */
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+  --font-display: "Bricolage Grotesque", "Inter", ui-sans-serif, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", monospace;
 
   /* Reading width */
   --container-prose: 680px;
@@ -125,9 +126,11 @@ main, header, footer { position: relative; z-index: 2; }
 
 /* Display */
 .display {
-  font-weight: 800;
-  letter-spacing: -0.045em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
   line-height: 0.95;
+  font-variation-settings: "opsz" 96;
 }
 
 .display-italic {
@@ -169,59 +172,6 @@ html.js [data-reveal].is-visible {
   transition: width 100ms ease-out;
 }
 
-/* Hero name — mask reveal letter by letter */
-.hero-name {
-  display: inline-block;
-  cursor: default;
-}
-.hero-name .word {
-  display: inline-block;
-  white-space: nowrap;
-}
-.hero-name .ch {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(0.4em);
-  animation: chReveal 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-.hero-name .ch-inner {
-  display: inline-block;
-  transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Italic morph on hover — bold extra-tight → italic light, with stagger */
-.hero-name {
-  transition: color 320ms ease, font-style 320ms ease, font-weight 320ms ease, letter-spacing 320ms ease;
-}
-.hero-name:hover {
-  color: var(--color-accent);
-  font-style: italic;
-  font-weight: 300;
-  letter-spacing: -0.025em;
-}
-.hero-name:hover .ch-inner {
-  transform: translateX(calc(var(--i, 0) * 0.6px));
-}
-.hero-name .ch[data-i="0"] { animation-delay: 0ms; }
-.hero-name .ch[data-i="1"] { animation-delay: 30ms; }
-.hero-name .ch[data-i="2"] { animation-delay: 60ms; }
-.hero-name .ch[data-i="3"] { animation-delay: 90ms; }
-.hero-name .ch[data-i="4"] { animation-delay: 120ms; }
-.hero-name .ch[data-i="5"] { animation-delay: 150ms; }
-.hero-name .ch[data-i="6"] { animation-delay: 180ms; }
-.hero-name .ch[data-i="7"] { animation-delay: 210ms; }
-.hero-name .ch[data-i="8"] { animation-delay: 240ms; }
-.hero-name .ch[data-i="9"] { animation-delay: 270ms; }
-.hero-name .ch[data-i="10"] { animation-delay: 300ms; }
-.hero-name .ch[data-i="11"] { animation-delay: 330ms; }
-.hero-name .ch[data-i="12"] { animation-delay: 360ms; }
-.hero-name .ch[data-i="13"] { animation-delay: 390ms; }
-.hero-name .ch[data-i="14"] { animation-delay: 420ms; }
-.hero-name .ch[data-i="15"] { animation-delay: 450ms; }
-
-@keyframes chReveal {
-  to { opacity: 1; transform: translateY(0); }
-}
 
 /* Keyword highlight on hover — animated underline that grows */
 .kw {

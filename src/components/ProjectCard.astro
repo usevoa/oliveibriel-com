@@ -9,7 +9,7 @@ interface Props {
 
 const { project, size = project.size ?? "normal", index = 0 } = Astro.props;
 
-const aspect = size === "wide" ? "aspect-[16/9]" : size === "tall" ? "aspect-[4/5]" : "aspect-[16/10]";
+const aspect = size === "wide" ? "aspect-[16/9]" : size === "tall" ? "aspect-[4/5]" : "aspect-[16/11]";
 const span =
   size === "wide" ? "md:col-span-2" :
   size === "tall" ? "md:row-span-2" : "";
@@ -54,18 +54,18 @@ const span =
       </div>
     )}
   </div>
-  <div class="p-5 md:p-6 flex flex-col gap-2">
+  <div class="p-4 md:p-5 flex flex-col gap-1.5">
     <div class="flex items-center justify-between font-mono text-[10px] tracking-wider uppercase text-[var(--color-fg-subtle)]">
       <span>{project.number} · {project.client}</span>
       <span>{project.year}</span>
     </div>
-    <h3 class="text-xl md:text-2xl font-bold tracking-tight" style="letter-spacing:-0.03em;">
+    <h3 class="text-lg md:text-xl font-bold tracking-tight" style="letter-spacing:-0.025em;">
       {project.title}
     </h3>
-    <p class="text-sm text-[var(--color-fg-muted)] leading-relaxed">
+    <p class="text-[13px] text-[var(--color-fg-muted)] leading-relaxed line-clamp-2">
       {project.summary}
     </p>
-    <div class="font-mono text-[11px] text-[var(--color-fg-subtle)] mt-1 flex items-center gap-2">
+    <div class="font-mono text-[10px] text-[var(--color-fg-subtle)] mt-0.5 flex items-center gap-2">
       <span>{project.type}</span>
       <span class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-[var(--color-accent-soft)]">View →</span>
     </div>
