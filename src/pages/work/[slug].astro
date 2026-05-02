@@ -35,6 +35,34 @@ const inlineSegments = (text: string): InlineSeg[] =>
         ? { bold: true, text: part.slice(2, -2) }
         : { bold: false, text: part },
     );
+
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/[^\w\s-]+/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+// Short label for TOC chips — drop anything after an em-dash
+const shortLabel = (s: string) => s.split("—")[0].split(" - ")[0].trim();
+
+// Build TOC for the case study
+const toc = study
+  ? [
+      { id: "challenge", label: "Challenge" },
+      { id: "approach", label: "Approach" },
+      { id: "outcome", label: "Outcome" },
+      ...(study.sections ?? []).map((sec) => ({
+        id: slugify(sec.heading),
+        label: shortLabel(sec.heading),
+      })),
+      ...(study.gallery && study.gallery.length > 0
+        ? [{ id: "selected-screens", label: "Screens" }]
+        : []),
+      ...(study.reflection ? [{ id: "reflection", label: "Reflection" }] : []),
+    ]
+  : [];
 ---
 
 <BaseLayout
@@ -188,8 +216,27 @@ const inlineSegments = (text: string): InlineSeg[] =>
           </section>
         )}
 
+        {toc.length > 0 && (
+          <!-- TOC — quick links to each section -->
+          <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pb-12 md:pb-16" data-reveal>
+            <div class="flex flex-wrap items-center gap-3 mb-4">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Jump to</span>
+              <span class="size-1 rounded-full bg-[var(--color-fg-faint)]"></span>
+              <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">{toc.length} sections</span>
+            </div>
+            <nav class="flex flex-wrap gap-2" aria-label="Case sections">
+              {toc.map((item, i) => (
+                <a href={`#${item.id}`} class="toc-chip">
+                  <span class="font-mono text-[10px] tabular opacity-50 mr-1">{String(i + 1).padStart(2, "0")}</span>
+                  <span>{item.label}</span>
+                </a>
+              ))}
+            </nav>
+          </section>
+        )}
+
         <!-- Challenge -->
-        <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 md:py-16 border-t border-[var(--color-border)]">
+        <section id="challenge" class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 md:py-16 border-t border-[var(--color-border)]">
           <div class="grid md:grid-cols-[14rem_1fr] gap-6 md:gap-12" data-reveal>
             <div>
               <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">01</span>
@@ -206,7 +253,7 @@ const inlineSegments = (text: string): InlineSeg[] =>
         </section>
 
         <!-- Approach -->
-        <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 md:py-16 border-t border-[var(--color-border)]">
+        <section id="approach" class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 md:py-16 border-t border-[var(--color-border)]">
           <div class="grid md:grid-cols-[14rem_1fr] gap-6 md:gap-12" data-reveal>
             <div>
               <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">02</span>
@@ -223,7 +270,7 @@ const inlineSegments = (text: string): InlineSeg[] =>
         </section>
 
         <!-- Outcome -->
-        <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 md:py-16 border-t border-[var(--color-border)]">
+        <section id="outcome" class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 md:py-16 border-t border-[var(--color-border)]">
           <div class="grid md:grid-cols-[14rem_1fr] gap-6 md:gap-12" data-reveal>
             <div>
               <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">03</span>
@@ -253,7 +300,7 @@ const inlineSegments = (text: string): InlineSeg[] =>
           const defaultGradient =
             "linear-gradient(135deg, #1e293b 0%, #1e3a8a 55%, #1d4ed8 100%)";
           return (
-            <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 md:py-16 border-t border-[var(--color-border)]">
+            <section id={slugify(sec.heading)} class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 md:py-16 border-t border-[var(--color-border)]">
               <div class="grid md:grid-cols-[14rem_1fr] gap-6 md:gap-12" data-reveal>
                 <div>
                   <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">{String(i + 4).padStart(2, "0")}</span>
@@ -314,7 +361,7 @@ const inlineSegments = (text: string): InlineSeg[] =>
 
         <!-- Gallery -->
         {study.gallery && study.gallery.length > 0 && (
-          <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 md:py-16 border-t border-[var(--color-border)]">
+          <section id="selected-screens" class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 md:py-16 border-t border-[var(--color-border)]">
             <div class="flex items-baseline justify-between mb-8">
               <h2 class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Selected screens</h2>
               <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">{study.gallery.length} captures</span>
@@ -381,7 +428,7 @@ const inlineSegments = (text: string): InlineSeg[] =>
 
         <!-- Reflection (pull quote style) -->
         {study.reflection && (
-          <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-16 md:py-20 border-t border-[var(--color-border)]">
+          <section id="reflection" class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-16 md:py-20 border-t border-[var(--color-border)]">
             <div class="max-w-3xl" data-reveal>
               <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Reflection</span>
               <blockquote class="mt-4 text-2xl md:text-3xl font-medium leading-snug tracking-tight text-[var(--color-fg)]" style="letter-spacing:-0.025em;">
