@@ -79,12 +79,12 @@ export default function HeroVideoScroll({
       ref={triggerRef}
       aria-hidden="true"
       className="absolute left-0 right-0 overflow-visible pointer-events-none"
-      // Extend the trigger area down past the visible video so the mapped
-      // scroll range is wider (≈ video height + 100vh). Top stays anchored
-      // to the video's top so progress starts at 0 when the page loads.
-      style={{ top: 0, bottom: "-100vh" }}
+      // Modest scroll-range extension below the video so progress maps to
+      // a slightly longer scroll than the visible card alone. Tune the
+      // bottom offset (in vh) to control playback speed.
+      style={{ top: 0, bottom: "-15vh" }}
     >
-      <div className="absolute inset-0 overflow-hidden" style={{ bottom: "100vh" }}>
+      <div className="absolute inset-0 overflow-hidden" style={{ bottom: "15vh" }}>
       {useStatic ? (
         <img
           src={fallbackImage ?? poster}
