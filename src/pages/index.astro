@@ -26,9 +26,9 @@ let charIndex = 0;
     <div class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pt-12 md:pt-20 pb-16 md:pb-24">
       <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)] gap-10 lg:gap-16 items-center">
       <!-- Hero — text-led -->
-      <div class="flex flex-col gap-7 md:gap-9 max-w-[60ch]">
+      <div class="flex flex-col gap-7 md:gap-9">
         <h1
-          class="display text-[clamp(2.75rem,7.4vw,6rem)] leading-[0.95]"
+          class="display text-[clamp(2rem,5.2vw,4.75rem)] leading-[0.95] whitespace-nowrap"
           aria-label={fullName}
         >
           <span class="hero-name" aria-hidden="true">
@@ -49,7 +49,7 @@ let charIndex = 0;
           </span>
         </h1>
 
-        <p class="text-xl md:text-2xl text-[var(--color-fg-muted)] leading-snug" data-reveal data-reveal-delay="3">
+        <p class="text-xl md:text-2xl text-[var(--color-fg-muted)] leading-snug max-w-[60ch]" data-reveal data-reveal-delay="3">
           I design and ship
           <span class="kw">industrial SaaS</span>,
           <span class="kw">design systems</span>, and
@@ -293,63 +293,3 @@ let charIndex = 0;
   </section>
 </BaseLayout>
 
-<script is:inline>
-  (() => {
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) return;
-
-    const heroName = document.querySelector(".hero-name");
-    if (!heroName) return;
-
-    const inners = Array.from(heroName.querySelectorAll(".ch-inner"));
-    if (!inners.length) return;
-
-    const originals = inners.map((el) => el.textContent || "");
-    const POOL = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01<>/_=#@$%&*";
-
-    let isAnimating = false;
-
-    const scramble = () => {
-      if (isAnimating) return;
-      isAnimating = true;
-      heroName.classList.add("is-scrambling");
-
-      let finished = 0;
-      inners.forEach((el, i) => {
-        const original = originals[i];
-        const totalFrames = 14 + Math.floor(Math.random() * 8);
-        const startDelay = i * 28;
-
-        setTimeout(() => {
-          let frame = 0;
-          const tick = () => {
-            if (frame >= totalFrames) {
-              el.textContent = original;
-              finished++;
-              if (finished === inners.length) {
-                setTimeout(() => {
-                  heroName.classList.remove("is-scrambling");
-                  isAnimating = false;
-                }, 220);
-              }
-              return;
-            }
-            const settling = frame > totalFrames - 4;
-            if (settling && Math.random() > 0.45) {
-              el.textContent = original;
-            } else {
-              el.textContent = POOL[Math.floor(Math.random() * POOL.length)];
-            }
-            frame++;
-            setTimeout(tick, 32);
-          };
-          tick();
-        }, startDelay);
-      });
-    };
-
-    heroName.addEventListener("mouseenter", scramble);
-    heroName.addEventListener("focus", scramble);
-    heroName.setAttribute("tabindex", "0");
-  })();
-</script>
