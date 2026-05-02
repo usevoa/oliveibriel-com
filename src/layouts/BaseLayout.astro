@@ -34,6 +34,21 @@ const props = Astro.props;
     />
     <SEO {...props} />
     <ClientRouter />
+    <script is:inline>
+      // Disable browser's automatic scroll restoration so refresh and
+      // forward/back nav always land at the top of the page instead of
+      // wherever the previous session had scrolled to.
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+      // Astro's ClientRouter dispatches astro:page-load on navigation —
+      // reset scroll there too so SPA-style nav matches refresh behavior.
+      document.addEventListener("astro:page-load", () => {
+        // Skip if URL has a hash anchor (TOC chips, deep links) so users
+        // who clicked a #section actually jump to that section.
+        if (!location.hash) window.scrollTo(0, 0);
+      });
+    </script>
   </head>
   <body class="font-sans antialiased">
     <ScrollProgress />
