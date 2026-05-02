@@ -91,11 +91,11 @@ const navLinks = [
         pill.style.opacity = "0";
         return;
       }
-      const cRect = container.getBoundingClientRect();
-      const tRect = target.getBoundingClientRect();
-      const x = tRect.left - cRect.left;
-      const w = tRect.width;
-      const h = tRect.height;
+      // Use offset* (DOM layout) instead of getBoundingClientRect so the
+      // magnetic transform on the link doesn't make the pill jitter.
+      const x = target.offsetLeft;
+      const w = target.offsetWidth;
+      const h = target.offsetHeight;
       pill.style.transform = `translate(${x}px, -50%)`;
       pill.style.width = `${w}px`;
       pill.style.height = `${h}px`;

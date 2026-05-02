@@ -91,14 +91,10 @@ export const cases: Record<string, CaseStudy> = {
         body:
           "Concretely: I designed the screens, built the design system that holds them together, and stayed on it through deploy.\n\n**The screens** — every operating surface across seven products. Dashboards with live process flowcharts, recipe editors, batch monitoring, alarm queues, maintenance, settings, history, manual actions. Across two panel sizes (12.1\" and 15\"), with adaptation between them.\n\n**The design system** — the foundation under all seven products. Color, typography, and spacing tokens designed for industrial readability. A component library that includes the obvious primitives (buttons, modals, forms) and the domain-specific ones nobody else has solved (alarm rows with severity, batch progress, the P&ID flowchart with its component modals).\n\n**The work past the screen** — onboarding flows, in-app help, training video scripts in two languages, sales decks in three, customer documentation, and the integration design connecting IRIS to remote monitoring and cloud services. The screens don't ship in isolation; the system around them has to ship too.",
         image: {
-          alt: "Plants design system component overview",
+          src: "/projects/iris-v3/inline-02__components-tokens.png",
+          alt: "Plants design system component overview — buttons, cards, alarm rows, tokens",
           caption: "The system under all seven products",
           aspect: "wide",
-          placeholder: {
-            label: "The design system",
-            sublabel: "Components, tokens, patterns",
-            gradient: "linear-gradient(135deg,#1e3a8a 0%,#3b82f6 60%,#93c5fd 100%)",
-          },
         },
       },
       {
@@ -146,14 +142,10 @@ export const cases: Record<string, CaseStudy> = {
         body:
           "Seven product lines, two panel sizes, three languages, one design system. Each product solves a different industrial process, but the operator experience is shared.\n\n**InView** is the BeadMill reference — the most feature-complete, the highest density, the one everything else stress-tests against. **Confectionery** is the only product designed natively for the 15\" widescreen, with three distinct operation modes (Dosing, Mixing, Grinding). **Epsilon** owns the most complex pump configuration and an exclusive Dispersing mode. **ZetaRS** is the configuration king — the deepest settings module, designed with commissioning in mind. **Mixers** carry the only exclusive Operation Bar variant. **Inside** proves the system scales down gracefully — same DS, simpler product, no awkwardness. **Resino** is the newest addition, still maturing, but already on the same foundation.",
         image: {
+          src: "/projects/iris-v3/inline-06__product-family.png",
           alt: "All seven IRIS V3 products at thumbnail scale",
           caption: "7 products · one DS",
           aspect: "wide",
-          placeholder: {
-            label: "7 products · one DS",
-            sublabel: "InView · Confectionery · Epsilon · ZetaRS · Mixer · Inside · Resino",
-            gradient: "linear-gradient(135deg,#312e81 0%,#5b21b6 50%,#9333ea 100%)",
-          },
         },
       },
     ],
@@ -161,97 +153,57 @@ export const cases: Record<string, CaseStudy> = {
       "Industrial UX is unforgiving in a useful way. Every design decision has to survive a 12-hour shift in PPE under bad lighting, not a 12-minute review with stakeholders. The compounding return is real — the same pattern, multiplied across seven product lines and thousands of operators worldwide, is where the value lives.",
     gallery: [
       {
+        src: "/projects/iris-v3/01__inview-dashboard.png",
         alt: "InView V3 dashboard with the live P&ID flowchart and operation bar",
         caption: "InView · Dashboard · 12.1\"",
         aspect: "wide",
-        placeholder: {
-          label: "Dashboard · Flowchart",
-          sublabel: "InView V3 · 12.1\" reference",
-          gradient: "linear-gradient(135deg,#0f172a 0%,#1e3a8a 60%,#1d4ed8 100%)",
-        },
       },
       {
+        src: "/projects/iris-v3/02__recipe-edit.png",
         alt: "Recipe management — circulation parameters and recipe metadata",
         caption: "InView · Recipes · Circulation mode",
-        placeholder: {
-          label: "Recipe management",
-          sublabel: "InView V3 · 12.1\"",
-          gradient: "linear-gradient(135deg,#1e293b 0%,#334155 60%,#475569 100%)",
-        },
       },
       {
+        src: "/projects/iris-v3/03__trends-zoom.png",
         alt: "Trends chart with zoom and drag interaction",
         caption: "InView · Trends · Zoom & Drag",
-        placeholder: {
-          label: "Trends · Zoom & Drag",
-          sublabel: "InView V3 · 12.1\"",
-          gradient: "linear-gradient(135deg,#0f766e 0%,#0d9488 60%,#14b8a6 100%)",
-        },
       },
       {
+        src: "/projects/iris-v3/04__alarms-active.png",
         alt: "Active alarms queue with severity ranking",
         caption: "Alarms · Active queue",
-        placeholder: {
-          label: "Alarms · Active queue",
-          sublabel: "Shared module · 12.1\"",
-          gradient: "linear-gradient(135deg,#7f1d1d 0%,#b91c1c 60%,#ef4444 100%)",
-        },
       },
       {
+        src: "/projects/iris-v3/05__zetars-settings.png",
         alt: "ZetaRS settings module with hardware configuration",
         caption: "ZetaRS · Settings · 107 frames",
-        placeholder: {
-          label: "Settings · Hardware config",
-          sublabel: "ZetaRS · 12.1\" · 107 frames",
-          gradient: "linear-gradient(135deg,#1e293b 0%,#475569 60%,#64748b 100%)",
-        },
       },
       {
+        src: "/projects/iris-v3/06__confectionery-15in.png",
         alt: "Confectionery widescreen dashboard with operation modes",
         caption: "Confectionery V3.1 · Dashboard · 15\"",
         aspect: "wide",
-        placeholder: {
-          label: "Confectionery 15\" Dashboard",
-          sublabel: "V3.1 · native widescreen · 1920×1080",
-          gradient: "linear-gradient(135deg,#7c2d12 0%,#c2410c 60%,#f97316 100%)",
-        },
       },
       {
+        src: "/projects/iris-v3/07__inside-dashboard.png",
         alt: "Inside dashboard — simplified product, same DS",
         caption: "Inside · Dashboard · 12.1\"",
-        placeholder: {
-          label: "Inside · simplified DS",
-          sublabel: "8 pages total",
-          gradient: "linear-gradient(135deg,#312e81 0%,#4338ca 60%,#6366f1 100%)",
-        },
       },
       {
+        src: "/projects/iris-v3/08__mixers-operation-bar.png",
         alt: "Mixers exclusive operation bar module",
         caption: "Mixer InView V3 · Operation Bar · 02.3",
-        placeholder: {
-          label: "Operation Bar · 02.3",
-          sublabel: "Mixer InView V3 · PMH/PML",
-          gradient: "linear-gradient(135deg,#3f6212 0%,#65a30d 60%,#84cc16 100%)",
-        },
       },
       {
+        src: "/projects/iris-v3/09__plants-ds-overview.png",
         alt: "Plants design system — selected components and tokens",
         caption: "Plants DS · Component library",
         aspect: "wide",
-        placeholder: {
-          label: "Plants Design System",
-          sublabel: "40+ components · 12\" + 15\" variants",
-          gradient: "linear-gradient(135deg,#1d4ed8 0%,#3b82f6 60%,#93c5fd 100%)",
-        },
       },
       {
+        src: "/projects/iris-v3/10__start-stop-sequence.png",
         alt: "Start and stop sequence — process logic visualization",
         caption: "InView V3.2 · Start/stop sequence",
-        placeholder: {
-          label: "Start/Stop sequence",
-          sublabel: "Process logic · NEM-15769",
-          gradient: "linear-gradient(135deg,#7c3aed 0%,#a855f7 60%,#d946ef 100%)",
-        },
       },
     ],
   },
