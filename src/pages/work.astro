@@ -12,6 +12,23 @@ const types = Array.from(
 const sortedAll = [...projects].sort((a, b) =>
   parseInt(b.year) - parseInt(a.year)
 );
+
+// Bento layout — manual size override for a deliberate rhythm.
+type CellSize = "feature" | "tall" | "wide" | "normal";
+const bentoLayout: Record<string, CellSize> = {
+  "iris-v3": "feature",
+  "myct-connecticut": "tall",
+  "netzsch-design-system": "normal",
+  nerida: "normal",
+  techcolab: "wide",
+};
+const featuredCells = projects
+  .filter((p) => p.featured)
+  .map((project, i) => ({
+    project,
+    index: i,
+    size: (bentoLayout[project.slug] ?? project.size ?? "normal") as CellSize,
+  }));
 ---
 
 <BaseLayout
@@ -63,7 +80,7 @@ const sortedAll = [...projects].sort((a, b) =>
     </div>
   </section>
 
-  <!-- Featured grid — bento-style, mixed sizes to differ from /home -->
+  <!-- Featured grid — bento, intentional sizes -->
   <section class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pb-16">
     <div class="flex items-baseline justify-between mb-6">
       <h2 class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
@@ -73,21 +90,16 @@ const sortedAll = [...projects].sort((a, b) =>
         Click to read the story
       </span>
     </div>
-    <div class="grid md:grid-cols-3 gap-5 md:gap-6 auto-rows-auto" id="featured-grid">
-      {projects.filter((p) => p.featured).map((project, i) => (
+    <div class="bento-grid" id="featured-grid">
+      {featuredCells.map(({ project, index, size }) => (
         <div
-          class="project-tile"
+          class="bento-cell project-tile"
           data-type={project.type.split("·")[0].trim()}
-          data-size={project.size ?? "normal"}
-          style={
-            project.size === "wide"
-              ? "grid-column: span 2;"
-              : project.size === "tall"
-              ? "grid-row: span 2;"
-              : ""
-          }
+          data-size={size}
+          data-reveal
+          data-reveal-delay={Math.min(index, 5)}
         >
-          <ProjectCard project={project} index={i} size={project.size} />
+          <ProjectCard project={project} index={index} size={size} />
         </div>
       ))}
     </div>

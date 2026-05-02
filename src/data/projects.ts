@@ -12,7 +12,7 @@ export type Project = {
   featured: boolean;
   ai?: boolean;
   metric?: { label: string; value: string };
-  size?: "wide" | "tall" | "normal";
+  size?: "wide" | "tall" | "normal" | "feature";
   personal?: boolean;
 };
 
