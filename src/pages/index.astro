@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import ContactForm from "../components/ContactForm.astro";
+import HeroVideoScroll from "../components/HeroVideoScroll.tsx";
 import { featured, personal } from "../data/projects";
 
 const clients = [
@@ -23,7 +24,8 @@ let charIndex = 0;
   <!-- Hero — recruiter-friendly, compact, motion-rich -->
   <section class="relative">
     <div class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 pt-12 md:pt-20 pb-16 md:pb-24">
-      <!-- Hero — single column, text-led (video bg incoming) -->
+      <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)] gap-10 lg:gap-16 items-center">
+      <!-- Hero — text-led -->
       <div class="flex flex-col gap-7 md:gap-9 max-w-[60ch]">
         <h1
           class="display text-[clamp(2.75rem,7.4vw,6rem)] leading-[0.95]"
@@ -111,6 +113,36 @@ let charIndex = 0;
             <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">2016 → 2026</span>
           </div>
         </dl>
+      </div>
+
+      <!-- Hero video — scroll-controlled, no autoplay -->
+      <div
+        class="relative hidden lg:block aspect-[4/5] rounded-2xl overflow-hidden border border-[var(--color-border)] bg-[var(--color-bg-soft)] shadow-[0_24px_60px_-32px_rgba(0,0,0,0.18)]"
+        data-reveal
+        data-reveal-delay="3"
+      >
+        <HeroVideoScroll
+          client:load
+          src="/hero-creating.mp4"
+          poster="/hero-creating-poster.jpg"
+          posterAlt="Designer creating something"
+          fallbackImage="/hero-creating-poster.jpg"
+        />
+        <!-- Soft top→bottom legibility tint over the video -->
+        <div
+          class="absolute inset-0 pointer-events-none"
+          style="background: linear-gradient(180deg, rgba(250,250,249,0) 60%, rgba(250,250,249,0.22) 100%);"
+        ></div>
+        <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+          <span class="font-mono text-[10px] uppercase tracking-[0.16em] text-white/85 mix-blend-difference">
+            Creating
+          </span>
+          <span class="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-white/85 mix-blend-difference">
+            <span class="size-1.5 rounded-full bg-[var(--color-accent)]"></span>
+            Scroll to play
+          </span>
+        </div>
+      </div>
       </div>
     </div>
   </section>
