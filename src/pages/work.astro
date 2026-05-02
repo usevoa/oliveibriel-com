@@ -13,14 +13,14 @@ const sortedAll = [...projects].sort((a, b) =>
   parseInt(b.year) - parseInt(a.year)
 );
 
-// Bento layout — manual size override for a deliberate rhythm.
+// Bento layout — discreet rhythm, no oversized feature.
 type CellSize = "feature" | "tall" | "wide" | "normal";
 const bentoLayout: Record<string, CellSize> = {
-  "iris-v3": "feature",
-  "myct-connecticut": "tall",
+  "iris-v3": "wide",
+  "myct-connecticut": "normal",
   "netzsch-design-system": "normal",
   nerida: "normal",
-  techcolab: "wide",
+  techcolab: "normal",
 };
 const featuredCells = projects
   .filter((p) => p.featured)

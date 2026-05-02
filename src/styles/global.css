@@ -311,14 +311,14 @@ html.js [data-reveal].is-visible {
 .bento-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 @media (min-width: 768px) {
   .bento-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-auto-rows: minmax(180px, auto);
+    grid-auto-rows: auto;
     grid-auto-flow: dense;
-    gap: 1.5rem;
+    gap: 1.25rem;
   }
 }
 .bento-cell { display: flex; }
