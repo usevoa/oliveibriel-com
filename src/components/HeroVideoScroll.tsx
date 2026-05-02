@@ -96,8 +96,6 @@ export default function HeroVideoScroll({
             style={{
               opacity: canVideo ? 1 : 0,
               transition: "opacity 600ms ease",
-              mixBlendMode: "multiply",
-              filter: "contrast(1.45) brightness(1.08)",
             }}
           >
             {srcWebm && <source src={srcWebm} type="video/webm" />}
@@ -109,7 +107,6 @@ export default function HeroVideoScroll({
               alt={posterAlt}
               aria-hidden="true"
               className="absolute inset-0 w-full h-full object-contain"
-              style={{ mixBlendMode: "multiply", filter: "contrast(1.45) brightness(1.08)" }}
             />
           )}
         </>
