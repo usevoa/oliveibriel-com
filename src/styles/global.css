@@ -31,7 +31,7 @@
 
   /* Typography */
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Bricolage Grotesque", "Inter", ui-sans-serif, sans-serif;
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, "SF Mono", monospace;
 
   /* Reading width */
@@ -128,9 +128,8 @@ main, header, footer { position: relative; z-index: 2; }
 .display {
   font-family: var(--font-display);
   font-weight: 700;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.04em;
   line-height: 0.95;
-  font-variation-settings: "opsz" 96;
 }
 
 .display-italic {
