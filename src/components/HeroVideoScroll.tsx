@@ -75,7 +75,16 @@ export default function HeroVideoScroll({
   }, [useStatic, scrollYProgress]);
 
   return (
-    <div ref={triggerRef} aria-hidden="true" className="absolute inset-0 overflow-hidden">
+    <div
+      ref={triggerRef}
+      aria-hidden="true"
+      className="absolute left-0 right-0 overflow-visible pointer-events-none"
+      // Extend the trigger area down past the visible video so the mapped
+      // scroll range is wider (≈ video height + 100vh). Top stays anchored
+      // to the video's top so progress starts at 0 when the page loads.
+      style={{ top: 0, bottom: "-100vh" }}
+    >
+      <div className="absolute inset-0 overflow-hidden" style={{ bottom: "100vh" }}>
       {useStatic ? (
         <img
           src={fallbackImage ?? poster}
@@ -111,6 +120,7 @@ export default function HeroVideoScroll({
           )}
         </>
       )}
+      </div>
     </div>
   );
 }
