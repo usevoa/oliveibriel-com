@@ -15,7 +15,7 @@ interface Props {
  * Scroll-controlled background video.
  * - No autoplay; scroll position drives currentTime via framer-motion.
  * - Falls back to a static image on touch, reduced motion, or no src.
- * - Trigger ref defines the scroll range; mount inside a relative parent.
+ * - Mount inside a `relative` parent that defines the visible video box.
  */
 export default function HeroVideoScroll({
   src,
@@ -75,52 +75,55 @@ export default function HeroVideoScroll({
   }, [useStatic, scrollYProgress]);
 
   return (
-    <div
-      ref={triggerRef}
-      aria-hidden="true"
-      className="absolute left-0 right-0 overflow-visible pointer-events-none"
-      // Modest scroll-range extension below the video so progress maps to
-      // a slightly longer scroll than the visible card alone. Tune the
-      // bottom offset (in vh) to control playback speed.
-      style={{ top: 0, bottom: "-15vh" }}
-    >
-      <div className="absolute inset-0 overflow-hidden" style={{ bottom: "15vh" }}>
-      {useStatic ? (
-        <img
-          src={fallbackImage ?? poster}
-          alt={posterAlt}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-      ) : (
-        <>
-          <video
-            ref={videoRef}
-            poster={poster}
-            muted
-            playsInline
-            preload="auto"
-            disablePictureInPicture
-            tabIndex={-1}
+    <>
+      {/* Invisible scroll trigger — exactly one viewport tall so the full
+          video plays in a single screen of scroll. Top anchored to the
+          video container's top so progress starts at 0 on load. */}
+      <div
+        ref={triggerRef}
+        aria-hidden="true"
+        className="absolute left-0 right-0 pointer-events-none"
+        style={{ top: 0, height: "100vh" }}
+      />
+
+      {/* Visible video, clipped to the parent. */}
+      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+        {useStatic ? (
+          <img
+            src={fallbackImage ?? poster}
+            alt={posterAlt}
             className="absolute inset-0 w-full h-full object-contain"
-            style={{
-              opacity: canVideo ? 1 : 0,
-              transition: "opacity 600ms ease",
-            }}
-          >
-            {srcWebm && <source src={srcWebm} type="video/webm" />}
-            {src && <source src={src} type="video/mp4" />}
-          </video>
-          {!canVideo && (
-            <img
-              src={poster}
-              alt={posterAlt}
-              aria-hidden="true"
+          />
+        ) : (
+          <>
+            <video
+              ref={videoRef}
+              poster={poster}
+              muted
+              playsInline
+              preload="auto"
+              disablePictureInPicture
+              tabIndex={-1}
               className="absolute inset-0 w-full h-full object-contain"
-            />
-          )}
-        </>
-      )}
+              style={{
+                opacity: canVideo ? 1 : 0,
+                transition: "opacity 600ms ease",
+              }}
+            >
+              {srcWebm && <source src={srcWebm} type="video/webm" />}
+              {src && <source src={src} type="video/mp4" />}
+            </video>
+            {!canVideo && (
+              <img
+                src={poster}
+                alt={posterAlt}
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-contain"
+              />
+            )}
+          </>
+        )}
       </div>
-    </div>
+    </>
   );
 }
