@@ -97,14 +97,14 @@ export default function HeroVideoScroll({
 
   return (
     <>
-      {/* Invisible scroll trigger — exactly one viewport tall so the full
-          video plays in a single screen of scroll. Top anchored to the
+      {/* Invisible scroll trigger — half a viewport tall so the full
+          video plays in ~half a screen of scroll. Top anchored to the
           video container's top so progress starts at 0 on load. */}
       <div
         ref={triggerRef}
         aria-hidden="true"
         className="absolute left-0 right-0 pointer-events-none"
-        style={{ top: 0, height: "100vh" }}
+        style={{ top: 0, height: "50vh" }}
       />
 
       {/* Visible video, clipped to the parent. */}
