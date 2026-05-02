@@ -3,6 +3,8 @@ import { useScroll, useReducedMotion } from "framer-motion";
 
 interface Props {
   src?: string;
+  /** Optional WebM with alpha channel; preferred when supplied. */
+  srcWebm?: string;
   poster: string;
   posterAlt: string;
   /** Static fallback for touch / reduced motion / missing src. */
@@ -17,6 +19,7 @@ interface Props {
  */
 export default function HeroVideoScroll({
   src,
+  srcWebm,
   poster,
   posterAlt,
   fallbackImage,
@@ -31,7 +34,7 @@ export default function HeroVideoScroll({
     setIsTouch(window.matchMedia("(hover: none)").matches);
   }, []);
 
-  const useStatic = !src || reduced || isTouch;
+  const useStatic = !(src || srcWebm) || reduced || isTouch;
 
   const { scrollYProgress } = useScroll({
     target: triggerRef,
@@ -83,22 +86,30 @@ export default function HeroVideoScroll({
         <>
           <video
             ref={videoRef}
-            src={src}
             poster={poster}
             muted
             playsInline
             preload="auto"
             disablePictureInPicture
             tabIndex={-1}
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{ opacity: canVideo ? 1 : 0, transition: "opacity 600ms ease" }}
-          />
+            className="absolute inset-0 w-full h-full object-contain"
+            style={{
+              opacity: canVideo ? 1 : 0,
+              transition: "opacity 600ms ease",
+              mixBlendMode: "multiply",
+              filter: "contrast(1.45) brightness(1.08)",
+            }}
+          >
+            {srcWebm && <source src={srcWebm} type="video/webm" />}
+            {src && <source src={src} type="video/mp4" />}
+          </video>
           {!canVideo && (
             <img
               src={poster}
               alt={posterAlt}
               aria-hidden="true"
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-contain"
+              style={{ mixBlendMode: "multiply", filter: "contrast(1.45) brightness(1.08)" }}
             />
           )}
         </>
