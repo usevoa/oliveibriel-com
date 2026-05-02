@@ -359,29 +359,37 @@ const toc = study
           );
         })}
 
-        <!-- Gallery -->
+        <!-- Gallery — horizontal scroll-snap -->
         {study.gallery && study.gallery.length > 0 && (
-          <section id="selected-screens" class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 md:py-16 border-t border-[var(--color-border)]">
-            <div class="flex items-baseline justify-between mb-8">
+          <section id="selected-screens" class="py-12 md:py-16 border-t border-[var(--color-border)]">
+            <div class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 flex items-baseline justify-between mb-6">
               <h2 class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">Selected screens</h2>
-              <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">{study.gallery.length} captures</span>
+              <div class="flex items-center gap-3 font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+                <span><span data-gallery-current>1</span> / {study.gallery.length}</span>
+                <span class="hidden sm:inline">·</span>
+                <span class="hidden sm:inline">Drag or scroll →</span>
+              </div>
             </div>
-            <div class="grid md:grid-cols-2 gap-6 md:gap-8">
-              {study.gallery.map((img) => {
-                const aspectClass =
-                  img.aspect === "tall"
-                    ? "aspect-[3/4]"
-                    : img.aspect === "square"
-                    ? "aspect-square"
-                    : "aspect-[16/9]";
-                const wide = img.aspect === "wide";
+
+            <div
+              class="gallery-scroller"
+              data-gallery
+              role="region"
+              aria-label="Project screen gallery"
+            >
+              <div class="gallery-edge gallery-edge--start" aria-hidden="true"></div>
+              {study.gallery.map((img, gi) => {
                 const showPlaceholder = !img.src && img.placeholder;
                 const defaultGradient =
                   "linear-gradient(135deg, #1e293b 0%, #1e3a8a 55%, #1d4ed8 100%)";
                 return (
-                  <figure class={wide ? "md:col-span-2" : ""}>
+                  <figure
+                    class="gallery-item"
+                    data-gallery-item
+                    data-index={gi}
+                  >
                     <div
-                      class={`relative overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] ${aspectClass}`}
+                      class="relative overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] aspect-[16/9]"
                       style={showPlaceholder ? `background: ${img.placeholder!.gradient || defaultGradient};` : undefined}
                     >
                       {img.src && (
@@ -390,6 +398,7 @@ const toc = study
                           alt={img.alt}
                           class="w-full h-full object-cover"
                           loading="lazy"
+                          decoding="async"
                         />
                       )}
                       {showPlaceholder && (
@@ -406,22 +415,25 @@ const toc = study
                               {img.placeholder!.sublabel}
                             </span>
                           )}
-                          <div class="absolute top-6 right-6 md:top-8 md:right-8 flex items-center gap-1.5">
-                            {[0, 1, 2].map(() => (
-                              <span class="size-1 rounded-full bg-white/40"></span>
-                            ))}
-                          </div>
                         </div>
                       )}
                     </div>
                     {img.caption && (
                       <figcaption class="mt-3 font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+                        <span class="opacity-50 mr-2">{String(gi + 1).padStart(2, "0")}</span>
                         {img.caption}
                       </figcaption>
                     )}
                   </figure>
                 );
               })}
+              <div class="gallery-edge gallery-edge--end" aria-hidden="true"></div>
+            </div>
+
+            <div class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 mt-4">
+              <div class="gallery-progress" aria-hidden="true">
+                <span class="gallery-progress__bar" data-gallery-bar></span>
+              </div>
             </div>
           </section>
         )}
@@ -471,3 +483,50 @@ const toc = study
     )}
   </article>
 </BaseLayout>
+
+<script is:inline>
+  (() => {
+    const setupGallery = () => {
+      const scroller = document.querySelector("[data-gallery]");
+      if (!scroller) return;
+      const items = scroller.querySelectorAll("[data-gallery-item]");
+      const counter = document.querySelector("[data-gallery-current]");
+      const bar = document.querySelector("[data-gallery-bar]");
+      if (!items.length) return;
+
+      const total = items.length;
+
+      const update = () => {
+        const max = scroller.scrollWidth - scroller.clientWidth;
+        const ratio = max > 0 ? Math.min(1, Math.max(0, scroller.scrollLeft / max)) : 0;
+        if (bar) bar.style.width = `${Math.max(10, ratio * 100)}%`;
+
+        // Find which item's left edge is closest to scroller left edge
+        const sLeft = scroller.scrollLeft;
+        let closestIndex = 0;
+        let closestDist = Infinity;
+        items.forEach((el, i) => {
+          const dist = Math.abs(el.offsetLeft - sLeft - 24);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closestIndex = i;
+          }
+        });
+        if (counter) counter.textContent = String(closestIndex + 1);
+      };
+
+      let raf = 0;
+      scroller.addEventListener("scroll", () => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          update();
+          raf = 0;
+        });
+      }, { passive: true });
+      window.addEventListener("resize", update, { passive: true });
+      update();
+    };
+    setupGallery();
+    document.addEventListener("astro:page-load", setupGallery);
+  })();
+</script>
