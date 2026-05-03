@@ -301,11 +301,11 @@ const toc = study
             "linear-gradient(135deg, #1e293b 0%, #1e3a8a 55%, #1d4ed8 100%)";
           const isSplit = sec.layout === "split" && img;
           const imageOnLeft = isSplit && sec.imageSide === "left";
-          const figureEl = img ? (
-            <figure class="mt-2">
+          const renderFigure = (extraClass = "") => img ? (
+            <figure class={extraClass}>
               <button
                 type="button"
-                class={`group relative w-full overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] ${aspectClass} ${img.src ? "cursor-zoom-in" : ""} block`}
+                class={`group relative w-full overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] ${isSplit ? "" : aspectClass} ${img.src ? "cursor-zoom-in" : ""} block`}
                 style={showImgPlaceholder ? `background: ${img.placeholder!.gradient || defaultGradient};` : undefined}
                 data-lightbox-trigger={img.src ? "true" : undefined}
                 data-lightbox-src={img.src}
@@ -318,7 +318,11 @@ const toc = study
                   <img
                     src={img.src}
                     alt={img.alt}
-                    class={`w-full h-full ${img.fit === "contain" ? "object-contain p-3 md:p-4" : "object-cover"} transition-transform duration-500 ease-out group-hover:scale-[1.02]`}
+                    class={
+                      isSplit
+                        ? "block w-full h-auto transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                        : `w-full h-full ${img.fit === "contain" ? "object-contain p-3 md:p-4" : "object-cover"} transition-transform duration-500 ease-out group-hover:scale-[1.02]`
+                    }
                     loading="lazy"
                   />
                 )}
@@ -363,13 +367,14 @@ const toc = study
                   </h2>
                 </div>
                 {isSplit ? (
-                  <div class={`grid gap-8 md:gap-10 lg:grid-cols-2 lg:items-start ${imageOnLeft ? "lg:[&>*:first-child]:order-2" : ""}`}>
-                    <div class="prose-content text-[var(--color-fg)] text-base md:text-lg leading-relaxed flex flex-col gap-4">
+                  <div class="prose-content text-[var(--color-fg)] text-base md:text-lg leading-relaxed">
+                    {renderFigure(`mb-5 lg:mb-2 lg:w-[52%] ${imageOnLeft ? "lg:float-left lg:mr-7" : "lg:float-right lg:ml-7"}`)}
+                    <div class="space-y-4">
                       {paragraphs(sec.body).map((p) => (
                         <p>{inlineSegments(p).map((s) => s.bold ? <strong>{s.text}</strong> : s.text)}</p>
                       ))}
                     </div>
-                    <div class="lg:sticky lg:top-24">{figureEl}</div>
+                    <div class="clear-both"></div>
                   </div>
                 ) : (
                   <div class="flex flex-col gap-8">
@@ -378,7 +383,7 @@ const toc = study
                         <p>{inlineSegments(p).map((s) => s.bold ? <strong>{s.text}</strong> : s.text)}</p>
                       ))}
                     </div>
-                    {figureEl}
+                    {renderFigure("mt-2")}
                   </div>
                 )}
               </div>

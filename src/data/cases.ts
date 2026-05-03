@@ -64,7 +64,7 @@ export const cases: Record<string, CaseStudy> = {
       "IRIS is the on-machine HMI on every bead mill, disperser, mixer, and confectionery system NETZSCH ships globally. V3 was the unified rewrite: one design system, six product lines, in three languages.",
     highlights: [
       { label: "Product lines on one DS", value: "6" },
-      { label: "Panel sizes", value: "12.1\" + 15\"" },
+      { label: "Languages shipped", value: "3" },
       { label: "Sole designer since", value: "2023" },
     ],
     challenge:
@@ -84,8 +84,6 @@ export const cases: Record<string, CaseStudy> = {
           src: "/projects/iris-v3/04__alarms-active.png",
           alt: "InView V3 active alarm queue with severity ranking",
           caption: "Alarms · the screen the Operator and Technician share",
-          aspect: "wide",
-          fit: "contain",
         },
       },
       {
@@ -98,8 +96,6 @@ export const cases: Record<string, CaseStudy> = {
           src: "/projects/iris-v3/06__confectionery-15in.png",
           alt: "Confectionery V3.1 dashboard on the 15-inch widescreen panel",
           caption: "Confectionery · 15\" · same shape, different machine",
-          aspect: "wide",
-          fit: "contain",
         },
       },
       {

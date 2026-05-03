@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = "Gabriel Oliveira — Senior Product Designer",
-  description = "Senior Product Designer working on industrial SaaS at NETZSCH and running VOA Digital. B2B, design systems, and AI-native workflows.",
+  title = "Gabriel Oliveira — Senior Product Designer | Industrial SaaS, Design Systems & AI",
+  description = "Senior Product Designer with 10+ years shipping industrial SaaS, design systems, and AI-native tools. Currently leading UX on IRIS V3 at NETZSCH and co-founder of VOA Digital. Based in Curitiba, Brazil.",
   image = "/og-default.png",
   type = "website",
 } = Astro.props;
@@ -16,10 +16,46 @@ const {
 const siteUrl = "https://oliveibriel.com";
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? siteUrl).toString();
 const ogImage = new URL(image, Astro.site ?? siteUrl).toString();
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Gabriel Oliveira",
+  jobTitle: "Senior Product Designer",
+  description:
+    "Senior Product Designer specializing in industrial SaaS, design systems, and AI-native tools. 10+ years of experience.",
+  url: siteUrl,
+  email: "mailto:gabriel@oliveibriel.com",
+  image: `${siteUrl}/og-default.png`,
+  sameAs: [
+    "https://www.linkedin.com/in/oliveibriel",
+    "https://github.com/oliveibriel",
+  ],
+  worksFor: [
+    { "@type": "Organization", name: "NETZSCH" },
+    { "@type": "Organization", name: "VOA Digital" },
+  ],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Curitiba",
+    addressCountry: "BR",
+  },
+  knowsAbout: [
+    "Product Design",
+    "Design Systems",
+    "Industrial UX",
+    "B2B SaaS",
+    "AI-native tools",
+    "UX Strategy",
+    "Information Architecture",
+    "Accessibility",
+  ],
+};
 ---
 
 <title>{title}</title>
 <meta name="description" content={description} />
+<meta name="author" content="Gabriel Oliveira" />
 <link rel="canonical" href={canonicalURL} />
 
 <meta property="og:type" content={type} />
@@ -28,6 +64,9 @@ const ogImage = new URL(image, Astro.site ?? siteUrl).toString();
 <meta property="og:image" content={ogImage} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:site_name" content="Gabriel Oliveira" />
+{type === "article" && (
+  <meta property="article:author" content="Gabriel Oliveira" />
+)}
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
@@ -39,3 +78,5 @@ const ogImage = new URL(image, Astro.site ?? siteUrl).toString();
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="alternate" type="application/rss+xml" title="Gabriel Oliveira" href="/rss.xml" />
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(personJsonLd)} />
