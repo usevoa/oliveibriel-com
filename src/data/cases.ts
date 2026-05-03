@@ -58,99 +58,37 @@ export const cases: Record<string, CaseStudy> = {
     yearRange: "2023 →",
     stack: ["Figma", "Zeroheight", "Maze", "Confluence"],
     contextOneLiner:
-      "IRIS is the on-machine HMI that runs every bead mill, disperser, mixer, and confectionery system NETZSCH ships globally. V3 was the unified rewrite — one design system, seven product lines, deployed on factory floors 24/7 in three languages.",
+      "IRIS is the on-machine HMI on every bead mill, disperser, mixer, and confectionery system NETZSCH ships globally. V3 was the unified rewrite: one design system, six product lines, in three languages.",
     highlights: [
-      { label: "Product lines unified", value: "7" },
-      { label: "Personas served", value: "4" },
+      { label: "Product lines on one DS", value: "6" },
+      { label: "Panel sizes", value: "12.1\" + 15\"" },
       { label: "Sole designer since", value: "2023" },
     ],
     challenge:
-      "Before V3, every NETZSCH machine had its own HMI. The visual language drifted between products, navigation didn't match, and the same task — start a batch, edit a recipe, acknowledge an alarm — looked different on every panel.\n\nFor the people who use the machines, that meant retraining every time they switched. An operator who knew the BeadMill InView cold couldn't sit down at a Confectionery panel without learning the interface from scratch. Field service spent half their time fielding questions the UI should have answered. New product lines started from a blank canvas every time.\n\nMy job, as the sole designer on the platform, was to build a system that worked for seven products — without flattening the specifics each machine actually needs.",
+      "Before V3, every NETZSCH machine had its own HMI. An operator who knew InView cold couldn't sit down at a Confectionery panel without retraining. Field service spent half their time fielding questions the UI should have answered.\n\nI came in as the only designer on the platform. The brief was to make six product lines feel like one product without flattening what each machine actually needs.",
     approach:
-      "Started on the floor, with the operators. The constraints aren't on a spec sheet — they're in the room. Operators wear gloves. Lighting changes through the shift. The panel is at chest height, often viewed at an angle, and attention is split between the screen and a running machine.\n\nPick one product as the reference, design it end-to-end against real users, and only then extract the patterns into a shared system. The BeadMill InView became that anchor — every component, every pattern, every interaction was earned by surviving a real screen first, not by being designed in a token table.\n\nFrom there, I rolled it out, product by product — Confectionery, Epsilon, Mixers, ZetaRS, Inside, Resino. Each new product was a stress test for the system: what does this one need that the others don't, and how does it fit into the shared structure without breaking it?",
+      "I started on the floor. Operators wear gloves, lighting shifts through the day, the panel is at chest height with attention split between the screen and a running machine. None of that is on a spec sheet.\n\nPicked InView as the reference and designed it end to end against real users. Then extracted the patterns into the shared system and rolled it out product by product — Confectionery, Epsilon, Mixers, ZetaRS, Inside.",
     outcome:
-      "Seven product lines now run on the same design language. An operator trained on one machine can sit down at any of the others and find the dashboard, the recipe screen, the alarms, the settings — all in the same place, behaving the same way.\n\nNew product onboarding compressed from months of bespoke design to weeks of configuration on top of the shared system. Field service stopped fielding the same UI questions across products. Sales decks, training videos, and customer documentation all pull from one consistent vocabulary in three languages.\n\nThe platform is still active and growing — three years in, every new machine NETZSCH G&D ships internationally lands on this system.",
+      "Six product lines now ship on the same design language. An operator trained on one machine can sit down at any other and find the dashboard, recipes, alarms, settings in the same place, behaving the same way.\n\nNew product onboarding went from months of bespoke design to weeks of configuration. Three years in, every new machine NETZSCH G&D ships internationally lands on this system.",
     sections: [
       {
         heading: "Who I designed for",
         body:
-          "Four personas drive every decision. Each one has a different relationship with the machine, and the HMI has to serve all of them without pandering to any one of them.\n\n**The Operator** — on the floor, often Portuguese or German-speaking, running batches under shift pressure. Needs simple controls, low cognitive load, no surprises. Most of the screens you see are tuned for this user.\n\n**The Maintenance Technician** — diagnostic context. Needs error logs, troubleshooting flows, equipment status. The system surfaces depth without forcing it on the operator.\n\n**The Maintenance Coordinator** — sees the longitudinal view across a fleet. Maintenance history, predictive alerts, planning.\n\n**The Production Supervisor** — KPIs, throughput, trends. Reads the machine through outcomes, not real-time state.\n\nGetting these four right — without overloading any single screen — is the work that mattered most.",
-        image: {
-          alt: "HMI panel mounted on a NETZSCH machine in a customer plant",
-          caption: "Context · the panel where operators meet the system",
-          aspect: "wide",
-          placeholder: {
-            label: "HMI in the field",
-            sublabel: "Real machine · real operators",
-            gradient: "linear-gradient(135deg,#0c4a6e 0%,#075985 60%,#0284c7 100%)",
-          },
-        },
+          "Four personas, each with a different relationship to the machine.\n\nThe **Operator** runs batches under shift pressure, often in Portuguese or German. Most of the screens are tuned for this user — simple controls, low cognitive load, no surprises.\n\nThe **Maintenance Technician** needs diagnostic depth: error logs, troubleshooting flows, equipment status. The system surfaces it without forcing it on the operator.\n\nThe **Maintenance Coordinator** sees the longitudinal view across a fleet — history, predictive alerts, planning.\n\nThe **Production Supervisor** reads the machine through outcomes — KPIs, throughput, trends — not real-time state.\n\nGetting all four right without overloading any single screen was the hard part.",
       },
       {
-        heading: "What I actually did",
+        heading: "Same place, every machine",
         body:
-          "Concretely: I designed the screens, built the design system that holds them together, and stayed on it through deploy.\n\n**The screens** — every operating surface across seven products. Dashboards with live process flowcharts, recipe editors, batch monitoring, alarm queues, maintenance, settings, history, manual actions. Across two panel sizes (12.1\" and 15\"), with adaptation between them.\n\n**The design system** — the foundation under all seven products. Color, typography, and spacing tokens designed for industrial readability. A component library that includes the obvious primitives (buttons, modals, forms) and the domain-specific ones nobody else has solved (alarm rows with severity, batch progress, the P&ID flowchart with its component modals).\n\n**The work past the screen** — onboarding flows, in-app help, training video scripts in two languages, sales decks in three, customer documentation, and the integration design connecting IRIS to remote monitoring and cloud services. The screens don't ship in isolation; the system around them has to ship too.",
-        image: {
-          src: "/projects/iris-v3/inline-02__components-tokens.png",
-          alt: "Plants design system component overview — buttons, cards, alarm rows, tokens",
-          caption: "The system under all seven products",
-          aspect: "wide",
-        },
+          "The biggest decision in V3 was structural, not visual. Every product shares the same module layout. Dashboard, alarms, recipes, settings, maintenance — same place, every machine.\n\nProduct-exclusive features slot into that layout without breaking it. Bead Filling on InView and Confectionery. Scale Calibration on the dosing-aware products. The Operation Bar on Mixers. The shared structure is a contract; the product specifics live inside the contract, not around it.\n\nThat's what makes the cross-product training claim real. The visual language reinforces it — same buttons, same alarm patterns, same way of confirming irreversible actions — but the structural decision is what carries the weight.",
       },
       {
-        heading: "The key decision — same place, every machine",
+        heading: "What didn't go well",
         body:
-          "The biggest decision in V3 was structural, not visual. Every product shares the same module layout. The dashboard is in the same place. Alarms are in the same place. Recipes, settings, maintenance — same place, every machine.\n\nProduct-exclusive features (Bead Filling on InView and Confectionery, Scale Calibration on the dosing-aware products, the Operation Bar on Mixers) slot into the standard layout without breaking it. The shared structure is a contract; the product specifics live inside that contract, not around it.\n\nThis is what makes the cross-product training claim real. An operator who learns the IRIS shape on one machine has learned it for every other machine. The visual language reinforces that — same buttons, same alarm patterns, same way of confirming irreversible actions — but the structural decision is what carries the weight.",
-        image: {
-          alt: "Module navigation across multiple products, side by side",
-          caption: "Same nav, every machine",
-          aspect: "wide",
-          placeholder: {
-            label: "Modular nav · 7 products",
-            sublabel: "Same shape, every machine",
-            gradient: "linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#334155 100%)",
-          },
-        },
-      },
-      {
-        heading: "What worked",
-        body:
-          "**The cross-product consistency claim is real.** Operators trained on one IRIS panel can use any other without retraining. Service teams confirm it. Customers feel it. It's the outcome that compounds the most across the seven products.\n\n**The design system absorbed every new product without buckling.** Confectionery, Epsilon, Mixers, ZetaRS — each one stress-tested the foundation and extended it with one or two new patterns instead of starting from scratch. The system grew without diluting.\n\n**Validation paid off.** Maze studies for high-friction flows, design reviews catching implementation drift, on-machine QA after deployment. Industrial software lives ten years on a customer floor — getting it wrong on day one is expensive.\n\n**The work past the screen mattered as much as the screen itself.** Multilingual training, sales enablement, integration design — the platform needed all of it to land. Designing only the UI would have left the rest of the system speaking a different language.",
-      },
-      {
-        heading: "What didn't",
-        body:
-          "**The 15\" → 12.1\" adaptation was harder than I expected.** What worked on a widescreen Confectionery panel rarely scaled by simple resizing. Information density that felt right on the larger surface became cramped on the smaller one. Several modules had to be recomposed from primitives instead of adapted, and that cost more time than the original design did.\n\n**Adoption is a sales job, not a design job.** Early on I assumed that solid components plus clear documentation would be enough. They weren't. Patterns that felt 'too generic' on first review got pushed back, and I had to re-pitch them with operator-context evidence — recordings of the floor, lighting tests, glove interactions. Every component the system carries earned its place, but earning that place was an ongoing conversation, not a one-time approval.\n\n**The Plants name confused things.** Internally the design system was called Plants — distinct from the IRIS product brand — and that distinction was clean to me but cloudy to people outside. If I'd had a do-over I'd have framed it differently to avoid the early 'is Plants the product?' loop in onboarding decks.",
-      },
-      {
-        heading: "How I validated",
-        body:
-          "Validation ran at three layers, each one slower and more expensive than the last.\n\n**Maze studies** for high-friction flows — recipe edit, alarm acknowledgment, manual sample-taking. Cheap, fast, useful for catching the obvious — not for catching the gloved-hand-in-bad-lighting problems.\n\n**Design reviews with engineering** — alignment between Figma and the deployed HMI, catching implementation drift while it's still cheap to fix. Slower, but where most of the catches happened.\n\n**On-machine QA after deployment** — formal divergence reports between mockup and shipped HMI. The most expensive of the three, the one that revealed the things you can't catch any other way. Industrial software doesn't fail loudly; it fails by accumulating small frictions that turn into operator workarounds. On-machine QA is what catches that.",
-        image: {
-          alt: "Validation artifact — Maze report or QA divergence document",
-          caption: "Three-layer validation",
-          aspect: "wide",
-          placeholder: {
-            label: "Validation",
-            sublabel: "Maze · Design review · On-machine QA",
-            gradient: "linear-gradient(135deg,#365314 0%,#4d7c0f 60%,#84cc16 100%)",
-          },
-        },
-      },
-      {
-        heading: "The product family",
-        body:
-          "Seven product lines, two panel sizes, three languages, one design system. Each product solves a different industrial process, but the operator experience is shared.\n\n**InView** is the BeadMill reference — the most feature-complete, the highest density, the one everything else stress-tests against. **Confectionery** is the only product designed natively for the 15\" widescreen, with three distinct operation modes (Dosing, Mixing, Grinding). **Epsilon** owns the most complex pump configuration and an exclusive Dispersing mode. **ZetaRS** is the configuration king — the deepest settings module, designed with commissioning in mind. **Mixers** carry the only exclusive Operation Bar variant. **Inside** proves the system scales down gracefully — same DS, simpler product, no awkwardness. **Resino** is the newest addition, still maturing, but already on the same foundation.",
-        image: {
-          src: "/projects/iris-v3/inline-06__product-family.png",
-          alt: "All seven IRIS V3 products at thumbnail scale",
-          caption: "7 products · one DS",
-          aspect: "wide",
-        },
+          "The 15\" to 12.1\" adaptation was harder than I expected. Information density that felt right on the widescreen Confectionery panel cramped on the smaller one. Several modules had to be recomposed from primitives instead of adapted, and that cost more time than the original design did.\n\nAdoption was also a sales job, not a design job. I assumed solid components plus clear documentation would be enough. They weren't. Patterns that felt too generic on first review got pushed back, and I had to re-pitch them with operator-context evidence — recordings of the floor, lighting tests, glove interactions. Every component in the system earned its place, but earning that place was an ongoing conversation, not a one-time approval.",
       },
     ],
     reflection:
-      "Industrial UX is unforgiving in a useful way. Every design decision has to survive a 12-hour shift in PPE under bad lighting, not a 12-minute review with stakeholders. The compounding return is real — the same pattern, multiplied across seven product lines and thousands of operators worldwide, is where the value lives.",
+      "The work that survives a 12-hour shift in PPE under bad lighting is different from the work that survives a 12-minute design review. Three years on this platform taught me the second one is easy and the first one is the actual job.",
     gallery: [
       {
         src: "/projects/iris-v3/01__inview-dashboard.png",

@@ -28,10 +28,10 @@ export const projects: Project[] = [
     year: "2023→",
     type: "Industrial HMI Platform",
     summary:
-      "Sole UX designer on NETZSCH's global HMI platform. 7 product lines, one design system, 35 months and counting.",
+      "Sole UX designer on NETZSCH's global HMI platform. 6 product lines, one design system, 35 months and counting.",
     image: `${CDN}/IRIS/IRIS_Cover.png`,
     featured: true,
-    metric: { label: "Product lines unified", value: "7" },
+    metric: { label: "Product lines unified", value: "6" },
     size: "wide",
   },
   {
