@@ -299,6 +299,60 @@ const toc = study
             : "aspect-[16/9]";
           const defaultGradient =
             "linear-gradient(135deg, #1e293b 0%, #1e3a8a 55%, #1d4ed8 100%)";
+          const isSplit = sec.layout === "split" && img;
+          const imageOnLeft = isSplit && sec.imageSide === "left";
+          const figureEl = img ? (
+            <figure class="mt-2">
+              <button
+                type="button"
+                class={`group relative w-full overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] ${aspectClass} ${img.src ? "cursor-zoom-in" : ""} block`}
+                style={showImgPlaceholder ? `background: ${img.placeholder!.gradient || defaultGradient};` : undefined}
+                data-lightbox-trigger={img.src ? "true" : undefined}
+                data-lightbox-src={img.src}
+                data-lightbox-alt={img.alt}
+                data-lightbox-caption={img.caption}
+                aria-label={img.src ? `Open ${img.alt} larger` : img.alt}
+                disabled={!img.src}
+              >
+                {img.src && (
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                    loading="lazy"
+                  />
+                )}
+                {img.src && (
+                  <span class="absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-black/60 backdrop-blur text-white font-mono text-[10px] uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    <svg class="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 21l-4.35-4.35"/><circle cx="11" cy="11" r="8"/><path d="M11 8v6M8 11h6"/></svg>
+                    Expand
+                  </span>
+                )}
+                {showImgPlaceholder && (
+                  <div class="absolute inset-0 flex flex-col items-start justify-end p-6 md:p-8 gap-3 text-white">
+                    <span class="font-mono text-[10px] uppercase tracking-[0.16em] opacity-75 inline-flex items-center gap-2">
+                      <span class="size-1.5 rounded-full bg-[var(--color-accent-tint)] animate-pulse"></span>
+                      Placeholder · capture pending
+                    </span>
+                    <span class="text-2xl md:text-3xl font-extrabold tracking-tight leading-tight" style="letter-spacing:-0.025em;">
+                      {img.placeholder!.label}
+                    </span>
+                    {img.placeholder!.sublabel && (
+                      <span class="font-mono text-[11px] uppercase tracking-wider opacity-80">
+                        {img.placeholder!.sublabel}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </button>
+              {img.caption && (
+                <figcaption class="mt-3 font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+                  {img.caption}
+                </figcaption>
+              )}
+            </figure>
+          ) : null;
+
           return (
             <section id={slugify(sec.heading)} class="max-w-[var(--container-wide)] mx-auto px-6 md:px-10 py-12 md:py-16 border-t border-[var(--color-border)]">
               <div class="grid md:grid-cols-[14rem_1fr] gap-6 md:gap-12" data-reveal>
@@ -308,52 +362,25 @@ const toc = study
                     {sec.heading}
                   </h2>
                 </div>
-                <div class="flex flex-col gap-8">
-                  <div class="prose-content text-[var(--color-fg)] text-base md:text-lg leading-relaxed max-w-prose flex flex-col gap-4">
-                    {paragraphs(sec.body).map((p) => (
-                      <p>{inlineSegments(p).map((s) => s.bold ? <strong>{s.text}</strong> : s.text)}</p>
-                    ))}
+                {isSplit ? (
+                  <div class={`grid gap-8 md:gap-10 lg:grid-cols-2 lg:items-start ${imageOnLeft ? "lg:[&>*:first-child]:order-2" : ""}`}>
+                    <div class="prose-content text-[var(--color-fg)] text-base md:text-lg leading-relaxed flex flex-col gap-4">
+                      {paragraphs(sec.body).map((p) => (
+                        <p>{inlineSegments(p).map((s) => s.bold ? <strong>{s.text}</strong> : s.text)}</p>
+                      ))}
+                    </div>
+                    <div class="lg:sticky lg:top-24">{figureEl}</div>
                   </div>
-
-                  {img && (
-                    <figure class="mt-2">
-                      <div
-                        class={`relative overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] ${aspectClass}`}
-                        style={showImgPlaceholder ? `background: ${img.placeholder!.gradient || defaultGradient};` : undefined}
-                      >
-                        {img.src && (
-                          <img
-                            src={img.src}
-                            alt={img.alt}
-                            class="w-full h-full object-cover"
-                            loading="lazy"
-                          />
-                        )}
-                        {showImgPlaceholder && (
-                          <div class="absolute inset-0 flex flex-col items-start justify-end p-6 md:p-8 gap-3 text-white">
-                            <span class="font-mono text-[10px] uppercase tracking-[0.16em] opacity-75 inline-flex items-center gap-2">
-                              <span class="size-1.5 rounded-full bg-[var(--color-accent-tint)] animate-pulse"></span>
-                              Placeholder · capture pending
-                            </span>
-                            <span class="text-2xl md:text-3xl font-extrabold tracking-tight leading-tight" style="letter-spacing:-0.025em;">
-                              {img.placeholder!.label}
-                            </span>
-                            {img.placeholder!.sublabel && (
-                              <span class="font-mono text-[11px] uppercase tracking-wider opacity-80">
-                                {img.placeholder!.sublabel}
-                              </span>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                      {img.caption && (
-                        <figcaption class="mt-3 font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
-                          {img.caption}
-                        </figcaption>
-                      )}
-                    </figure>
-                  )}
-                </div>
+                ) : (
+                  <div class="flex flex-col gap-8">
+                    <div class="prose-content text-[var(--color-fg)] text-base md:text-lg leading-relaxed max-w-prose flex flex-col gap-4">
+                      {paragraphs(sec.body).map((p) => (
+                        <p>{inlineSegments(p).map((s) => s.bold ? <strong>{s.text}</strong> : s.text)}</p>
+                      ))}
+                    </div>
+                    {figureEl}
+                  </div>
+                )}
               </div>
             </section>
           );
@@ -388,18 +415,31 @@ const toc = study
                     data-gallery-item
                     data-index={gi}
                   >
-                    <div
-                      class="relative overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] aspect-[16/9]"
+                    <button
+                      type="button"
+                      class={`group relative w-full overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] aspect-[16/9] ${img.src ? "cursor-zoom-in" : ""} block text-left`}
                       style={showPlaceholder ? `background: ${img.placeholder!.gradient || defaultGradient};` : undefined}
+                      data-lightbox-trigger={img.src ? "true" : undefined}
+                      data-lightbox-src={img.src}
+                      data-lightbox-alt={img.alt}
+                      data-lightbox-caption={img.caption}
+                      aria-label={img.src ? `Open ${img.alt} larger` : img.alt}
+                      disabled={!img.src}
                     >
                       {img.src && (
                         <img
                           src={img.src}
                           alt={img.alt}
-                          class="w-full h-full object-cover"
+                          class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                           loading="lazy"
                           decoding="async"
                         />
+                      )}
+                      {img.src && (
+                        <span class="absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-black/60 backdrop-blur text-white font-mono text-[10px] uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                          <svg class="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 21l-4.35-4.35"/><circle cx="11" cy="11" r="8"/><path d="M11 8v6M8 11h6"/></svg>
+                          Expand
+                        </span>
                       )}
                       {showPlaceholder && (
                         <div class="absolute inset-0 flex flex-col items-start justify-end p-6 md:p-8 gap-3 text-white">
@@ -417,7 +457,7 @@ const toc = study
                           )}
                         </div>
                       )}
-                    </div>
+                    </button>
                     {img.caption && (
                       <figcaption class="mt-3 font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
                         <span class="opacity-50 mr-2">{String(gi + 1).padStart(2, "0")}</span>
@@ -459,6 +499,38 @@ const toc = study
         </p>
       </section>
     )}
+
+    <!-- Lightbox overlay -->
+    <div
+      id="lightbox"
+      class="lightbox fixed inset-0 z-[100] pointer-events-none opacity-0 transition-opacity duration-300 flex items-center justify-center p-4 md:p-10"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+      aria-label="Image preview"
+    >
+      <div class="absolute inset-0 bg-black/85 backdrop-blur-md" data-lightbox-close></div>
+      <button
+        type="button"
+        class="absolute top-4 right-4 md:top-6 md:right-6 inline-flex items-center justify-center size-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur text-white transition-colors z-10"
+        aria-label="Close preview"
+        data-lightbox-close
+      >
+        <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <figure class="relative z-10 max-w-[min(90vw,1400px)] max-h-[90vh] flex flex-col items-center gap-4">
+        <img
+          id="lightbox-img"
+          src=""
+          alt=""
+          class="max-w-full max-h-[80vh] w-auto h-auto object-contain rounded-lg shadow-2xl"
+        />
+        <figcaption
+          id="lightbox-caption"
+          class="font-mono text-[11px] uppercase tracking-wider text-white/80 text-center"
+        ></figcaption>
+      </figure>
+    </div>
 
     <!-- Next project -->
     {next && (
@@ -528,5 +600,62 @@ const toc = study
     };
     setupGallery();
     document.addEventListener("astro:page-load", setupGallery);
+
+    const setupLightbox = () => {
+      const overlay = document.getElementById("lightbox");
+      const imgEl = document.getElementById("lightbox-img");
+      const captionEl = document.getElementById("lightbox-caption");
+      if (!overlay || !imgEl || !captionEl) return;
+
+      const triggers = document.querySelectorAll("[data-lightbox-trigger]");
+      if (!triggers.length) return;
+
+      const open = (src, alt, caption) => {
+        imgEl.src = src;
+        imgEl.alt = alt || "";
+        captionEl.textContent = caption || "";
+        captionEl.style.display = caption ? "" : "none";
+        overlay.classList.add("is-open");
+        overlay.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      };
+
+      const close = () => {
+        overlay.classList.remove("is-open");
+        overlay.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        // Defer src clear so the close transition shows the image
+        setTimeout(() => {
+          if (!overlay.classList.contains("is-open")) imgEl.src = "";
+        }, 350);
+      };
+
+      triggers.forEach((btn) => {
+        if (btn.dataset.lightboxBound) return;
+        btn.dataset.lightboxBound = "true";
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const src = btn.dataset.lightboxSrc;
+          const alt = btn.dataset.lightboxAlt;
+          const caption = btn.dataset.lightboxCaption;
+          if (src) open(src, alt, caption);
+        });
+      });
+
+      overlay.querySelectorAll("[data-lightbox-close]").forEach((el) => {
+        if (el.dataset.lightboxBound) return;
+        el.dataset.lightboxBound = "true";
+        el.addEventListener("click", close);
+      });
+
+      if (!document.body.dataset.lightboxKeyBound) {
+        document.body.dataset.lightboxKeyBound = "true";
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && overlay.classList.contains("is-open")) close();
+        });
+      }
+    };
+    setupLightbox();
+    document.addEventListener("astro:page-load", setupLightbox);
   })();
 </script>

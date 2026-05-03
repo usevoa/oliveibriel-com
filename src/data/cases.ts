@@ -7,6 +7,8 @@ export type CaseSection = {
   heading: string;
   body: string; // plain paragraph(s) — split on \n\n for multi-paragraph
   image?: GalleryItem; // optional inline image rendered after the body
+  layout?: "stack" | "split"; // stack = image below body (default); split = image alongside body
+  imageSide?: "left" | "right"; // for split only — defaults to right
 };
 
 export type GalleryItem = {
@@ -75,11 +77,27 @@ export const cases: Record<string, CaseStudy> = {
         heading: "Who I designed for",
         body:
           "Four personas, each with a different relationship to the machine.\n\nThe **Operator** runs batches under shift pressure, often in Portuguese or German. Most of the screens are tuned for this user — simple controls, low cognitive load, no surprises.\n\nThe **Maintenance Technician** needs diagnostic depth: error logs, troubleshooting flows, equipment status. The system surfaces it without forcing it on the operator.\n\nThe **Maintenance Coordinator** sees the longitudinal view across a fleet — history, predictive alerts, planning.\n\nThe **Production Supervisor** reads the machine through outcomes — KPIs, throughput, trends — not real-time state.\n\nGetting all four right without overloading any single screen was the hard part.",
+        layout: "split",
+        imageSide: "right",
+        image: {
+          src: "/projects/iris-v3/04__alarms-active.png",
+          alt: "InView V3 active alarm queue with severity ranking",
+          caption: "Alarms · the screen the Operator and Technician share",
+          aspect: "tall",
+        },
       },
       {
         heading: "Same place, every machine",
         body:
           "The biggest decision in V3 was structural, not visual. Every product shares the same module layout. Dashboard, alarms, recipes, settings, maintenance — same place, every machine.\n\nProduct-exclusive features slot into that layout without breaking it. Bead Filling on InView and Confectionery. Scale Calibration on the dosing-aware products. The Operation Bar on Mixers. The shared structure is a contract; the product specifics live inside the contract, not around it.\n\nThat's what makes the cross-product training claim real. The visual language reinforces it — same buttons, same alarm patterns, same way of confirming irreversible actions — but the structural decision is what carries the weight.",
+        layout: "split",
+        imageSide: "left",
+        image: {
+          src: "/projects/iris-v3/06__confectionery-15in.png",
+          alt: "Confectionery V3.1 dashboard on the 15-inch widescreen panel",
+          caption: "Confectionery · 15\" · same shape, different machine",
+          aspect: "wide",
+        },
       },
       {
         heading: "What didn't go well",
