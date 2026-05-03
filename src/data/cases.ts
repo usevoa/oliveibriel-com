@@ -213,29 +213,124 @@ export const cases: Record<string, CaseStudy> = {
 
   nerida: {
     slug: "nerida",
-    role: "Solo: design, frontend, backend, deploy",
-    team: "Me + Claude Code as build partner",
-    duration: "12 weeks",
-    yearRange: "2025",
-    stack: ["Next.js", "Supabase (Postgres + Auth + Storage)", "Resend", "Stripe", "Vercel", "Tailwind"],
+    role: "Solo founder · design, frontend, backend, ops",
+    team: "Just me, paired with Claude Code as build partner",
+    duration: "12 weeks · April 2025 → April 2026",
+    yearRange: "2025 → 2026",
+    stack: ["Next.js 15", "Supabase", "Tailwind", "Asaas (billing)", "Resend (email)", "Cloudflare DNS", "Vercel"],
     contextOneLiner:
-      "Nerida is a focused SaaS for solo psychologists in Brazil — scheduling, session notes, billing, and patient management — built end-to-end with Claude Code as the build partner.",
+      "Nerida is a SaaS for psychologists running solo practices in Brazil. Designed, built, and shipped end-to-end — agenda, patient records, AI-assisted notes, billing, native Pix, and a financial module that handles Receita Saúde. Live at app.nerida.com.br.",
     highlights: [
       { label: "Built solo in", value: "12 weeks" },
-      { label: "Lines of human-written code", value: "~30%" },
-      { label: "Deploys in launch month", value: "60+" },
+      { label: "Database migrations", value: "37+" },
+      { label: "AI build partner", value: "Claude Code" },
     ],
     challenge:
-      "Solo psychologists are a long tail underserved by clinic-scale software. Existing tools are either too heavy (multi-tenant clinic systems) or too light (generic schedulers). They end up gluing together WhatsApp, spreadsheets, and a separate billing tool — which is fragile and breaks LGPD compliance.\n\nI wanted to ship a SaaS with the polish of a designed product, end-to-end, on a timeline that would have required a small team a year ago.",
+      "Brazilian psychologists running solo practices have a few software options, and they all stop at the same place: CRUD over patients and payments. Tools like PsicoManager and Psicoplanner manage the appointment book, but they don't help with the things that actually keep solo psychologists awake — irregular income, the social weight of asking patients to pay, and the tax mess of Receita Saúde and Carnê Leão.\n\nThe pattern came up over and over in conversations with psychologists in my circle: people pay late and asking for it feels uncomfortable; income swings make planning impossible; tax season is a frantic Excel reconstruction. Existing tools were built for the appointment side. The financial side was a gap.",
     approach:
-      "Used Claude Code as build partner end-to-end. Design decisions, schema, copy, and architecture stayed mine. Claude handled the heavy lifting on schema migrations, CRUD scaffolding, form validation, and integration glue. Every meaningful decision — what to ship, what to cut, what \"good\" looked like — was a human one.\n\nBuilt the financial module last, as a deliberate pressure test on the AI-as-builder workflow. It shipped in a week instead of the originally planned five sprints.",
+      "I forked an internal tool I'd been building at VOA Digital (a multi-tenant clinical SaaS) and rebranded it for the solo market — single-persona, no team views, no multi-clinic switcher.\n\nFrom there, twelve weeks heads-down with Claude Code as a constant build partner. The split: I owned product direction, design, copy, and security calls. Claude handled scaffolding, schema migrations, integration code (Asaas webhooks, Pix QR codes, email templates, cron jobs), and the long tail. Sprints were one to three days each — the AI loop makes that cadence possible. I wrote a brief in plain English, Claude scaffolded, I reviewed every diff, shipped, repeated.",
     outcome:
-      "Nerida went from empty repo to billing customers in 12 weeks. Multi-tenant from day one with proper LGPD-compliant data isolation, Stripe-backed billing, and a session note flow that solo psychologists actually want to use.\n\nThe project is now my reference case for what a designer-builder can ship with current AI tooling — and the receipts behind \"Own the full stack\" on the home.",
+      "Nerida is live at app.nerida.com.br on a paid stack — production Supabase, Asaas billing, native Pix, Cloudflare DNS, custom SMTP via Resend. Two plans (R$49 and R$89/month), trial included.\n\nThe agenda, patient records, and AI-assisted session notes work. Asaas billing and Pix are wired end to end. The financial module — the differentiator — runs five tabs: overview, payments, gentle two-step collections, monthly subscriptions, and a fiscal tab that exports a Carnê Leão CSV in the exact government format and tracks the MEI revenue ceiling.",
+    sections: [
+      {
+        heading: "Who I designed for",
+        body:
+          "One persona. One. Brazilian psychologist running a solo practice — usually 20-50 patients, often working from home, frequently MEI or CPF tax regime. Not a tech buyer. They want software that disappears and lets them focus on the session.\n\nThat single-persona constraint changed every design decision. No team views. No multi-clinic switcher. No role permissions. The product is built around one person, not a workflow team.\n\nThe lilac brand and the glass-sphere login screen both fight the same enemy: clinical software that feels cold and bureaucratic. Nerida is meant to feel calm.",
+        layout: "split",
+        imageSide: "right",
+        image: {
+          src: "/projects/nerida/01__login-glass-spheres.png",
+          alt: "Nerida login screen with the glass spheres treatment on a lilac gradient",
+          caption: "Login · glass spheres · lilac gradient",
+          placeholder: {
+            label: "Login · Glass Spheres",
+            sublabel: "Drop screenshot at /projects/nerida/01__login-glass-spheres.png",
+            gradient: "linear-gradient(135deg,#EEEAF5 0%,#F5EEF8 40%,#F0E8F5 70%,#EDE4F3 100%)",
+          },
+        },
+      },
+      {
+        heading: "The financial module — the actual differentiator",
+        body:
+          "Competitors stop at \"mark this payment as paid.\" Nerida starts there.\n\nThe `/financeiro` module has five tabs. **Visão geral** shows projected end-of-month income, separating confirmed from outstanding. **Pagamentos** is the redesigned listing. **Cobranças** runs a humanized two-step collection — D+1 cordial, D+5 firm, opt-in by patient — with three pre-written tones plus a custom slot. **Assinaturas** handles patients on monthly recurring plans (Pix manual, no card surcharge). **Fiscal** exports Carnê Leão CSVs in the exact government format, tracks deductible expenses, watches the MEI revenue ceiling, and estimates IRPF.\n\nThe point isn't features. The point is positioning. Other tools show you what you charged; Nerida shows you what's left, helps you ask for it without discomfort, and handles tax season without an Excel rebuild.",
+        layout: "split",
+        imageSide: "left",
+        image: {
+          src: "/projects/nerida/02__financeiro-overview.png",
+          alt: "Financial module overview tab with KPIs, projected income, and outstanding payments",
+          caption: "/financeiro · overview · the differentiator",
+          placeholder: {
+            label: "Financial · Overview",
+            sublabel: "Drop screenshot at /projects/nerida/02__financeiro-overview.png",
+            gradient: "linear-gradient(135deg,#5E4F8A 0%,#8F7FBB 60%,#EEEAF5 100%)",
+          },
+        },
+      },
+      {
+        heading: "Building solo with Claude Code",
+        body:
+          "Twelve weeks, alone, end to end. Design in Figma → code in Cursor with Claude Code → deploy to Vercel → fix in production. Same brain, no handoffs.\n\nThe pattern that worked: I wrote each task as a short brief — what I want, why, where the gotchas are. Claude Code scaffolded. I reviewed every diff before merging. I pushed back when the AI took shortcuts, especially on security — about a dozen findings caught in review and fixed before they hit production.\n\nA representative day: 29 April 2026. One session shipped the financial module's first three sprints (foundation, humanized collections, fiscal exports), three database migrations, the admin lookup hardening, a security review with 8 of 12 fixes applied, and a QA review with 7 of 11 fixes. 14 commits, 19 production deploys. The AI never owned a decision — it owned the keystrokes that came after the decision.",
+      },
+    ],
     links: [
-      { label: "Live", href: "https://nerida.com.br", external: true },
+      { label: "Live · app.nerida.com.br", href: "https://app.nerida.com.br", external: true },
+      { label: "Landing · nerida.com.br", href: "https://nerida.com.br", external: true },
+    ],
+    gallery: [
+      {
+        src: "/projects/nerida/01__login-glass-spheres.png",
+        alt: "Login screen with glass-spheres treatment",
+        caption: "Login · Glass Spheres",
+        aspect: "wide",
+        placeholder: { label: "Login · Glass Spheres", sublabel: "01__login-glass-spheres.png", gradient: "linear-gradient(135deg,#EEEAF5 0%,#F5EEF8 40%,#F0E8F5 70%,#EDE4F3 100%)" },
+      },
+      {
+        src: "/projects/nerida/03__dashboard.png",
+        alt: "Dashboard with weekly agenda and key KPIs",
+        caption: "Dashboard · weekly view",
+        placeholder: { label: "Dashboard", sublabel: "03__dashboard.png", gradient: "linear-gradient(135deg,#8F7FBB 0%,#5E4F8A 100%)" },
+      },
+      {
+        src: "/projects/nerida/04__agenda-week.png",
+        alt: "Agenda — week grid with sessions and conflicts",
+        caption: "Agenda · week grid",
+        placeholder: { label: "Agenda · Week", sublabel: "04__agenda-week.png", gradient: "linear-gradient(135deg,#5E4F8A 0%,#8F7FBB 100%)" },
+      },
+      {
+        src: "/projects/nerida/05__patient-record.png",
+        alt: "Patient record with anamnesis, history, and AI-assisted session notes",
+        caption: "Patient · record + AI notes",
+        placeholder: { label: "Patient · Record + AI", sublabel: "05__patient-record.png", gradient: "linear-gradient(135deg,#8F7FBB 0%,#EEEAF5 100%)" },
+      },
+      {
+        src: "/projects/nerida/02__financeiro-overview.png",
+        alt: "Financial overview tab with KPIs and projected income",
+        caption: "Financial · Overview",
+        aspect: "wide",
+        placeholder: { label: "Financial · Overview", sublabel: "02__financeiro-overview.png", gradient: "linear-gradient(135deg,#5E4F8A 0%,#8F7FBB 60%,#EEEAF5 100%)" },
+      },
+      {
+        src: "/projects/nerida/06__financeiro-cobrancas.png",
+        alt: "Cobranças tab — humanized two-step collection workflow",
+        caption: "Financial · Cobranças",
+        placeholder: { label: "Financial · Cobranças", sublabel: "06__financeiro-cobrancas.png", gradient: "linear-gradient(135deg,#8F7FBB 0%,#5E4F8A 100%)" },
+      },
+      {
+        src: "/projects/nerida/07__financeiro-fiscal.png",
+        alt: "Fiscal tab — Carnê Leão CSV, deductible expenses, MEI tracking, IRPF estimate",
+        caption: "Financial · Fiscal · Carnê Leão",
+        placeholder: { label: "Financial · Fiscal", sublabel: "07__financeiro-fiscal.png", gradient: "linear-gradient(135deg,#EEEAF5 0%,#8F7FBB 60%,#5E4F8A 100%)" },
+      },
+      {
+        src: "/projects/nerida/08__email-templates.png",
+        alt: "Three pre-written email tones for collections — cordial, neutral, firm",
+        caption: "Emails · cordial / neutral / firm",
+        aspect: "wide",
+        placeholder: { label: "Emails · 3 tones", sublabel: "08__email-templates.png", gradient: "linear-gradient(135deg,#5E4F8A 0%,#8F7FBB 50%,#EEEAF5 100%)" },
+      },
     ],
     reflection:
-      "AI didn't replace any of the interesting work. It compressed the boring parts to almost zero and let me make ten times more shipping decisions in the same window. The bottleneck became taste and judgement, which is exactly where I want it.",
+      "Building this way taught me the discipline of not letting the AI own decisions — only keystrokes. Twelve weeks ago Nerida was a fork in a folder. Today it processes Pix and exports to Receita Federal. A single person paired with a tool, refusing to delegate judgment.",
   },
 
   "garmin-coach": {
