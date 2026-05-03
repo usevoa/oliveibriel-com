@@ -6,7 +6,6 @@ const isActive = (href: string) =>
 const navLinks = [
   { href: "/work", label: "Work" },
   { href: "/about", label: "About" },
-  { href: "/writing", label: "Writing", hideOn: "sm" as const },
 ];
 ---
 
@@ -32,13 +31,12 @@ const navLinks = [
 
     <div class="flex items-center gap-1 text-sm">
       <div id="nav-links" class="relative flex items-center">
-        <span id="nav-pill" class="absolute top-1/2 -translate-y-1/2 rounded-md bg-[var(--color-bg-soft)] border border-[var(--color-border)] pointer-events-none transition-[transform,width,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-0" aria-hidden="true"></span>
+        <span id="nav-pill" class="absolute top-1/2 -translate-y-1/2 rounded-md bg-[var(--color-bg-elevated)] border border-[var(--color-border-strong)] pointer-events-none transition-[left,width,height,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-0" aria-hidden="true"></span>
         {navLinks.map((link) => (
           <a
             href={link.href}
             data-active={isActive(link.href) ? "true" : "false"}
-            class={`nav-link relative z-10 magnetic px-3 py-1.5 rounded-md transition-colors ${link.hideOn === "sm" ? "hidden sm:inline-block" : ""} ${isActive(link.href) ? "text-[var(--color-fg)]" : "text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]"}`}
-            data-magnetic-strength="6"
+            class={`nav-link relative z-10 px-3 py-1.5 rounded-md transition-colors ${isActive(link.href) ? "text-[var(--color-fg)]" : "text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]"}`}
           >
             {link.label}
           </a>
@@ -91,14 +89,11 @@ const navLinks = [
         pill.style.opacity = "0";
         return;
       }
-      // Use offset* (DOM layout) instead of getBoundingClientRect so the
-      // magnetic transform on the link doesn't make the pill jitter.
-      const x = target.offsetLeft;
-      const w = target.offsetWidth;
-      const h = target.offsetHeight;
-      pill.style.transform = `translate(${x}px, -50%)`;
-      pill.style.width = `${w}px`;
-      pill.style.height = `${h}px`;
+      // Animate via left/width/height. Pill keeps its top-1/2 -translate-y-1/2
+      // class for vertical centering, so we don't fight Tailwind's transform.
+      pill.style.left = `${target.offsetLeft}px`;
+      pill.style.width = `${target.offsetWidth}px`;
+      pill.style.height = `${target.offsetHeight}px`;
       pill.style.opacity = "1";
     };
 

@@ -64,11 +64,11 @@ export const cases: Record<string, CaseStudy> = {
       "IRIS is the on-machine HMI on every bead mill, disperser, mixer, and confectionery system NETZSCH ships globally. V3 was the unified rewrite: one design system, six product lines, in three languages.",
     highlights: [
       { label: "Product lines on one DS", value: "6" },
-      { label: "Languages shipped", value: "3" },
+      { label: "Countries in the network", value: "36" },
       { label: "Sole designer since", value: "2023" },
     ],
     challenge:
-      "Before V3, every NETZSCH machine had its own HMI. An operator who knew InView cold couldn't sit down at a Confectionery panel without retraining. Field service spent half their time fielding questions the UI should have answered.\n\nI came in as the only designer on the platform. The brief was to make six product lines feel like one product without flattening what each machine actually needs.",
+      "Before V3, every NETZSCH machine had its own HMI. An operator who knew InView cold couldn't sit down at a Confectionery panel without retraining. Field service spent half their time fielding questions the UI should have answered.\n\nI came in as the only designer on the platform. The brief was to make six product lines feel like one product, without flattening what each machine actually needs — across NETZSCH's global network of 36 countries and three languages.",
     approach:
       "I started on the floor. Operators wear gloves, lighting shifts through the day, the panel is at chest height with attention split between the screen and a running machine. None of that is on a spec sheet.\n\nPicked InView as the reference and designed it end to end against real users. Then extracted the patterns into the shared system and rolled it out product by product — Confectionery, Epsilon, Mixers, ZetaRS, Inside.",
     outcome:
