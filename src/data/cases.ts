@@ -249,13 +249,13 @@ export const cases: Record<string, CaseStudy> = {
     slug: "nerida",
     role: "Solo founder · design, frontend, backend, ops",
     team: "Just me, paired with Claude Code as build partner",
-    duration: "12 weeks · April 2025 → April 2026",
-    yearRange: "2025 → 2026",
+    duration: "April 2025 → ongoing",
+    yearRange: "2025 → present",
     stack: ["Next.js 15", "Supabase", "Tailwind", "Asaas (billing)", "Resend (email)", "Cloudflare DNS", "Vercel"],
     contextOneLiner:
-      "Nerida is a SaaS for psychologists running solo practices in Brazil. Designed, built, and shipped end-to-end — agenda, patient records, AI-assisted notes, billing, native Pix, and a financial module that handles Receita Saúde. Live at app.nerida.com.br.",
+      "Nerida is a SaaS for psychologists running solo practices in Brazil. Designed, built, and shipped end-to-end — agenda, structured records, native Pix, PDF recibos, and a financial module that handles Receita Saúde. Live at app.nerida.com.br with the public landing at nerida.com.br.",
     highlights: [
-      { label: "Built solo in", value: "12 weeks" },
+      { label: "First ship in", value: "12 weeks" },
       { label: "Database migrations", value: "37+" },
       { label: "AI build partner", value: "Claude Code" },
     ],
@@ -264,7 +264,7 @@ export const cases: Record<string, CaseStudy> = {
     approach:
       "I forked an internal tool I'd been building at VOA Digital (a multi-tenant clinical SaaS) and rebranded it for the solo market — single-persona, no team views, no multi-clinic switcher.\n\nFrom there, twelve weeks heads-down with Claude Code as a constant build partner. The split: I owned product direction, design, copy, and security calls. Claude handled scaffolding, schema migrations, integration code (Asaas webhooks, Pix QR codes, email templates, cron jobs), and the long tail. Sprints were one to three days each — the AI loop makes that cadence possible. I wrote a brief in plain English, Claude scaffolded, I reviewed every diff, shipped, repeated.",
     outcome:
-      "Nerida is live at app.nerida.com.br on a paid stack — production Supabase, Asaas billing, native Pix, Cloudflare DNS, custom SMTP via Resend. Two plans (R$49 and R$89/month), trial included.\n\nThe agenda, patient records, and AI-assisted session notes work. Asaas billing and Pix are wired end to end. The financial module — the differentiator — runs five tabs: overview, payments, gentle two-step collections, monthly subscriptions, and a fiscal tab that exports a Carnê Leão CSV in the exact government format and tracks the MEI revenue ceiling.",
+      "Nerida ships on a paid production stack — Supabase, Asaas billing, native Pix, Cloudflare DNS, Resend for transactional email, all behind Vercel. Two plans (Essencial R$39/mo, Profissional R$69/mo on annual; R$49 and R$89 monthly), with a 7-day trial.\n\nWhat's live today: agenda with reminders, structured records (anamnese, evolutions, documents), patient management, and the financial module — the differentiator — running five tabs: overview, payments, gentle collections, monthly subscriptions, and a fiscal tab that exports Carnê Leão CSV in the exact government format and tracks the MEI revenue ceiling.\n\nThe public landing at nerida.com.br ships separately as a single-file static LP — custom motion, glass-sphere visual system that echoes the product login, and a full SEO/AEO setup (JSON-LD, llms.txt, schema.org HowTo and FAQPage) so Google and answer engines surface it correctly.\n\nOn the roadmap and gated behind real demand: humanized two-step collections and AI-transcribed session notes.",
     sections: [
       {
         heading: "Who I designed for",
@@ -311,6 +311,12 @@ export const cases: Record<string, CaseStudy> = {
       { label: "Landing · nerida.com.br", href: "https://nerida.com.br", external: true },
     ],
     gallery: [
+      {
+        src: "/projects/nerida/00__lp-hero.png",
+        alt: "Nerida public landing page hero — headline 'Cuide das sessões, a gestão cuida de si' over a lilac glass-sphere field with three product mockups (financial, agenda, billing chat)",
+        caption: "Public landing · nerida.com.br · single-file static LP",
+        aspect: "wide",
+      },
       {
         src: "/projects/nerida/01__login-glass-spheres.png",
         alt: "Login screen with glass-spheres treatment",
