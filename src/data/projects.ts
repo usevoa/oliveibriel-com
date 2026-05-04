@@ -72,7 +72,7 @@ export const projects: Project[] = [
     type: "SaaS for solo psychologists · AI-built",
     summary:
       "A focused SaaS for solo psychologists. Designed, shipped, and deployed end-to-end with Claude Code as build partner.",
-    image: "/projects/nerida-cover.png",
+    image: "/projects/nerida/01__login-glass-spheres.png",
     featured: true,
     ai: true,
     metric: { label: "Built solo in", value: "12 weeks" },
