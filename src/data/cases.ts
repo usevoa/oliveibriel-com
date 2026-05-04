@@ -171,20 +171,37 @@ export const cases: Record<string, CaseStudy> = {
     yearRange: "2023 →",
     stack: ["Figma (variables + tokens)", "React", "Storybook", "CSS variables", "Style Dictionary"],
     contextOneLiner:
-      "A Figma-to-code design system for NETZSCH's internal and customer-facing software. Built to make eight product teams ship consistent UI without a coordination tax.",
+      "A Figma-to-code design system for NETZSCH's internal and customer-facing software. Built so eight product squads can ship consistent UI without paying a coordination tax every sprint.",
     highlights: [
       { label: "Product squads using DS", value: "8+" },
       { label: "Figma variables", value: "1.2k" },
       { label: "Components in production", value: "60+" },
     ],
     challenge:
-      "Each product line had its own components, tokens, and conventions — overlapping but incompatible. Every cross-team feature dragged because nobody owned the shared layer.\n\nThe brief: build a system that frontline teams *want* to adopt, not one they're forced into. That meant solving real, painful problems first — accessible color, typography that survives translation, dense data tables, and form patterns that match the regulated nature of industrial software.",
+      "Each product line at NETZSCH had its own components, tokens, and conventions. Overlapping but incompatible. Every cross-team feature dragged because nobody owned the shared layer.\n\nThe brief was to build something the frontline teams would actually want to use, not a system they'd be forced into. Which meant the foundation had to solve real problems first: accessible color, typography that survives Portuguese-to-German translation, dense data tables, and form patterns that match the regulated nature of industrial software.",
     approach:
-      "Tokens-first. Variables in Figma map 1:1 to CSS custom properties via Style Dictionary, so a change in color or spacing flows from design to production with no manual translation step. Components are owned in code, documented in Storybook, and demoed in Figma.\n\nGovernance is light: any team can propose a new component via PR, the platform team reviews for consistency, and contributors keep authorship credit. We track adoption per squad as a metric, not feature count.",
+      "Tokens first. Variables in Figma map one-to-one to CSS custom properties via Style Dictionary, so a change in color or spacing flows from design to production with no manual translation. Components are owned in code, documented in Storybook, and demoed in Figma alongside the production build.\n\nGovernance is intentionally light. Any team can propose a new component via PR. The platform team reviews for consistency. Contributors keep authorship credit. Adoption per squad is the metric, not component count.",
     outcome:
-      "Eight product squads now consume the DS in production. New cross-team features ship without the old design-vs-engineering token negotiation. A11y reviews compress from days to hours because the foundation is already AA.\n\nThe DS now seeds new lines (IRIS V3, Customer Portal, internal tools) instead of each one rebuilding the same primitives.",
+      "Eight product squads consume the DS in production. New cross-team features ship without the old design-versus-engineering token negotiation. Accessibility reviews compressed from days to hours because the foundation is already AA.\n\nThe DS now seeds new lines (IRIS V3, the Customer Portal, internal tools) instead of each one rebuilding the same primitives.",
+    sections: [
+      {
+        heading: "Who I designed for",
+        body:
+          "Two audiences with very different needs.\n\nFrontend engineers in the squads — the people who actually consume the system. They wanted boring things: a Storybook page that loads fast, prop names that match what they expect, and components that don't fight their existing build. Anything fancy lost to anything dependable.\n\nProduct designers in the squads — usually one per product line, sometimes none. They wanted Figma variables that mirror code variables, so they don't have to redo work the engineers already did. The 1:1 token mapping wasn't aesthetic. It was the contract that lets a designer hand off without translating.",
+      },
+      {
+        heading: "The key decision: a single source of truth for tokens",
+        body:
+          "Most DS projects fail at the same place: the design tokens in Figma drift from the CSS variables in code, and within six months everyone is back to copying hex codes by hand. I refused to ship anything until the pipeline was airtight.\n\nFigma variables export to a JSON Style Dictionary spec. Style Dictionary builds the same tokens into CSS custom properties, Tailwind config, and a TypeScript types file. One source, three outputs, all generated. A designer renaming a color in Figma triggers a PR. An engineer adjusting a contrast ratio updates Figma at the same time.\n\nThe whole rest of the system — typography scale, spacing, radii, shadows, motion — sits on top of that pipeline. Without it, the DS is just a pile of components that look right today and wrong in two months.",
+      },
+      {
+        heading: "What didn't go well",
+        body:
+          "Adoption was a sales job, not a design job. I assumed solid components plus clean documentation would be enough. They weren't. Squads with their own legacy systems pushed back hard, especially when the new patterns asked them to refactor working code. I spent the first six months running demos, pairing with squad leads, and rewriting docs to answer the same five questions over and over.\n\nThe \"light governance\" model also showed its limits. Letting anyone propose components meant the queue filled up with single-use specials. I had to start saying no, which is uncomfortable when you're pitching the system as community-owned. The honest version is that any DS needs an opinionated owner, and I was that owner whether the org chart said so or not.",
+      },
+    ],
     reflection:
-      "A DS lives or dies by adoption, not aesthetics. The wins came from solving the *boring* parts — tokens, accessibility, contribution flow — before anyone got excited about the visual language.",
+      "A DS lives or dies by adoption, not aesthetics. The wins came from the boring parts — token pipeline, accessibility floor, contribution flow — done before anyone got excited about the visual language.",
   },
 
   "myct-connecticut": {
@@ -197,18 +214,35 @@ export const cases: Record<string, CaseStudy> = {
     contextOneLiner:
       "MyCT is the citizen-facing portal for the State of Connecticut — DMV, taxes, benefits, licenses. The redesign had to work for a 17-year-old on a phone in a parking lot and an 80-year-old at a library kiosk.",
     highlights: [
-      { label: "Accessibility", value: "WCAG 2.1 AA" },
+      { label: "Accessibility target", value: "WCAG 2.1 AA" },
       { label: "Mobile-first traffic share", value: "63%" },
       { label: "Reading level target", value: "Grade 6" },
     ],
     challenge:
-      "Government services aren't optional. If your portal is hostile, citizens lose access to the things they're entitled to. The legacy site was desktop-first, jargon-heavy, and gated behind agency-shaped navigation that made sense to civil servants and nobody else.\n\nThe ask: rebuild around tasks the citizen is actually trying to do — \"renew my license\", \"check my refund\" — with mobile and accessibility as constraints, not afterthoughts.",
+      "Government services aren't optional. If the portal is hostile, citizens lose access to things they're entitled to. The legacy site was desktop-first, jargon-heavy, and gated behind agency-shaped navigation that made sense to civil servants and nobody else.\n\nThe ask was to rebuild around the things citizens are actually trying to do (\"renew my license\", \"check my refund\") with mobile and accessibility treated as constraints rather than afterthoughts.",
     approach:
-      "Reorganized the IA around top tasks instead of agencies. Every page rewritten in plain language at a Grade 6 reading level, validated with citizen panels including older adults and ESL users. Designed mobile-first with USWDS-aligned components for familiarity across .gov properties.\n\nEach component shipped with a11y receipts: keyboard traps, focus order, screen reader labels, color contrast — all tested against WCAG 2.1 AA, not just stamped.",
+      "Reorganized the IA around top tasks instead of agencies. Every page rewritten in plain language at a Grade 6 reading level, validated with citizen panels that included older adults and ESL users. Designed mobile-first using USWDS-aligned components so the experience felt familiar across .gov properties.\n\nEach component shipped with accessibility receipts. Keyboard traps, focus order, screen reader labels, and contrast all tested against WCAG 2.1 AA. Not stamped, tested.",
     outcome:
-      "The relaunched experience hit AA across the audited surface. Mobile traffic became the dominant pattern. Time-to-task on the top five flows (license renewal, refund status, benefits eligibility, business filings, vehicle registration) measurably dropped.\n\nThe pattern library carries forward to other state services as a baseline.",
+      "The relaunched experience hit AA across the audited surface. Mobile became the dominant traffic pattern. Time-to-task on the top five flows (license renewal, refund status, benefits eligibility, business filings, vehicle registration) measurably dropped.\n\nThe pattern library carries forward to other state services as a baseline.",
+    sections: [
+      {
+        heading: "Who I designed for",
+        body:
+          "Three citizens stayed pinned above my monitor for nine months.\n\nA single mom on a bus with a cracked-screen Android, trying to renew her license between stops. She needs the answer in three taps and large enough type to read in motion.\n\nA retiree at a public library kiosk with a mouse he doesn't fully trust. He needs the page to make sense without him having to learn a new interaction model.\n\nA recent immigrant whose English is functional but not native. He needs plain language that explains the thing without burying the action.\n\nIf any of those three couldn't finish the task, the design failed. Everything else was negotiable.",
+      },
+      {
+        heading: "The key decision: tasks instead of agencies",
+        body:
+          "The legacy IA was organized by which state agency owned the workflow. Tax stuff lives under Department of Revenue Services. License stuff under DMV. Benefits under Social Services. That's how the government is structured internally and it had nothing to do with how citizens think.\n\nWe rebuilt the entire homepage and primary navigation around verbs the citizen would actually search for. \"Renew\". \"Check\". \"Apply\". \"Pay\". The agency surfaces are still there as a secondary path, but the front door is task-shaped.\n\nThis was the call that took the longest to defend. Agency stakeholders push back when they lose top-level real estate. The win came from analytics: the legacy nav had a 60%+ bounce rate from the homepage, and the citizen panels couldn't find common tasks without help. Once the data was on the table, the verb-first IA stopped being a design opinion and became the obvious move.",
+      },
+      {
+        heading: "What didn't go well",
+        body:
+          "Validation with older adults was harder than I planned for. The remote panels we set up worked fine for younger users but kept breaking for the 70+ cohort — Zoom failures, screen-share issues, microphone permissions. We pivoted to in-person sessions at libraries and senior centers, which got better data but cost weeks I didn't have in the budget.\n\nThe other miss was scope creep on copy. Plain language is a discipline, and rewriting hundreds of pages to a Grade 6 reading level surfaced legal language that agency lawyers wouldn't sign off on. Several flows ended up shipping with a plain-language summary on top and the legal language preserved below — a compromise that works but isn't as clean as I wanted.",
+      },
+    ],
     reflection:
-      "Public-sector design is the most honest UX work I've done — there's no growth metric, no funnel optimization, just whether someone can do the thing they came to do. The bar is just *don't be in the way*.",
+      "Public-sector design is the most honest UX work I've done. No growth metric, no funnel optimization. Just whether someone can do the thing they came to do. The bar is don't be in the way.",
   },
 
   nerida: {
