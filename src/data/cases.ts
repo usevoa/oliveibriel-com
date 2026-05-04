@@ -298,9 +298,9 @@ export const cases: Record<string, CaseStudy> = {
       },
       {
         src: "/projects/nerida/05__patient-record.png",
-        alt: "Patient record with anamnesis, history, and AI-assisted session notes",
-        caption: "Patient · record + AI notes",
-        placeholder: { label: "Patient · Record + AI", sublabel: "05__patient-record.png", gradient: "linear-gradient(135deg,#8F7FBB 0%,#EEEAF5 100%)" },
+        alt: "Patients listing — names, contact, status, search",
+        caption: "Patients · listing",
+        placeholder: { label: "Patients · Listing", sublabel: "05__patient-record.png", gradient: "linear-gradient(135deg,#8F7FBB 0%,#EEEAF5 100%)" },
       },
       {
         src: "/projects/nerida/02__financeiro-overview.png",
@@ -322,11 +322,11 @@ export const cases: Record<string, CaseStudy> = {
         placeholder: { label: "Financial · Fiscal", sublabel: "07__financeiro-fiscal.png", gradient: "linear-gradient(135deg,#EEEAF5 0%,#8F7FBB 60%,#5E4F8A 100%)" },
       },
       {
-        src: "/projects/nerida/08__email-templates.png",
-        alt: "Three pre-written email tones for collections — cordial, neutral, firm",
-        caption: "Emails · cordial / neutral / firm",
+        src: "/projects/nerida/08__financeiro-pagamentos.png",
+        alt: "Financial · Pagamentos tab with monthly filter, totals, and CSV export",
+        caption: "Financial · Pagamentos · monthly view",
         aspect: "wide",
-        placeholder: { label: "Emails · 3 tones", sublabel: "08__email-templates.png", gradient: "linear-gradient(135deg,#5E4F8A 0%,#8F7FBB 50%,#EEEAF5 100%)" },
+        placeholder: { label: "Financial · Pagamentos", sublabel: "08__financeiro-pagamentos.png", gradient: "linear-gradient(135deg,#5E4F8A 0%,#8F7FBB 50%,#EEEAF5 100%)" },
       },
     ],
     reflection:
