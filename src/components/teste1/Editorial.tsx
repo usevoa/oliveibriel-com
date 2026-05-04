@@ -342,14 +342,14 @@ function FeatureCase({
 
         {project.ai && (
           <span
-            className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-2 py-1 rounded-full font-mono text-[10px] uppercase tracking-[0.15em]"
+            className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-tight"
             style={{
-              backgroundColor: "rgba(255,255,255,0.92)",
+              backgroundColor: "rgba(255,255,255,0.94)",
               color: ACCENT,
               backdropFilter: "blur(8px)",
             }}
           >
-            <span className="size-1 rounded-full" style={{ backgroundColor: ACCENT }} />
+            <span className="size-1.5 rounded-full" style={{ backgroundColor: ACCENT }} />
             AI-native
           </span>
         )}
