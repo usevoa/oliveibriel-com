@@ -88,7 +88,7 @@ export const projects: Project[] = [
     type: "IoT Platform · Design System",
     summary:
       "Redesign of an industrial IoT monitoring platform, from discovery to Storybook. 30 components, 155 stories, a navigable prototype.",
-    gradient: "linear-gradient(135deg,#003d38 0%,#007167 45%,#0b9c92 80%,#1ab8ad 100%)",
+    image: "/projects/norius/01__norius-dashboard.png",
     featured: true,
     metric: { label: "Components in Storybook", value: "30" },
     size: "normal",

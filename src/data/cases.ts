@@ -631,6 +631,12 @@ export const cases: Record<string, CaseStudy> = {
     ],
     reflection:
       "Building the design system in code alongside Figma is the decision I'd make again without hesitating. Writing the MDX docs forced answers to questions Figma never asks, like when a component should not be used, or what its error behavior is. Those answers are exactly what the dev handoff needs.",
+    gallery: [
+      { src: "/projects/norius/01__norius-dashboard.png", alt: "Norius dashboard — Pomerwasser operational monitoring", caption: "Dashboard · Pomerwasser", aspect: "wide" },
+      { src: "/projects/norius/02__norius-fullmap.png", alt: "Norius full equipment map with status pins", caption: "Full Map · equipment status", aspect: "wide" },
+      { src: "/projects/norius/03__norius-eta.png", alt: "Norius ETA screen — tank levels, gauges, trends", caption: "ETA · tank levels & trends", aspect: "wide" },
+      { src: "/projects/norius/04__norius-alarms.png", alt: "Norius alarms — severity-ranked alert queue", caption: "Alarms · severity queue", aspect: "wide" },
+    ],
   },
 
   mosey: {
