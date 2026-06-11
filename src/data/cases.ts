@@ -297,63 +297,55 @@ export const cases: Record<string, CaseStudy> = {
 
   nerida: {
     slug: "nerida",
-    role: "Solo founder · design, frontend, backend, ops",
+    role: "Solo founder · design, product, frontend, backend, ops",
     team: "Just me, paired with Claude Code as build partner",
-    duration: "April 2025 → ongoing",
-    yearRange: "2025 → present",
-    stack: ["Next.js 15", "Supabase", "Tailwind", "Asaas (billing)", "Resend (email)", "Cloudflare DNS", "Vercel"],
+    duration: "April 2026 → ongoing",
+    yearRange: "2025 →",
+    stack: ["Next.js 16", "React 19", "Supabase (Postgres + RLS)", "Tailwind 4", "Asaas (Pix)", "Resend", "Upstash Redis", "Vercel"],
     contextOneLiner:
-      "Nerida is a SaaS for psychologists running solo practices in Brazil. Designed, built, and shipped end-to-end — agenda, structured records, native Pix, PDF recibos, and a financial module that handles Receita Saúde. Live at app.nerida.com.br with the public landing at nerida.com.br.",
+      "Nerida is a modular platform for solo health professionals in Brazil. Psychology is in production, nutrition in beta. Agenda, structured records, native Pix, a financial module that handles Carnê Leão, and meal plans with a public patient link. All of it designed, built, and operated by one person.",
     highlights: [
-      { label: "First ship in", value: "12 weeks" },
-      { label: "Database migrations", value: "37+" },
-      { label: "AI build partner", value: "Claude Code" },
+      { label: "Active clients", value: "100+" },
+      { label: "Zero to live", value: "12 days" },
+      { label: "Database migrations", value: "51+" },
     ],
     challenge:
       "Brazilian psychologists running solo practices have a few software options, and they all stop at the same place: CRUD over patients and payments. Tools like PsicoManager and Psicoplanner manage the appointment book, but they don't help with the things that actually keep solo psychologists awake — irregular income, the social weight of asking patients to pay, and the tax mess of Receita Saúde and Carnê Leão.\n\nThe pattern came up over and over in conversations with psychologists in my circle: people pay late and asking for it feels uncomfortable; income swings make planning impossible; tax season is a frantic Excel reconstruction. Existing tools were built for the appointment side. The financial side was a gap.",
     approach:
-      "I forked an internal tool I'd been building at VOA Digital (a multi-tenant clinical SaaS) and rebranded it for the solo market — single-persona, no team views, no multi-clinic switcher.\n\nFrom there, twelve weeks heads-down with Claude Code as a constant build partner. The split: I owned product direction, design, copy, and security calls. Claude handled scaffolding, schema migrations, integration code (Asaas webhooks, Pix QR codes, email templates, cron jobs), and the long tail. Sprints were one to three days each — the AI loop makes that cadence possible. I wrote a brief in plain English, Claude scaffolded, I reviewed every diff, shipped, repeated.",
+      "I forked an internal multi-tenant clinical tool I'd been building and rebranded it for the solo market — single persona, no team views, no multi-clinic switcher. From fork to live product took twelve days.\n\nThe working rhythm: sprints of one to three days with Claude Code as build partner. I owned product direction, design, copy, and security calls; Claude handled scaffolding, schema migrations, and integration code (Asaas webhooks, Pix, email templates, cron jobs). I wrote a brief, reviewed every diff, shipped, repeated.\n\nA month after launch the product became a platform: a per-clinic module system with row-level security, so the same core serves psychologists in production and nutritionists in beta with different navigation, records, and tools.",
     outcome:
-      "Nerida ships on a paid production stack — Supabase, Asaas billing, native Pix, Cloudflare DNS, Resend for transactional email, all behind Vercel. Two plans (Essencial R$39/mo, Profissional R$69/mo on annual; R$49 and R$89 monthly), with a 7-day trial.\n\nWhat's live today: agenda with reminders, structured records (anamnese, evolutions, documents), patient management, and the financial module — the differentiator — running five tabs: overview, payments, gentle collections, monthly subscriptions, and a fiscal tab that exports Carnê Leão CSV in the exact government format and tracks the MEI revenue ceiling.\n\nThe public landing at nerida.com.br ships separately as a single-file static LP — custom motion, glass-sphere visual system that echoes the product login, and a full SEO/AEO setup (JSON-LD, llms.txt, schema.org HowTo and FAQPage) so Google and answer engines surface it correctly.\n\nOn the roadmap and gated behind real demand: humanized two-step collections and AI-transcribed session notes.",
+      "Nerida runs in production with real paying users — over a hundred active clients. Two plans (Essencial R$49, Profissional R$89), 7-day trial, Pix through Asaas.\n\nLive today for psychologists: agenda with reminders, structured records (anamnese, session evolutions, contracts), patient management with CSV import, and the financial module running five tabs — overview, payments, humanized two-step collections, subscriptions, and a fiscal tab that exports Carnê Leão CSV in the exact Receita Federal format. For nutritionists, in beta: anthropometry, meal plan builder with a public real-time patient link, and a 24-hour recall.\n\nThe public landing at nerida.com.br ships separately as a static LP with custom motion and a full SEO/AEO setup. Fifty-one migrations in, the schema has survived a launch, a pivot to multi-profession, and a second vertical.",
     sections: [
       {
         heading: "Who I designed for",
         body:
-          "One persona. One. Brazilian psychologist running a solo practice — usually 20-50 patients, often working from home, frequently MEI or CPF tax regime. Not a tech buyer. They want software that disappears and lets them focus on the session.\n\nThat single-persona constraint changed every design decision. No team views. No multi-clinic switcher. No role permissions. The product is built around one person, not a workflow team.\n\nThe lilac brand and the glass-sphere login screen both fight the same enemy: clinical software that feels cold and bureaucratic. Nerida is meant to feel calm.",
+          "One persona. Brazilian psychologist running a solo practice — usually 20-50 patients, often working from home, frequently on the CPF tax regime. Not a tech buyer. They want software that disappears and lets them focus on the session.\n\nThat single-persona constraint changed every design decision. No team views. No multi-clinic switcher. No role permissions. The product is built around one person, not a workflow team.\n\nThe lilac brand and the glass-sphere login both fight the same enemy: clinical software that feels cold and bureaucratic. Nerida is meant to feel calm.",
         layout: "split",
         imageSide: "right",
         image: {
-          src: "/projects/nerida/01__login-glass-spheres.png",
+          src: "/projects/nerida/06__nerida-login.png",
           alt: "Nerida login screen with the glass spheres treatment on a lilac gradient",
-          caption: "Login · glass spheres · lilac gradient",
-          placeholder: {
-            label: "Login · Glass Spheres",
-            sublabel: "Drop screenshot at /projects/nerida/01__login-glass-spheres.png",
-            gradient: "linear-gradient(135deg,#EEEAF5 0%,#F5EEF8 40%,#F0E8F5 70%,#EDE4F3 100%)",
-          },
+          caption: "Login · glass spheres · the front door",
+          aspect: "wide",
         },
       },
       {
-        heading: "The financial module — the actual differentiator",
+        heading: "The key decision: the financial module",
         body:
-          "Competitors stop at \"mark this payment as paid.\" Nerida starts there.\n\nThe `/financeiro` module has five tabs. **Visão geral** shows projected end-of-month income, separating confirmed from outstanding. **Pagamentos** is the redesigned listing. **Cobranças** runs a humanized two-step collection — D+1 cordial, D+5 firm, opt-in by patient — with three pre-written tones plus a custom slot. **Assinaturas** handles patients on monthly recurring plans (Pix manual, no card surcharge). **Fiscal** exports Carnê Leão CSVs in the exact government format, tracks deductible expenses, watches the MEI revenue ceiling, and estimates IRPF.\n\nThe point isn't features. The point is positioning. Other tools show you what you charged; Nerida shows you what's left, helps you ask for it without discomfort, and handles tax season without an Excel rebuild.",
+          "Competitors stop at \"mark this payment as paid.\" Nerida starts there.\n\nThe financial module has five tabs. Overview shows projected end-of-month income, separating confirmed from outstanding. Payments is the listing. Collections runs a humanized two-step charge — cordial first, firm later, opt-in by patient. Subscriptions handles monthly recurring plans. Fiscal exports Carnê Leão CSVs in the exact Receita Federal format, tracks deductible expenses, and estimates IRPF.\n\nOther tools show you what you charged. Nerida shows you what's left, helps you ask for it without discomfort, and handles tax season without an Excel rebuild. That's the gap I kept hearing about in conversations, and it's where the product lives.",
         layout: "split",
         imageSide: "left",
         image: {
-          src: "/projects/nerida/02__financeiro-overview.png",
-          alt: "Financial module overview tab with KPIs, projected income, and outstanding payments",
-          caption: "/financeiro · overview · the differentiator",
-          placeholder: {
-            label: "Financial · Overview",
-            sublabel: "Drop screenshot at /projects/nerida/02__financeiro-overview.png",
-            gradient: "linear-gradient(135deg,#5E4F8A 0%,#8F7FBB 60%,#EEEAF5 100%)",
-          },
+          src: "/projects/nerida/03__nerida-financeiro.png",
+          alt: "Financial module overview tab with revenue, receivables, and defaulters",
+          caption: "Financeiro · overview",
+          aspect: "wide",
         },
       },
       {
-        heading: "Building solo with Claude Code",
+        heading: "What didn't go well",
         body:
-          "Twelve weeks, alone, end to end. Design in Figma → code in Cursor with Claude Code → deploy to Vercel → fix in production. Same brain, no handoffs.\n\nThe pattern that worked: I wrote each task as a short brief — what I want, why, where the gotchas are. Claude Code scaffolded. I reviewed every diff before merging. I pushed back when the AI took shortcuts, especially on security — about a dozen findings caught in review and fixed before they hit production.\n\nA representative day: 29 April 2026. One session shipped the financial module's first three sprints (foundation, humanized collections, fiscal exports), three database migrations, the admin lookup hardening, a security review with 8 of 12 fixes applied, and a QA review with 7 of 11 fixes. 14 commits, 19 production deploys. The AI never owned a decision — it owned the keystrokes that came after the decision.",
+          "The pivot to a multi-profession platform came early — three weeks after launch, before I had usage data to justify it. The module system is good engineering and it made the nutrition beta possible, but the decision was driven by ambition, not by users asking for it. If nutrition doesn't convert, that month belonged to psychologist-facing features.\n\nThe landing page still tells the old single-vertical story, so the product is ahead of its own marketing. And there are no real testimonials on the site yet, which I feel every time I look at the social-proof section. Both are known debts, not mysteries.",
       },
     ],
     links: [
@@ -364,63 +356,36 @@ export const cases: Record<string, CaseStudy> = {
       {
         src: "/projects/nerida/00__lp-hero.png",
         alt: "Nerida public landing page hero — headline 'Cuide das sessões, a gestão cuida de si' over a lilac glass-sphere field with three product mockups (financial, agenda, billing chat)",
-        caption: "Public landing · nerida.com.br · single-file static LP",
+        caption: "Public landing · nerida.com.br",
         aspect: "wide",
       },
       {
-        src: "/projects/nerida/01__login-glass-spheres.png",
-        alt: "Login screen with glass-spheres treatment",
-        caption: "Login · Glass Spheres",
+        src: "/projects/nerida/01__nerida-dashboard.png",
+        alt: "Dashboard — today's sessions, active patients, monthly revenue, receivables",
+        caption: "Dashboard · the day at a glance",
         aspect: "wide",
-        placeholder: { label: "Login · Glass Spheres", sublabel: "01__login-glass-spheres.png", gradient: "linear-gradient(135deg,#EEEAF5 0%,#F5EEF8 40%,#F0E8F5 70%,#EDE4F3 100%)" },
       },
       {
-        src: "/projects/nerida/03__dashboard.png",
-        alt: "Dashboard with weekly agenda and key KPIs",
-        caption: "Dashboard · weekly view",
-        placeholder: { label: "Dashboard", sublabel: "03__dashboard.png", gradient: "linear-gradient(135deg,#8F7FBB 0%,#5E4F8A 100%)" },
-      },
-      {
-        src: "/projects/nerida/04__agenda-week.png",
-        alt: "Agenda — week grid with sessions and conflicts",
-        caption: "Agenda · week grid",
-        placeholder: { label: "Agenda · Week", sublabel: "04__agenda-week.png", gradient: "linear-gradient(135deg,#5E4F8A 0%,#8F7FBB 100%)" },
-      },
-      {
-        src: "/projects/nerida/05__patient-record.png",
-        alt: "Patients listing — names, contact, status, search",
-        caption: "Patients · listing",
-        placeholder: { label: "Patients · Listing", sublabel: "05__patient-record.png", gradient: "linear-gradient(135deg,#8F7FBB 0%,#EEEAF5 100%)" },
-      },
-      {
-        src: "/projects/nerida/02__financeiro-overview.png",
-        alt: "Financial overview tab with KPIs and projected income",
-        caption: "Financial · Overview",
+        src: "/projects/nerida/02__nerida-agenda.png",
+        alt: "Agenda — monthly calendar with sessions",
+        caption: "Agenda · calendar, upcoming, history",
         aspect: "wide",
-        placeholder: { label: "Financial · Overview", sublabel: "02__financeiro-overview.png", gradient: "linear-gradient(135deg,#5E4F8A 0%,#8F7FBB 60%,#EEEAF5 100%)" },
       },
       {
-        src: "/projects/nerida/06__financeiro-cobrancas.png",
-        alt: "Cobranças tab — humanized two-step collection workflow",
-        caption: "Financial · Cobranças",
-        placeholder: { label: "Financial · Cobranças", sublabel: "06__financeiro-cobrancas.png", gradient: "linear-gradient(135deg,#8F7FBB 0%,#5E4F8A 100%)" },
-      },
-      {
-        src: "/projects/nerida/07__financeiro-fiscal.png",
-        alt: "Fiscal tab — Carnê Leão CSV, deductible expenses, MEI tracking, IRPF estimate",
-        caption: "Financial · Fiscal · Carnê Leão",
-        placeholder: { label: "Financial · Fiscal", sublabel: "07__financeiro-fiscal.png", gradient: "linear-gradient(135deg,#EEEAF5 0%,#8F7FBB 60%,#5E4F8A 100%)" },
-      },
-      {
-        src: "/projects/nerida/08__financeiro-pagamentos.png",
-        alt: "Financial · Pagamentos tab with monthly filter, totals, and CSV export",
-        caption: "Financial · Pagamentos · monthly view",
+        src: "/projects/nerida/04__nerida-fiscal.png",
+        alt: "Fiscal tab — Carnê Leão CSV export, deductible expenses, IRPF estimate",
+        caption: "Fiscal · Carnê Leão in the Receita format",
         aspect: "wide",
-        placeholder: { label: "Financial · Pagamentos", sublabel: "08__financeiro-pagamentos.png", gradient: "linear-gradient(135deg,#5E4F8A 0%,#8F7FBB 50%,#EEEAF5 100%)" },
+      },
+      {
+        src: "/projects/nerida/05__nerida-pacientes.png",
+        alt: "Patients listing — names, contact, status, CSV import",
+        caption: "Pacientes · registry with CSV import",
+        aspect: "wide",
       },
     ],
     reflection:
-      "Building this way taught me the discipline of not letting the AI own decisions — only keystrokes. Twelve weeks ago Nerida was a fork in a folder. Today it processes Pix and exports to Receita Federal. A single person paired with a tool, refusing to delegate judgment.",
+      "Twelve days from fork to live, another month to become a platform. The pace with Claude Code teaches you that the constraint isn't typing speed — it's decision quality. The AI never owned a decision; it owned the keystrokes that came after.",
   },
 
   "garmin-coach": {
@@ -448,11 +413,17 @@ export const cases: Record<string, CaseStudy> = {
         heading: "Who I designed for",
         body:
           "Myself, and no one else. I run with a Garmin, I plan with Claude, and I didn't want to re-enter intervals by hand.\n\nBuilding a tool you're the only user of is a different discipline. No research phase, no personas, and the feedback loop is ten minutes long. If the schema is annoying to prompt against, I feel it right away. That compression is the whole point of a side project.",
+        image: { src: "/projects/garmin/01__garmin-send.png", alt: "Garmin Coach web app — paste JSON, send to Garmin", caption: "Send · paste the JSON, push, it lands on the watch", aspect: "wide" },
+        layout: "split",
+        imageSide: "right",
       },
       {
         heading: "The key decision: schema first",
         body:
           "The temptation was to start with the API or the UI. I started with the JSON schema, and that was the right call.\n\nAn LLM has to fill the schema without a field-by-field explanation every time, so the shape had to be obvious: predictable keys, typed targets, no ambiguous nesting. I iterated it in a single markdown file, pasting it into Claude and refining until the output came back valid with no correction needed. After that the rest was plumbing. The parser is just Pydantic validation, and swapping the model is a config change.",
+        image: { src: "/projects/garmin/02__garmin-schema.png", alt: "The workout JSON schema — steps, repeats, typed targets", caption: "The JSON contract · steps, repeats, typed targets", aspect: "wide" },
+        layout: "split",
+        imageSide: "left",
       },
       {
         heading: "What didn't go well",
@@ -462,6 +433,9 @@ export const cases: Record<string, CaseStudy> = {
     ],
     reflection:
       "Side projects let you ship the API you want to consume, not the one that survived a committee. The schema is exactly the shape I needed, the auth is exactly the amount I was willing to maintain, and the UI is as minimal as a tool I use alone can be.",
+    gallery: [
+      { src: "/projects/garmin/03__garmin-cli.png", alt: "Garmin Coach CLI — push_workout output with created workout", caption: "CLI · Pydantic validation → Garmin Connect", aspect: "wide" },
+    ],
   },
 
   techcolab: {
@@ -515,36 +489,90 @@ export const cases: Record<string, CaseStudy> = {
     ],
   },
 
-  // Archive — shorter cases
   "netzsch-customer-portal": {
     slug: "netzsch-customer-portal",
-    role: "Lead designer",
-    duration: "12 months",
-    yearRange: "2022 → 2023",
-    stack: ["Salesforce Commerce Cloud", "SAP backend", "Figma"],
+    role: "Product designer — origin design, every flow",
+    team: "Solo on design; HTML implementation taken over by a colleague from April 2026",
+    duration: "2025 → 2026",
+    yearRange: "2025 → 2026",
+    stack: ["Figma (110+ frames)", "HTML/CSS implementation", "Vercel", "Inter · WCAG AAA target"],
     contextOneLiner:
-      "B2B e-commerce portal for industrial customers ordering parts and consumables across NETZSCH product lines.",
+      "A self-service portal for NETZSCH Grinding & Dispersing's industrial customers: machines, spare parts, quotes, contracts, lab tests, and an AI assistant. Designed for the people who run procurement at a plant, not for casual shoppers.",
+    highlights: [
+      { label: "Frames in Figma", value: "110+" },
+      { label: "Flows designed", value: "12" },
+      { label: "Buyer-side roles", value: "4" },
+    ],
     challenge:
-      "B2B e-commerce in industrial has no consumer-grade tooling waiting for you. Buyers shop with part numbers, multi-step approval flows, and invoice-payment terms. Existing portal was form-shaped and frustrating.",
+      "Industrial procurement doesn't look like e-commerce. Buyers order by part number and material code, purchases above a threshold need an approver, prices come from negotiated contracts rather than a public list, and the person operating the machine is often not allowed to see prices at all.\n\nBefore the portal, all of that ran through email and sales reps. The brief was a single place where a customer could check their installed machines, reorder grinding media, track orders, and pull contract pricing without calling anyone.",
     approach:
-      "Reorganized around the buyer's actual job — re-order, quote, status, support — and pushed the part-number-as-search pattern hard. Tight integration with SAP backend for live inventory and pricing.",
+      "I designed the whole surface in Figma: 110+ frames across 12 flows, from a 23-screen registration and SSO path to checkout, contracts, services, and a five-page admin area. Light mode only, Inter, the NETZSCH green, and an AAA contrast target, because this gets used on factory-floor laptops with bad screens.\n\nThe structural decision was role-based design. Four buyer-side roles (administrator, buyer, approver, technician) see different navigations, different actions, and in the technician's case no prices anywhere: their \"add to cart\" becomes \"request for approval\" and generates an internal request number instead of an order. I also designed Milla, an AI assistant with four states, from a search-bar suggestion up to a full chat, scoped to spare parts, order status, and documents.\n\nImplementation went to HTML/CSS with a 1:1-to-Figma contract, taken over by a colleague in April 2026 while I reviewed against the frames.",
     outcome:
-      "Cut average order time on repeat parts significantly. Buyers stopped emailing sales for status because the portal answered first.",
+      "68 screens are live on the internal test deployment, pixel-faithful to the Figma source, covering dashboard, machines with hourmeters and service history, shop with volume pricing tiers, orders, quotes, contracts with negotiated price lists, and the full admin area.\n\nIt's pre-production: the deployment sits behind an access gate, and Milla's answers are simulated while the LLM integration stays on the roadmap. What exists today is the complete designed and built surface, waiting on backend wiring.",
+    sections: [
+      {
+        heading: "Who I designed for",
+        body:
+          "Marcus, the persona on every screen, manages procurement for a plant running five NETZSCH mills. His job is keeping machines grinding: reorder beads before they run out, get a bearing shaft quoted, check why an order slipped.\n\nAround him sit three other roles with different rights. The approver reviews what buyers put in the queue. The technician knows exactly which spare part the machine needs but isn't allowed to commit money. The admin manages who can do what. Designing for the four of them at once is what shaped the portal more than any visual decision.",
+        image: { src: "/projects/customer-portal/01__cp-machines.png", alt: "Machines page — installed base with hourmeters and service history", caption: "Machines · the customer's installed base", aspect: "wide" },
+        layout: "split",
+        imageSide: "right",
+      },
+      {
+        heading: "The key decision: roles as a design primitive",
+        body:
+          "The easy version of this portal would be one interface with an admin toggle. I designed the role model into every flow instead, and made it visible in an admin matrix where each role's permissions can be read per module.\n\nThe technician role is the clearest example. Same catalog, same machine pages, but no prices, no cart, and no checkout. Their flow ends in a request with its own number that lands on the approver's desk. That respects how these companies actually buy: the person with the technical knowledge and the person with the budget are different people, and pretending otherwise is how portals end up unused.",
+        image: { src: "/projects/customer-portal/02__cp-access-roles.png", alt: "Access & Roles admin — permission matrix across four roles", caption: "Access & Roles · permission matrix", aspect: "wide" },
+        layout: "split",
+        imageSide: "left",
+      },
+      {
+        heading: "What didn't go well",
+        body:
+          "Milla is the honest gap. I designed four states of an AI assistant and the demo answers are canned: the model integration never left the roadmap while I was on the project. The design holds up, but I can't show you a real answer.\n\nThe other gap is validation. The portal lives on a gated test deployment and hasn't been in front of actual customers yet, so every flow decision is still an informed bet rather than a measured one. And I handed implementation over mid-project, which worked because the 1:1 contract was strict, but it means the shipped polish past that point isn't mine to claim.",
+        image: { src: "/projects/customer-portal/03__cp-milla.png", alt: "Milla AI assistant chat modal over the dashboard", caption: "Milla · AI assistant, simulated responses", aspect: "wide" },
+        layout: "split",
+        imageSide: "right",
+      },
+    ],
+    reflection:
+      "B2B design is mostly about respecting an org chart you didn't draw. The portal's best ideas aren't visual, they're the request numbers, approval queues, and price visibility rules that map to how an industrial customer already works.",
+    gallery: [
+      { src: "/projects/customer-portal/04__cp-landing.png", alt: "Public landing page of the customer portal", caption: "Public landing · pre-login", aspect: "wide" },
+      { src: "/projects/customer-portal/05__cp-product.png", alt: "Product detail — grinding media with volume pricing tiers", caption: "Product detail · volume pricing", aspect: "wide" },
+      { src: "/projects/customer-portal/06__cp-contract.png", alt: "Parts contract with negotiated price list", caption: "Parts contract · negotiated price list", aspect: "wide" },
+      { src: "/projects/customer-portal/07__cp-orders.png", alt: "Orders page with status-tracked history", caption: "Orders · status-tracked history", aspect: "wide" },
+      { src: "/projects/customer-portal/08__cp-login.png", alt: "Login screen with SSO", caption: "Login · SSO + email", aspect: "wide" },
+    ],
   },
 
   "iris-design-system": {
     slug: "iris-design-system",
     role: "Designer · DS author",
-    yearRange: "2024",
-    stack: ["Figma", "React", "Storybook", "OPC-UA aware components"],
+    yearRange: "2023 →",
+    stack: ["Figma (library + variables)", "Segoe UI", "12\" and 15\" panel variants"],
     contextOneLiner:
-      "Pragmatic, modular DS for IRIS V3 and adjacent industrial software products. Tokens-first, owned in code.",
+      "The component library behind IRIS V3 — the design system every NETZSCH G&D machine HMI is built from. Tokens, 29 component families, and a variant set for each panel size.",
+    highlights: [
+      { label: "Component families", value: "29" },
+      { label: "Panel size variants", value: "2" },
+      { label: "Products built on it", value: "6" },
+    ],
     challenge:
-      "Industrial software has rare-but-critical patterns (alarm severity, batch state, set-point editing) that generic web DSs don't handle. Needed a DS that took these as primitives, not exceptions.",
+      "Industrial HMIs have patterns generic design systems don't carry: batch cards, recipe steps, machine status buttons, gauges, start/stop sequences with confirmation states. And every component has to exist twice, because the machines ship with either a 12-inch or a 15-inch panel and the touch targets can't simply scale.\n\nWithout a shared library, each of the six IRIS product lines would have kept solving these locally — which is exactly the divergence IRIS V3 existed to end.",
     approach:
-      "Built domain components on top of a foundational layer. Color, typography, and spacing tokens live in Figma variables and ship to React via Style Dictionary. Domain components (AlarmRow, BatchProgress, RecipeStep) are the differentiator.",
+      "I built the library in Figma as the single source for all six product lines: a tokens layer (the NETZSCH teal ramp, neutrals, signal colors, spacing, radii) feeding 29 component families, each published with 12\" and 15\" variants and their full state sets.\n\nThe domain components are the point. Snackbars and text fields exist in any DS; batch cards, dosing gauges, hourmeter displays, and operation bars are what make this one industrial. Those came from the products, were generalized, and went back into the library.",
     outcome:
-      "Now the foundation for IRIS V3 in production, and a template for two adjacent NETZSCH product lines starting to converge on it.",
+      "All six IRIS V3 product lines ship from this library, and new HMI screens start from published components instead of copies of old screens. It's the quiet half of the IRIS V3 case: the platform redesign got the attention, the library is what made it repeatable.",
+    gallery: [
+      { src: "/projects/iris-ds/01__irisds-foundations.png", alt: "IRIS DS foundations — color tokens and Segoe UI typography", caption: "Foundations · tokens from the library variables", aspect: "square" },
+      { src: "/projects/iris-ds/02__irisds-buttons.png", alt: "IRIS DS buttons — full state set for 12-inch panels", caption: "Buttons · the 12\" set", aspect: "square" },
+      { src: "/projects/iris-ds/03__irisds-forms.png", alt: "IRIS DS forms — text fields, checkboxes, radios, toggles", caption: "Forms", aspect: "square" },
+      { src: "/projects/iris-ds/04__irisds-feedback.png", alt: "IRIS DS feedback — snackbars, section messages, modals", caption: "Feedback", aspect: "square" },
+      { src: "/projects/iris-ds/05__irisds-process.png", alt: "IRIS DS process — progress bars, batch cards, recipe cards", caption: "Process & batch · the industrial part", aspect: "square" },
+      { src: "/projects/iris-ds/06__irisds-dashboard.png", alt: "IRIS DS dashboard — cards, controls, gauges", caption: "Dashboard components", aspect: "square" },
+      { src: "/projects/iris-ds/07__irisds-smallparts.png", alt: "IRIS DS small parts — chips, tags, badges, pagination, start/stop", caption: "Small parts", aspect: "square" },
+    ],
   },
 
   ortolink: {
