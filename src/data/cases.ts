@@ -57,9 +57,9 @@ const CDN = "https://storage.googleapis.com/2026portfolio/Projects";
 export const cases: Record<string, CaseStudy> = {
   "iris-v3": {
     slug: "iris-v3",
-    role: "Senior UX/UI Designer — sole designer on the platform",
+    role: "Senior UX/UI Designer · sole designer on the platform",
     team: "Cross-functional with PMs, engineers, firmware, QA, field service",
-    duration: "Active since April 2023 — ongoing",
+    duration: "April 2023 → ongoing",
     yearRange: "2023 →",
     stack: ["Figma", "Zeroheight", "Maze", "Confluence"],
     contextOneLiner:
@@ -70,16 +70,16 @@ export const cases: Record<string, CaseStudy> = {
       { label: "Sole designer since", value: "2023" },
     ],
     challenge:
-      "Before V3, every NETZSCH machine had its own HMI. An operator who knew InView cold couldn't sit down at a Confectionery panel without retraining. Field service spent half their time fielding questions the UI should have answered.\n\nI came in as the only designer on the platform. The brief was to make six product lines feel like one product, without flattening what each machine actually needs — across NETZSCH's global network of 36 countries and three languages.",
+      "Before V3, every NETZSCH machine had its own HMI. An operator who knew InView cold couldn't sit down at a Confectionery panel without retraining. Field service spent half their time fielding questions the UI should have answered.\n\nI came in as the only designer on the platform. The brief was to make six product lines feel like one product without flattening what each machine actually needs, across NETZSCH's network of 36 countries and three languages.",
     approach:
-      "I started on the floor. Operators wear gloves, lighting shifts through the day, the panel is at chest height with attention split between the screen and a running machine. None of that is on a spec sheet.\n\nPicked InView as the reference and designed it end to end against real users. Then extracted the patterns into the shared system and rolled it out product by product — Confectionery, Epsilon, Mixers, ZetaRS, Inside.",
+      "I started on the floor. Operators wear gloves, lighting shifts through the day, the panel is at chest height with attention split between the screen and a running machine. None of that is on a spec sheet.\n\nPicked InView as the reference and designed it end to end against real users. Then extracted the patterns into the shared system and rolled it out product by product: Confectionery, Epsilon, Mixers, ZetaRS, Inside.",
     outcome:
       "Six product lines now ship on the same design language. An operator trained on one machine can sit down at any other and find the dashboard, recipes, alarms, settings in the same place, behaving the same way.\n\nNew product onboarding went from months of bespoke design to weeks of configuration. Three years in, every new machine NETZSCH G&D ships internationally lands on this system.",
     sections: [
       {
         heading: "Who I designed for",
         body:
-          "Four personas, each with a different relationship to the machine.\n\nThe **Operator** runs batches under shift pressure, often in Portuguese or German. Most of the screens are tuned for this user — simple controls, low cognitive load, no surprises.\n\nThe **Maintenance Technician** needs diagnostic depth: error logs, troubleshooting flows, equipment status. The system surfaces it without forcing it on the operator.\n\nThe **Maintenance Coordinator** sees the longitudinal view across a fleet — history, predictive alerts, planning.\n\nThe **Production Supervisor** reads the machine through outcomes — KPIs, throughput, trends — not real-time state.\n\nGetting all four right without overloading any single screen was the hard part.",
+          "Four personas, each with a different relationship to the machine.\n\nThe operator runs batches under shift pressure, often in Portuguese or German. Most of the screens are tuned for this user: simple controls, low cognitive load, no surprises.\n\nThe maintenance technician needs diagnostic depth (error logs, troubleshooting flows, equipment status), and the system surfaces it without forcing it on the operator. The maintenance coordinator sees the longitudinal view across a fleet: history, predictive alerts, planning. The production supervisor reads the machine through outcomes, KPIs and trends rather than real-time state.\n\nGetting all four right without overloading any single screen was the hard part.",
         layout: "split",
         imageSide: "right",
         image: {
@@ -91,7 +91,7 @@ export const cases: Record<string, CaseStudy> = {
       {
         heading: "Same place, every machine",
         body:
-          "The biggest decision in V3 was structural, not visual. Every product shares the same module layout. Dashboard, alarms, recipes, settings, maintenance — same place, every machine.\n\nProduct-exclusive features slot into that layout without breaking it. Bead Filling on InView and Confectionery. Scale Calibration on the dosing-aware products. The Operation Bar on Mixers. The shared structure is a contract; the product specifics live inside the contract, not around it.\n\nThat's what makes the cross-product training claim real. The visual language reinforces it — same buttons, same alarm patterns, same way of confirming irreversible actions — but the structural decision is what carries the weight.",
+          "The biggest decision in V3 was structural, not visual. Every product shares the same module layout: dashboard, alarms, recipes, settings, and maintenance live in the same place on every machine.\n\nProduct-exclusive features slot into that layout without breaking it. Bead Filling on InView and Confectionery. Scale Calibration on the dosing-aware products. The Operation Bar on Mixers. The shared structure is a contract; the product specifics live inside the contract, not around it.\n\nThat's what makes the cross-product training claim real. The visual language reinforces it (shared buttons, alarm patterns, confirmation flows), but the structural decision carries the weight.",
         layout: "split",
         imageSide: "left",
         image: {
@@ -173,7 +173,7 @@ export const cases: Record<string, CaseStudy> = {
     yearRange: "2023 →",
     stack: ["Figma (variables + tokens)", "React", "Storybook", "CSS variables", "Style Dictionary"],
     contextOneLiner:
-      "DASDS — the design system for NETZSCH's Digital and Automation Systems. A Figma-to-code pipeline built so eight product squads ship consistent UI without paying a coordination tax every sprint.",
+      "DASDS is the design system for NETZSCH's Digital and Automation Systems: a Figma-to-code pipeline built so eight product squads ship consistent UI without paying a coordination tax every sprint.",
     highlights: [
       { label: "Product squads using DS", value: "8+" },
       { label: "Figma variables", value: "1.2k" },
@@ -189,7 +189,7 @@ export const cases: Record<string, CaseStudy> = {
       {
         heading: "Who I designed for",
         body:
-          "Two audiences with very different needs.\n\nFrontend engineers in the squads — the people who actually consume the system. They wanted boring things: a Storybook page that loads fast, prop names that match what they expect, and components that don't fight their existing build. Anything fancy lost to anything dependable.\n\nProduct designers in the squads — usually one per product line, sometimes none. They wanted Figma variables that mirror code variables, so they don't have to redo work the engineers already did. The 1:1 token mapping wasn't aesthetic. It was the contract that lets a designer hand off without translating.",
+          "Two audiences with very different needs.\n\nFrontend engineers in the squads are the people who actually consume the system. They wanted boring things: a Storybook page that loads fast, prop names that match what they expect, and components that don't fight their existing build. Anything fancy lost to anything dependable.\n\nProduct designers in the squads (usually one per product line, sometimes none) wanted Figma variables that mirror code variables, so they don't have to redo work the engineers already did. The 1:1 token mapping wasn't aesthetic. It was the contract that lets a designer hand off without translating.",
         layout: "split",
         imageSide: "right",
         image: {
@@ -201,7 +201,7 @@ export const cases: Record<string, CaseStudy> = {
       {
         heading: "The key decision: a single source of truth for tokens",
         body:
-          "Most DS projects fail at the same place: the design tokens in Figma drift from the CSS variables in code, and within six months everyone is back to copying hex codes by hand. I refused to ship anything until the pipeline was airtight.\n\nFigma variables export to a JSON Style Dictionary spec. Style Dictionary builds the same tokens into CSS custom properties, Tailwind config, and a TypeScript types file. One source, three outputs, all generated. A designer renaming a color in Figma triggers a PR. An engineer adjusting a contrast ratio updates Figma at the same time.\n\nThe whole rest of the system — typography scale, spacing, radii, shadows, motion — sits on top of that pipeline. Without it, the DS is just a pile of components that look right today and wrong in two months.",
+          "Most DS projects fail at the same place: the design tokens in Figma drift from the CSS variables in code, and within six months everyone is back to copying hex codes by hand. I refused to ship anything until the pipeline was airtight.\n\nFigma variables export to a JSON Style Dictionary spec. Style Dictionary builds the same tokens into CSS custom properties, Tailwind config, and a TypeScript types file. One source, three outputs, all generated. A designer renaming a color in Figma triggers a PR. An engineer adjusting a contrast ratio updates Figma at the same time.\n\nThe whole rest of the system (typography scale, spacing, radii, shadows, motion) sits on top of that pipeline. Without it, the DS is just a pile of components that look right today and wrong in two months.",
         layout: "split",
         imageSide: "left",
         image: {
@@ -213,7 +213,7 @@ export const cases: Record<string, CaseStudy> = {
       {
         heading: "What didn't go well",
         body:
-          "The hard part wasn't building the system — it was getting squads with working legacy code to adopt it. Solid components and clean docs weren't enough. Teams pushed back when a new pattern meant refactoring something that already shipped, and the first six months were mostly demos, pairing with squad leads, and rewriting docs to answer the same five questions.\n\nThe \"light governance\" model also showed its limits. Letting anyone propose components meant the queue filled up with single-use specials. I had to start saying no, which is uncomfortable when you're pitching the system as community-owned. Any DS needs an opinionated owner, and I was that owner whether the org chart said so or not.",
+          "The hard part wasn't building the system. It was getting squads with working legacy code to adopt it. Solid components and clean docs weren't enough. Teams pushed back when a new pattern meant refactoring something that already shipped, and the first six months were mostly demos, pairing with squad leads, and rewriting docs to answer the same five questions.\n\nThe \"light governance\" model also showed its limits. Letting anyone propose components meant the queue filled up with single-use specials. I had to start saying no, which is uncomfortable when you're pitching the system as community-owned. Any DS needs an opinionated owner, and I was that owner whether the org chart said so or not.",
         layout: "split",
         imageSide: "right",
         image: {
@@ -224,7 +224,7 @@ export const cases: Record<string, CaseStudy> = {
       },
     ],
     reflection:
-      "A DS lives or dies by adoption, not aesthetics. The wins came from the boring parts — token pipeline, accessibility floor, contribution flow — done before anyone got excited about the visual language.",
+      "A DS lives or dies by adoption, not aesthetics. The wins came from the boring parts (token pipeline, accessibility floor, contribution flow) done before anyone got excited about the visual language.",
     gallery: [
       {
         src: "/projects/dasds/02__dasds-header.png",
@@ -310,16 +310,16 @@ export const cases: Record<string, CaseStudy> = {
       { label: "Database migrations", value: "51+" },
     ],
     challenge:
-      "Brazilian psychologists running solo practices have a few software options, and they all stop at the same place: CRUD over patients and payments. Tools like PsicoManager and Psicoplanner manage the appointment book, but they don't help with the things that actually keep solo psychologists awake — irregular income, the social weight of asking patients to pay, and the tax mess of Receita Saúde and Carnê Leão.\n\nThe pattern came up over and over in conversations with psychologists in my circle: people pay late and asking for it feels uncomfortable; income swings make planning impossible; tax season is a frantic Excel reconstruction. Existing tools were built for the appointment side. The financial side was a gap.",
+      "Brazilian psychologists running solo practices have a few software options, and they all stop at the same place: CRUD over patients and payments. Tools like PsicoManager and Psicoplanner manage the appointment book, but they don't help with the things that actually keep solo psychologists awake: irregular income, the social weight of asking patients to pay, and the tax mess of Receita Saúde and Carnê Leão.\n\nThe pattern came up over and over in conversations with psychologists in my circle: people pay late and asking for it feels uncomfortable; income swings make planning impossible; tax season is a frantic Excel reconstruction. Existing tools were built for the appointment side. The financial side was a gap.",
     approach:
-      "I forked an internal multi-tenant clinical tool I'd been building and rebranded it for the solo market — single persona, no team views, no multi-clinic switcher. From fork to live product took twelve days.\n\nThe working rhythm: sprints of one to three days with Claude Code as build partner. I owned product direction, design, copy, and security calls; Claude handled scaffolding, schema migrations, and integration code (Asaas webhooks, Pix, email templates, cron jobs). I wrote a brief, reviewed every diff, shipped, repeated.\n\nA month after launch the product became a platform: a per-clinic module system with row-level security, so the same core serves psychologists in production and nutritionists in beta with different navigation, records, and tools.",
+      "I forked an internal multi-tenant clinical tool I'd been building and rebranded it for the solo market: single persona, no team views, no multi-clinic switcher. From fork to live product took twelve days.\n\nThe working rhythm: sprints of one to three days with Claude Code as build partner. I owned product direction, design, copy, and security calls; Claude handled scaffolding, schema migrations, and integration code (Asaas webhooks, Pix, email templates, cron jobs). I wrote a brief, reviewed every diff, shipped, repeated.\n\nA month after launch the product became a platform: a per-clinic module system with row-level security, so the same core serves psychologists in production and nutritionists in beta with different navigation, records, and tools.",
     outcome:
-      "Nerida runs in production with real paying users — over a hundred active clients. Two plans (Essencial R$49, Profissional R$89), 7-day trial, Pix through Asaas.\n\nLive today for psychologists: agenda with reminders, structured records (anamnese, session evolutions, contracts), patient management with CSV import, and the financial module running five tabs — overview, payments, humanized two-step collections, subscriptions, and a fiscal tab that exports Carnê Leão CSV in the exact Receita Federal format. For nutritionists, in beta: anthropometry, meal plan builder with a public real-time patient link, and a 24-hour recall.\n\nThe public landing at nerida.com.br ships separately as a static LP with custom motion and a full SEO/AEO setup. Fifty-one migrations in, the schema has survived a launch, a pivot to multi-profession, and a second vertical.",
+      "Nerida runs in production with real paying users: over a hundred active clients. Two plans (R$49 and R$89 monthly, less on annual), 7-day trial, Pix through Asaas.\n\nLive today for psychologists: agenda with reminders, structured records (anamnese, session evolutions, contracts), patient management with CSV import, and the financial module running five tabs: overview, payments, humanized two-step collections, subscriptions, and a fiscal tab that exports Carnê Leão CSV in the exact Receita Federal format. For nutritionists, in beta: anthropometry, meal plan builder with a public real-time patient link, and a 24-hour recall.\n\nThe public landing at nerida.com.br ships separately as a static LP with custom motion and a full SEO/AEO setup, and now tells the multi-profession story: psychology and nutrition available, more areas prioritized by demand. Fifty-one migrations in, the schema has survived a launch, a pivot to multi-profession, and a second vertical.",
     sections: [
       {
         heading: "Who I designed for",
         body:
-          "One persona. Brazilian psychologist running a solo practice — usually 20-50 patients, often working from home, frequently on the CPF tax regime. Not a tech buyer. They want software that disappears and lets them focus on the session.\n\nThat single-persona constraint changed every design decision. No team views. No multi-clinic switcher. No role permissions. The product is built around one person, not a workflow team.\n\nThe lilac brand and the glass-sphere login both fight the same enemy: clinical software that feels cold and bureaucratic. Nerida is meant to feel calm.",
+          "One persona. Brazilian psychologist running a solo practice: usually 20-50 patients, often working from home, frequently on the CPF tax regime. Not a tech buyer. They want software that disappears and lets them focus on the session.\n\nThat single-persona constraint changed every design decision. No team views. No multi-clinic switcher. No role permissions. The product is built around one person, not a workflow team.\n\nThe lilac brand and the glass-sphere login both fight the same enemy: clinical software that feels cold and bureaucratic. Nerida is meant to feel calm.",
         layout: "split",
         imageSide: "right",
         image: {
@@ -332,7 +332,7 @@ export const cases: Record<string, CaseStudy> = {
       {
         heading: "The key decision: the financial module",
         body:
-          "Competitors stop at \"mark this payment as paid.\" Nerida starts there.\n\nThe financial module has five tabs. Overview shows projected end-of-month income, separating confirmed from outstanding. Payments is the listing. Collections runs a humanized two-step charge — cordial first, firm later, opt-in by patient. Subscriptions handles monthly recurring plans. Fiscal exports Carnê Leão CSVs in the exact Receita Federal format, tracks deductible expenses, and estimates IRPF.\n\nOther tools show you what you charged. Nerida shows you what's left, helps you ask for it without discomfort, and handles tax season without an Excel rebuild. That's the gap I kept hearing about in conversations, and it's where the product lives.",
+          "Competitors stop at \"mark this payment as paid.\" Nerida starts there.\n\nThe financial module has five tabs. Overview shows projected end-of-month income, separating confirmed from outstanding. Payments is the listing. Collections runs a humanized two-step charge (cordial first, firm later, opt-in by patient). Subscriptions handles monthly recurring plans. Fiscal exports Carnê Leão CSVs in the exact Receita Federal format, tracks deductible expenses, and estimates IRPF.\n\nOther tools show you what you charged. Nerida shows you what's left, helps you ask for it without discomfort, and handles tax season without an Excel rebuild. That's the gap I kept hearing about in conversations, and it's where the product lives.",
         layout: "split",
         imageSide: "left",
         image: {
@@ -345,7 +345,7 @@ export const cases: Record<string, CaseStudy> = {
       {
         heading: "What didn't go well",
         body:
-          "The pivot to a multi-profession platform came early — three weeks after launch, before I had usage data to justify it. The module system is good engineering and it made the nutrition beta possible, but the decision was driven by ambition, not by users asking for it. If nutrition doesn't convert, that month belonged to psychologist-facing features.\n\nThe landing page still tells the old single-vertical story, so the product is ahead of its own marketing. And there are no real testimonials on the site yet, which I feel every time I look at the social-proof section. Both are known debts, not mysteries.",
+          "The pivot to a multi-profession platform came early, three weeks after launch, before I had usage data to justify it. The module system is good engineering and it made the nutrition beta possible, but the decision was driven by ambition, not by users asking for it. If nutrition doesn't convert, that month belonged to psychologist-facing features.\n\nThe marketing also lagged the product: for about a month the landing page kept telling the single-vertical story while the platform had already moved on. It caught up in late May, but the gap is the honest cost of a one-person company where product, ops, and marketing take turns getting attention.",
       },
     ],
     links: [
@@ -355,8 +355,14 @@ export const cases: Record<string, CaseStudy> = {
     gallery: [
       {
         src: "/projects/nerida/00__lp-hero.png",
-        alt: "Nerida public landing page hero — headline 'Cuide das sessões, a gestão cuida de si' over a lilac glass-sphere field with three product mockups (financial, agenda, billing chat)",
+        alt: "Nerida public landing hero — 'Você atende. A Nerida cuida do resto.' over a pastel glass-sphere field with floating product cards (agenda, Receita Saúde, financial chart)",
         caption: "Public landing · nerida.com.br",
+        aspect: "wide",
+      },
+      {
+        src: "/projects/nerida/07__lp-areas.png",
+        alt: "Landing section 'Feito pra psicologia e nutrição. Outras áreas, em breve.' with the two available profession cards and coming-soon chips",
+        caption: "Landing · the multi-profession story, live",
         aspect: "wide",
       },
       {
@@ -385,12 +391,12 @@ export const cases: Record<string, CaseStudy> = {
       },
     ],
     reflection:
-      "Twelve days from fork to live, another month to become a platform. The pace with Claude Code teaches you that the constraint isn't typing speed — it's decision quality. The AI never owned a decision; it owned the keystrokes that came after.",
+      "Twelve days from fork to live, another month to become a platform. The pace with Claude Code teaches you that the constraint isn't typing speed; it's decision quality. The AI never owned a decision; it owned the keystrokes that came after.",
   },
 
   "garmin-coach": {
     slug: "garmin-coach",
-    role: "Sole author — design + build",
+    role: "Sole author · design + build",
     team: "Solo",
     duration: "Weekend build, ongoing since 2025",
     yearRange: "2025 →",
@@ -403,11 +409,11 @@ export const cases: Record<string, CaseStudy> = {
       { label: "License", value: "MIT" },
     ],
     challenge:
-      "I plan my running weeks with Claude in a separate chat. The output is plain text, and the path from there to my Garmin was manual: read the prose, open the app, tap through every interval by hand. I did it often enough that it stopped being a quirk and started being annoying.\n\nThe data shape isn't hard — Garmin's internal API exposes a workout format. The gap was that nobody built the bridge, and getting an LLM to fill that JSON without inventing field names meant the schema itself had to be the first thing I got right.",
+      "I plan my running weeks with Claude in a separate chat. The output is plain text, and the path from there to my Garmin was manual: read the prose, open the app, tap through every interval by hand. I did it often enough that it stopped being a quirk and started being annoying.\n\nThe data shape isn't hard: Garmin's internal API exposes a workout format. The gap was that nobody built the bridge, and getting an LLM to fill that JSON without inventing field names meant the schema itself had to be the first thing I got right.",
     approach:
       "I started with the JSON contract: warmup, interval, recovery, cooldown, repeat, each with a typed duration and target. Strict, but short enough to paste into the prompt. Once the schema was stable the CLI followed — it parses the JSON with Pydantic and calls the API. The web app came next, mobile-first on FastAPI, so I can push a plan from my phone.\n\nThe last real piece was token refresh. Garmin's OAuth tokens expire in minutes, so I keep one row in Supabase that refreshes itself. The app just works when I pick up my phone mid-run-prep.",
     outcome:
-      "Live as a Vercel-hosted web app, with the CLI running locally. The whole pipeline — plan in Claude, JSON out, push to a Forerunner 165 — is about 2k lines. I'm not training as much as I was in early 2026, but the infrastructure is stable and I reach for it whenever I'm back to structured runs.",
+      "Live as a Vercel-hosted web app, with the CLI running locally. The whole pipeline (plan in Claude, JSON out, push to a Forerunner 165) is about 2k lines. I'm not training as much as I was in early 2026, but the infrastructure is stable and I reach for it whenever I'm back to structured runs.",
     sections: [
       {
         heading: "Who I designed for",
@@ -428,7 +434,7 @@ export const cases: Record<string, CaseStudy> = {
       {
         heading: "What didn't go well",
         body:
-          "The serverless deploy fought me. The Garmin client library depends on curl_cffi, which doesn't compile on Vercel, so I run two paths: the full library on the CLI, and direct requests with an exported token on the web. It works, but it's inelegant.\n\nThe auth is also a bit of a house of cards. It leans on an unofficial endpoint Garmin can change without notice — when the library I started on broke after Garmin added Cloudflare fingerprinting, I had to migrate mid-project. The calendar view on the web is still incomplete because the listing endpoint returns 404 there. It's a tool I use, not a product I'd hand to a stranger.",
+          "The serverless deploy fought me. The Garmin client library depends on curl_cffi, which doesn't compile on Vercel, so I run two paths: the full library on the CLI, and direct requests with an exported token on the web. It works, but it's inelegant.\n\nThe auth is also a bit of a house of cards. It leans on an unofficial endpoint Garmin can change without notice. When the library I started on broke after Garmin added Cloudflare fingerprinting, I had to migrate mid-project. The calendar view on the web is still incomplete because the listing endpoint returns 404 there. It's a tool I use, not a product I'd hand to a stranger.",
       },
     ],
     reflection:
@@ -440,13 +446,13 @@ export const cases: Record<string, CaseStudy> = {
 
   techcolab: {
     slug: "techcolab",
-    role: "Designer-owned full stack — design, motion, build, deploy",
+    role: "Designer-owned full stack · design, motion, build, deploy",
     team: "Solo, with Figma Make and Claude as build partners",
     duration: "2024 → iterated since",
     yearRange: "2024 →",
     stack: ["Figma", "Figma Make", "Hand-written HTML/CSS", "GSAP", "Vercel"],
     contextOneLiner:
-      "The public site for TechCo.lab — NETZSCH's internal innovation hub. I designed and shipped it end-to-end, no engineering hand-off: concept in Figma, sections in Figma Make, production in clean hand-written code.",
+      "The public site for TechCo.lab, NETZSCH's internal innovation hub. I designed and shipped it end-to-end, no engineering hand-off: concept in Figma, sections in Figma Make, production in clean hand-written code.",
     typewriter: {
       prefix: "We build",
       words: ["connected platforms.", "industrial AI.", "digital experiences.", "real impact."],
@@ -457,7 +463,7 @@ export const cases: Record<string, CaseStudy> = {
       { label: "Lighthouse", value: "98" },
     ],
     challenge:
-      "TechCo.lab is NETZSCH's innovation hub, and it needed a public site that did two jobs at once: explain what the hub builds — connected platforms, industrial AI, digital interfaces — to the rest of the company, and attract the kind of people who'd want to work there.\n\nThe constraint was real: no engineering capacity allocated and a tight window, but the bar was production-quality, not a template. It had to look like the work the hub actually ships.",
+      "TechCo.lab is NETZSCH's innovation hub, and it needed a public site that did two jobs at once: explain what the hub builds (connected platforms, industrial AI, digital interfaces) to the rest of the company, and attract the kind of people who'd want to work there.\n\nThe constraint was real: no engineering capacity allocated and a tight window, but the bar was production-quality, not a template. It had to look like the work the hub actually ships.",
     approach:
       "I owned the whole stack. Designed in Figma, prototyped the motion-heavy sections in Figma Make, then ported everything to clean hand-written HTML/CSS for the production deploy on Vercel. No CMS, no framework overhead.\n\nThe hero leans on a typewriter line, \"We build…\" cycling through what the hub does, which sets the tone before a single scroll. The rest is a clear arc: capabilities, proof, the physical space, and the numbers (500+ users, 35+ countries, 80+ projects).",
     outcome:
@@ -552,14 +558,14 @@ export const cases: Record<string, CaseStudy> = {
     yearRange: "2023 →",
     stack: ["Figma (library + variables)", "Segoe UI", "12\" and 15\" panel variants"],
     contextOneLiner:
-      "The component library behind IRIS V3 — the design system every NETZSCH G&D machine HMI is built from. Tokens, 29 component families, and a variant set for each panel size.",
+      "The component library behind IRIS V3: the design system every NETZSCH G&D machine HMI is built from. Tokens, 29 component families, and a variant set for each panel size.",
     highlights: [
       { label: "Component families", value: "29" },
       { label: "Panel size variants", value: "2" },
       { label: "Products built on it", value: "6" },
     ],
     challenge:
-      "Industrial HMIs have patterns generic design systems don't carry: batch cards, recipe steps, machine status buttons, gauges, start/stop sequences with confirmation states. And every component has to exist twice, because the machines ship with either a 12-inch or a 15-inch panel and the touch targets can't simply scale.\n\nWithout a shared library, each of the six IRIS product lines would have kept solving these locally — which is exactly the divergence IRIS V3 existed to end.",
+      "Industrial HMIs have patterns generic design systems don't carry: batch cards, recipe steps, machine status buttons, gauges, start/stop sequences with confirmation states. And every component has to exist twice, because the machines ship with either a 12-inch or a 15-inch panel and the touch targets can't simply scale.\n\nWithout a shared library, each of the six IRIS product lines would have kept solving these locally, which is exactly the divergence IRIS V3 existed to end.",
     approach:
       "I built the library in Figma as the single source for all six product lines: a tokens layer (the NETZSCH teal ramp, neutrals, signal colors, spacing, radii) feeding 29 component families, each published with 12\" and 15\" variants and their full state sets.\n\nThe domain components are the point. Snackbars and text fields exist in any DS; batch cards, dosing gauges, hourmeter displays, and operation bars are what make this one industrial. Those came from the products, were generalized, and went back into the library.",
     outcome:
