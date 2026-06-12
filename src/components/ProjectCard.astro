@@ -44,22 +44,18 @@ const aspect =
       </div>
     )}
     <div class="project-card__shade absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0"></div>
-    {project.ai && (
-      <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-[rgba(0,0,0,0.78)] backdrop-blur text-white border border-[rgba(255,255,255,0.14)] tracking-tight">
-        <span class="text-[var(--color-accent-soft)]" aria-hidden="true">◆</span> AI-native
-      </span>
-    )}
-    {project.metric && (
-      <div class="absolute bottom-3 right-3 text-right">
-        <div class="font-mono text-[9px] uppercase tracking-wider text-white/60">{project.metric.label}</div>
-        <div class="text-white text-base md:text-lg font-bold tabular tracking-tight">{project.metric.value}</div>
-      </div>
-    )}
   </div>
   <div class={`flex flex-col gap-1.5 ${size === "feature" ? "p-6 md:p-8" : "p-4 md:p-5"}`}>
-    <div class="flex items-center justify-between font-mono text-[10px] tracking-wider uppercase text-[var(--color-fg-subtle)]">
-      <span>{project.number} · {project.client}</span>
-      <span>{project.year}</span>
+    <div class="flex items-center justify-between gap-2 font-mono text-[10px] tracking-wider uppercase text-[var(--color-fg-subtle)]">
+      <span class="flex items-center gap-1.5 min-w-0">
+        <span class="truncate">{project.number} · {project.client}</span>
+        {project.ai && (
+          <span class="inline-flex shrink-0 items-center px-1.5 py-0.5 rounded text-[9px] font-mono uppercase tracking-wider bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20">
+            AI
+          </span>
+        )}
+      </span>
+      <span class="shrink-0">{project.year}</span>
     </div>
     <h3
       class={`font-bold tracking-tight ${size === "feature" ? "text-2xl md:text-3xl" : "text-lg md:text-xl"}`}
@@ -71,8 +67,10 @@ const aspect =
       {project.summary}
     </p>
     <div class="font-mono text-[10px] text-[var(--color-fg-subtle)] mt-0.5 flex items-center gap-2">
-      <span>{project.type}</span>
-      <span class="ml-auto inline-flex items-center gap-1 text-[var(--color-fg-subtle)] group-hover:text-[var(--color-accent)] group-hover:translate-x-0.5 transition-all">
+      <span class="truncate">
+        {project.metric ? `${project.metric.value} ${project.metric.label.toLowerCase()}` : project.type}
+      </span>
+      <span class="ml-auto inline-flex shrink-0 items-center gap-1 text-[var(--color-fg-subtle)] group-hover:text-[var(--color-accent)] group-hover:translate-x-0.5 transition-all">
         Read <span aria-hidden="true">→</span>
       </span>
     </div>

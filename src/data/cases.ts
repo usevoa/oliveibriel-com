@@ -495,6 +495,60 @@ export const cases: Record<string, CaseStudy> = {
     ],
   },
 
+  "digital-reports": {
+    slug: "digital-reports",
+    role: "UX/UI Designer · Techco.lab, embedded in the NOTI squad",
+    team: "NOTI squad: PMs, frontend, QA. Sole designer on the module.",
+    duration: "March 2026 → ongoing · 14-day sprints",
+    yearRange: "2026",
+    stack: ["Figma + Figma MCP", "React 18 · Vite · TypeScript", "Tailwind 4", "Custom SVG charts", "Vercel"],
+    contextOneLiner:
+      "Digital Reports is NETZSCH's batch-reporting platform for industrial grinding and dispersion. I redesigned the core modules from lowfi to hi-fi in Figma, then rebuilt the product as a working coded prototype that now runs ahead of the production roadmap: availability planning, machine rankings, a full batch editor, exports.",
+    highlights: [
+      { label: "Frames lowfi → hi-fi", value: "36" },
+      { label: "Jira tasks shipped", value: "32" },
+      { label: "Prototype screens", value: "8+" },
+    ],
+    challenge:
+      "The product worked, but the UX had grown module by module with no common language. The Registry (the core batch table) was still lowfi. The dashboard's daily timeline used the design system's pastel status tokens, and the client rejected it outright: on a factory wall you can't tell an alarm from a maintenance stop in washed-out color. Settings ran seven tabs across seventeen frames with no consistent chrome.\n\nThere was also a physical constraint nobody had designed for: stakeholders validate this product on a 50-inch control-room monitor, where a 1280px-capped layout floats as a small strip in the middle of the screen.",
+    approach:
+      "Two tracks. In Figma, I transplanted the design system chrome (header, sidebar, sub-header, tab rows) across all 36 lowfi frames with a script driven through the Figma MCP, preserving each frame's modal overlays by snapshotting children before swapping the chrome. For the timeline I dropped the pastel tokens and hardcoded saturated status colors until the DS grows proper ones, because the client was right.\n\nIn code, I rebuilt the product as a working prototype (React, TypeScript, Tailwind 4) under the working title Batch Book, with every piece of data behind a single swappable mock-service file. That prototype became the proving ground: availability planning with a heatmap calendar and a plain-language assistant, machine rankings, a batch editor with a floating section nav, PDF/CSV/XLSX export, and fluid scaling so the layout reads correctly from a laptop to the 50-inch wall monitor.",
+    outcome:
+      "The prototype is live on Vercel and is how the squad now validates decisions: stakeholders click through real interactions instead of imagining them from static frames. The 36 hi-fi frames live in the production Figma file, and a WCAG audit turned contrast complaints into four specific token fixes, taking the projected score from 68 to 92.\n\nThe mock layer is one file away from the real API, which was the point: everything the prototype proves is directly buildable.",
+    sections: [
+      {
+        heading: "Who I designed for",
+        body:
+          "Production coordinators in chemical, pharma, food, and mineral plants, reviewing batch logs to answer one question fast: did this batch run clean, and if not, where did the time go.\n\nTheir managers read the same data at wall distance. That's where the color decision came from: a daily timeline in the Evocon style, one row per day, hour-by-hour status blocks in saturated green, red, blue, and amber. The design system's pastel tokens are fine for badges at laptop distance and useless at five meters. I kept the pastels for chrome and hardcoded the saturated set for status, and flagged the gap as a DS token request.",
+        layout: "split",
+        imageSide: "right",
+        image: { src: "/projects/digital-reports/06__dr-figma-timeline.png", alt: "Daily production timeline hi-fi in Figma — hour-by-hour status blocks per day with saturated status colors", caption: "Daily timeline · the hi-fi that fixed the washed-out colors", aspect: "tall", fit: "contain" },
+      },
+      {
+        heading: "The key decision: prototype in code, not slides",
+        body:
+          "The Figma frames answered what the screens look like. They couldn't answer whether the filters feel right, whether the planning calendar's heatmap reads at a glance, or what happens to the layout on the 50-inch monitor. So I rebuilt the product as running code and moved the open questions there.\n\nThe prototype outgrew its brief in a useful way. Availability planning (working schedules, holiday handling, a heatmap calendar, a rule-based plain-language assistant) shipped there first, validated with stakeholders, and now defines the spec instead of following one. Every interaction is persisted, every chart is real SVG against deterministic mock data, and swapping the mock service for the production API is a one-file change.",
+        layout: "split",
+        imageSide: "left",
+        image: { src: "/projects/digital-reports/02__dr-machine.png", alt: "Machine tab — availability cards, monthly performance chart, machine ranking", caption: "Machine · availability and ranking, prototype-first features", aspect: "wide" },
+      },
+      {
+        heading: "What didn't go well",
+        body:
+          "I worked from an outdated note that said the body typeface was Montserrat. It's Poppins. Catching that late meant re-verifying typography across frames I'd already called done, which is exactly the kind of rework a five-minute check would have prevented.\n\nThe hardcoded status colors are a workaround, not a solution. They fix the washed-out timeline today and create drift risk tomorrow; the real fix is saturated status tokens in the design system, and until that lands this is debt with my name on it. And the prototype's polish cuts both ways: it validates decisions fast, but it reads so much like a finished product that managing expectations about what's actually wired to real data became part of the job.",
+      },
+    ],
+    reflection:
+      "The WCAG audit made visible what design reviews kept missing: the primary teal fails contrast on white, and the fix is a token decision, not a cosmetic one. A 68/100 is a forcing function. Numbers are harder to postpone than design opinions.",
+    gallery: [
+      { src: "/projects/digital-reports/01__dr-operations.png", alt: "Dashboard rankings and in-operation batch cards with live progress", caption: "Operations · rankings and batches in operation", aspect: "wide" },
+      { src: "/projects/digital-reports/05__dr-planning.png", alt: "Availability planning — working schedule applied over a period, heatmap calendar with holidays", caption: "Availability planning · heatmap calendar", aspect: "wide" },
+      { src: "/projects/digital-reports/04__dr-batch-resume.png", alt: "Batch Resume — status, details, machine info with floating section navigation", caption: "Batch Resume · floating section nav", aspect: "wide" },
+      { src: "/projects/digital-reports/03__dr-registry.png", alt: "Registry — searchable batch log with status badges", caption: "Registry · the core batch log", aspect: "wide" },
+      { src: "/projects/digital-reports/07__dr-figma-dashboard.png", alt: "Dashboard hi-fi frame in the production Figma file with DS chrome", caption: "Figma · production file, DS chrome transplanted", aspect: "tall", fit: "contain" },
+    ],
+  },
+
   "netzsch-customer-portal": {
     slug: "netzsch-customer-portal",
     role: "Product designer — origin design, every flow",
@@ -666,40 +720,57 @@ export const cases: Record<string, CaseStudy> = {
     contextOneLiner:
       "Norius is NETZSCH do Brasil's IoT monitoring platform: sensors, reservoirs, pumps, alarms, remote operation, hosted on Thingsboard. I redesigned two tenants from scratch with a structured discovery, a design system, and a navigable prototype for client validation.",
     highlights: [
-      { label: "Components in Storybook", value: "30" },
+      { label: "Component families in Storybook", value: "33" },
+      { label: "Stories documented", value: "179" },
       { label: "Color tokens", value: "81" },
-      { label: "Heuristics mapped", value: "15" },
     ],
     challenge:
       "Two tenants (Pomerwasser and Capixaba Energia) ran on twelve divergent screens, each solving the same thing a different way. Pressure, tank level, and alarm severity showed up in different places with incompatible patterns. There was no design system and nothing reusable. The starting point was raw Thingsboard: functionally correct, visually dated, and short on the accessibility and consistency an industrial environment needs.\n\nThe client needed an interface a field operator could use on a tablet over weak 4G, with no per-tenant retraining.",
     approach:
       "I started with a structured discovery: inventoried all twelve screens by hand, catalogued 42 atomic components already in the UI, and documented 15 heuristic violations by priority. That fed the decisions: collapse twelve screens into six templates, use Atomic Design, and handle multi-tenant through tokens and feature flags instead of duplicating screen by screen.\n\nInstead of only drawing in Figma, I built the design system in code at the same time. Storybook with React and Tailwind 4, a story per component, MDX docs with do/don't guidance. By the end of the design phase, 30 components had real implementations, 155 stories, and 115 passing tests. I also built a separate navigable prototype so the client could click through the flow before a line of production code.",
     outcome:
-      "The client has a working design system with a hosted Storybook, 51 Figma pages mirroring the components, and a navigable prototype for validation. Handoff to the dev starts from documented, tested components instead of a pile of questions.\n\nThree principles run through all of it: alarm severity reads by shape and color, not color alone; time-series charts use straight segments, not smoothed curves; destructive actions like stopping a pump require a typed reason.",
+      "The client has a working design system with a hosted Storybook, 51 Figma pages mirroring the components, and a navigable prototype that grew into a small product: dashboard with live reservoir sparklines, full equipment map with status-filtered device panel, per-reactor ETA screens with realtime charts, a device inventory, alarm queues, and an event register that audit-logs every operator action. All of it in English, ready for client validation.\n\nThree principles run through all of it: alarm severity reads by shape and color, not color alone; time-series charts use straight segments, not smoothed curves; destructive actions like stopping a pump require a typed reason.",
     sections: [
       {
         heading: "Who I designed for",
         body:
           "Three people with different relationships to the same data.\n\nThe field operator works from a tablet, sometimes on weak 4G, and needs to confirm whether a pump is running or which alarm fired. No time to explore, so the answer has to be visible.\n\nThe operations supervisor reads the whole site through the map before drilling into one point. The maintenance engineer needs hour-meters, start history, and threshold config for diagnosis, a depth that shouldn't sit in the operator's way.\n\nMulti-tenant complicates it: Pomerwasser monitors reservoirs and water chemistry, Capixaba monitors pump pressure and power. Different data, shared interface.",
+        layout: "split",
+        imageSide: "right",
+        image: { src: "/projects/norius/05__norius-devices.png", alt: "Norius Devices screen — field device inventory with status filter: gateways, PLCs, flow meters, level sensors, analyzers", caption: "Devices · the maintenance engineer's view", aspect: "wide" },
       },
       {
         heading: "The key decision: one system, not two products",
         body:
           "The tempting path was two products, one per tenant. I chose one design system with the differences controlled by tokens and feature flags.\n\nPomerwasser doesn't need a pressure gauge; Capixaba doesn't need fluoride indicators. But both need the alarm card, device header, sidebar, map, and KPI card to behave identically. Splitting the products would double the maintenance for no user benefit. So the components on every screen of both tenants became the non-negotiable base, and tenant-specific pieces slot in through flags without touching the rest.",
+        layout: "split",
+        imageSide: "left",
+        image: { src: "/projects/norius/10__norius-sb-docs.png", alt: "Storybook docs page for TankCard with when-to-use, when-not-to-use, and do/don't guidance", caption: "Docs · every component ships with when-to-use and do/don't", aspect: "wide" },
+      },
+      {
+        heading: "The design system lives in code",
+        body:
+          "Norius's design system isn't a Figma library with good intentions about implementation. It's a running Storybook: 33 component families, 179 documented stories, every story with controls, accessibility checks, and MDX docs that say when to use the component and when not to.\n\nThe showcase piece is the RealtimeAreaChart, the dual-axis chart behind the ETA screens: level and pressure on opposite axes, threshold markers, a range navigator, eleven configurable props. It exists identically in Figma (as a component the client reviews) and in code (as the thing the dev ships). The domain components carry the industrial weight: tank cards with ten documented states, gauge rows for pressure and flow, alarm cards in seven severity-and-state variants.",
+        layout: "split",
+        imageSide: "right",
+        image: { src: "/projects/norius/07__norius-sb-chart.png", alt: "Storybook story of RealtimeAreaChart — dual-axis realtime chart with controls panel and accessibility checks", caption: "Storybook · RealtimeAreaChart, 11 controls, a11y checks", aspect: "wide" },
       },
       {
         heading: "What didn't go well",
         body:
-          "Discovery showed me that some of the original platform's odd UX was actually rational once you understood the operational context. I redesigned two interaction patterns before realizing the problem wasn't the pattern, it was the missing visual context that made it confusing. That cost a few days.\n\nThe prototype also outgrew its brief. It started as five screens for the client to click through and became eight routes with an interactive map, sensor drawer, and filtered alarm table. Worth it (the client gave specific feedback instead of approving static frames) but the scope crept past what the contract covered.",
+          "Discovery showed me that some of the original platform's odd UX was actually rational once you understood the operational context. I redesigned two interaction patterns before realizing the problem wasn't the pattern, it was the missing visual context that made it confusing. That cost a few days.\n\nThe prototype also outgrew its brief. It started as five screens for the client to click through and became a small product: equipment map, device inventory, event register, per-reactor ETA screens, remote-operation controls. Worth it (the client gave specific feedback instead of approving static frames) but the scope crept past what the contract covered.",
       },
     ],
     reflection:
       "Building the design system in code alongside Figma is the decision I'd make again without hesitating. Writing the MDX docs forced answers to questions Figma never asks, like when a component should not be used, or what its error behavior is. Those answers are exactly what the dev handoff needs.",
     gallery: [
-      { src: "/projects/norius/01__norius-dashboard.png", alt: "Norius dashboard — Pomerwasser operational monitoring", caption: "Dashboard · Pomerwasser", aspect: "wide" },
-      { src: "/projects/norius/02__norius-fullmap.png", alt: "Norius full equipment map with status pins", caption: "Full Map · equipment status", aspect: "wide" },
-      { src: "/projects/norius/03__norius-eta.png", alt: "Norius ETA screen — tank levels, gauges, trends", caption: "ETA · tank levels & trends", aspect: "wide" },
-      { src: "/projects/norius/04__norius-alarms.png", alt: "Norius alarms — severity-ranked alert queue", caption: "Alarms · severity queue", aspect: "wide" },
+      { src: "/projects/norius/01__norius-dashboard.png", alt: "Norius dashboard — reservoir sparklines, active alarm strip, device status cards, equipment map", caption: "Dashboard · Pomerwasser", aspect: "wide" },
+      { src: "/projects/norius/02__norius-fullmap.png", alt: "Norius equipment map — 28 devices with status-filtered side panel", caption: "Equipment Map · status-filtered panel", aspect: "wide" },
+      { src: "/projects/norius/03__norius-eta.png", alt: "Norius ETA Pomerode — tanks, gauges and realtime charts per reactor", caption: "ETA · tanks, gauges, realtime charts", aspect: "wide" },
+      { src: "/projects/norius/04__norius-alarms.png", alt: "Norius alarms & alerts — client-level alert queue", caption: "Alarms & Alerts", aspect: "wide" },
+      { src: "/projects/norius/06__norius-events.png", alt: "Norius event register — audit log of operator actions, alarms, and system events", caption: "Event Register · operator audit log", aspect: "wide" },
+      { src: "/projects/norius/08__norius-sb-gauges.png", alt: "Storybook gauge components — pressure, flow, power, torque dashboard row", caption: "Storybook · gauge family", aspect: "wide" },
+      { src: "/projects/norius/09__norius-sb-tanks.png", alt: "Storybook TankCard four-tank variant", caption: "Storybook · TankCard, 10 documented states", aspect: "wide" },
     ],
   },
 
